@@ -1,5 +1,6 @@
 #include <fstream>
 #include <string>
+#include <iostream>
 
 class Node // Defines the Node class
 {
@@ -87,3 +88,59 @@ public:
         return head == nullptr; // if the head is empty, True
     }
 };
+
+bool isPalindrome(const std::string line) // Defines the isPalindrome method
+{
+    Stack stack; // Implementing a stack
+    Queue queue; // and a queue
+
+    std::string parsedInput;
+    for (char n : line) // For n in line
+    {
+        if (std::isalnum(n)) // Checking if character n is alphanumeric
+        {
+            char lowerChar = std::tolower(n); // Converts character n to lowercase
+            parsedInput.push_back(lowerChar); // Sets parsedInput as alphanumeric lowercase
+        }
+    }
+
+    for (char n : parsedInput) // For n in parsedInput
+    {
+        std::string firstChar(1, n); // Let n be the first character
+        stack.push(firstChar);       // Push the nth character of the line on the stack
+        queue.enqueue(firstChar);    // Queue nth character
+    }
+
+    while (!stack.isEmpty() && !queue.isEmpty()) // While the stack and queue are not empty
+    {
+        if (stack.pop() != queue.dequeue()) // If the word forwards (stack) is not equal to the word backwards (queue)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+void calcPalindrome() // Defines the calcPalindrome method
+{
+    std::ifstream file("magicItems.txt"); // Reads the file, 'file'
+    std::string line;                     // Defines a line
+    int palindromeCount = 0;              // and a palindrome counter
+
+    while (std::getline(file, line)) // While there is a new line in the file
+    {
+        if (isPalindrome(line)) // If the new line is a palindrome
+        {
+            palindromeCount++; // +1 palindrome
+        }
+    }
+
+    file.close(); // Closes the file
+    std::cout << "Number of palindromes: " << palindromeCount << std::endl;
+}
+
+int main() // Main function
+{
+    calcPalindrome(); // Calling method to calculate # of palindromes in magicItems.txt
+    return 0;
+}
