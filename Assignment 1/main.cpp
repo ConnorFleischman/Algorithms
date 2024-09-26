@@ -1,6 +1,13 @@
-#include <fstream>
-#include <string>
 #include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <string>
+
+using namespace std;
+
+std::ifstream file("magicItems.txt"); // Opens and reads the file
 
 class Node // Defines the Node class
 {
@@ -123,9 +130,8 @@ bool isPalindrome(const std::string line) // Defines the isPalindrome method
 
 void calcPalindrome() // Defines the calcPalindrome method
 {
-    std::ifstream file("magicItems.txt"); // Reads the file, 'file'
-    std::string line;                     // Defines a line
-    int palindromeCount = 0;              // and a palindrome counter
+    std::string line;        // Defines a line
+    int palindromeCount = 0; // and a palindrome counter
 
     while (std::getline(file, line)) // While there is a new line in the file
     {
@@ -134,13 +140,55 @@ void calcPalindrome() // Defines the calcPalindrome method
             palindromeCount++; // +1 palindrome
         }
     }
-
-    file.close(); // Closes the file
     std::cout << "Number of palindromes: " << palindromeCount << std::endl;
 }
 
-int main() // Main function
+void shuffleItems() // Defines the shuffleItems method
+{
+    std::vector<std::string> lines; // Declares lines a vector of strings
+    std::string line;               // Declares line as a string
+
+    while (std::getline(file, line)) // While there is a new line in the file
+    {
+        lines.push_back(line); // Add the new line to the vector lines
+    }
+
+    std::random_device randNum;                   // Creates a random number generator
+    std::default_random_engine engine(randNum()); // "Seeds" the random number (essentially starting it)
+
+    for (int i = lines.size() - 1; i > 0; i--) // For every item in the lines vector
+    {
+        std::uniform_int_distribution<> distr(0, i); // Take a random number from 0 - i
+        int j = distr(engine);                       // Set j as that number
+
+        std::swap(lines[i], lines[j]); // Swap the positions of i and j
+    }
+}
+
+void selectionSort() // Defines the selectionSort method
+{
+    shuffleItems();
+    /*sort magicItems.txt, print # of comparisons*/
+}
+
+void insertionSort() // Defines the insertionSort method
+{
+    shuffleItems();
+}
+
+void mergeSort() // Defines the mergeSort method
+{
+    shuffleItems();
+}
+
+void quickSort() // Defines the quickSort method
+{
+    shuffleItems();
+}
+
+int main() // // Defines the Main function
 {
     calcPalindrome(); // Calling method to calculate # of palindromes in magicItems.txt
+    file.close();     // Closes the file
     return 0;
 }
