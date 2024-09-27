@@ -184,9 +184,12 @@ void selectionSort() // Defines the selectionSort method
                 toCompare = j; // Set the new item to be compared to to j
             }
         }
+
         std::swap(lines[i], lines[toCompare]); // Swap the positions of the previously compared element and the current
     }
     std::cout << "Number of comparisons: " << numComparisons << std::endl; // Output the number of comparisons
+
+    lines.clear(); // Clears the sorted vector
 }
 
 void insertionSort() // Defines the insertionSort method
@@ -204,17 +207,20 @@ void insertionSort() // Defines the insertionSort method
         }
     }
     std::cout << "Number of comparisons: " << numComparisons << std::endl; // Output the number of comparisons
+
+    lines.clear(); // Clears the sorted vector
 }
 
 void mergeSort() {} // Defines the mergeSort method
 
 void quickSort() {} // Defines the quickSort method
 
-void main() // // Defines the Main function
+int main() // // Defines the Main function
 {
-    calcPalindrome(); // Calling method to calculate # of palindromes in magicItems.txt
-    shuffleItems();   // Shuffles the magic items
-    selectionSort();  // Runs a selection sort over the randomized magic items vector
-    shuffleItems();   // Shuffles the magic items
-    insertionSort();  // Runs an insertion sort over the randomized magic items vector
+    //    calcPalindrome(); // Calling method to calculate # of palindromes in magicItems.txt
+    shuffleItems();  // Shuffles the magic items
+    selectionSort(); // Runs a selection sort over the randomized magic items vector
+    shuffleItems();  // Shuffles the magic items
+    insertionSort(); // Runs an insertion sort over the randomized magic items vector
+    return 0;
 }
