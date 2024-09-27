@@ -5,9 +5,7 @@
 #include <random>
 #include <string>
 
-using namespace std;
-
-std::ifstream file("magicItems.txt"); // Opens and reads the file
+std::vector<std::string> lines; // Declares lines a vector of strings
 
 class Node // Defines the Node class
 {
@@ -130,8 +128,9 @@ bool isPalindrome(const std::string line) // Defines the isPalindrome method
 
 void calcPalindrome() // Defines the calcPalindrome method
 {
-    std::string line;        // Defines a line
-    int palindromeCount = 0; // and a palindrome counter
+    std::ifstream file("magicItems.txt"); // Opens and reads the file
+    std::string line;                     // Defines a line
+    int palindromeCount = 0;              // and a palindrome counter
 
     while (std::getline(file, line)) // While there is a new line in the file
     {
@@ -140,23 +139,28 @@ void calcPalindrome() // Defines the calcPalindrome method
             palindromeCount++; // +1 palindrome
         }
     }
-    std::cout << "Number of palindromes: " << palindromeCount << std::endl;
+
+    file.close(); // Closes the file
+
+    std::cout << "Number of palindromes: " << palindromeCount << std::endl; // Output the number of palindromes
 }
 
 void shuffleItems() // Defines the shuffleItems method
 {
-    std::vector<std::string> lines; // Declares lines a vector of strings
-    std::string line;               // Declares line as a string
+    std::ifstream file("magicItems.txt"); // Opens and reads the file
+    std::string line;                     // Declares line as a string
 
     while (std::getline(file, line)) // While there is a new line in the file
     {
         lines.push_back(line); // Add the new line to the vector lines
     }
 
+    file.close(); // Closes the file
+
     std::random_device randNum;                   // Creates a random number generator
     std::default_random_engine engine(randNum()); // "Seeds" the random number (essentially starting it)
 
-    for (int i = lines.size() - 1; i > 0; i--) // For every item in the lines vector
+    for (int i = lines.size() - 1; i > 0; i--) // For every item in the lines vector except the last
     {
         std::uniform_int_distribution<> distr(0, i); // Take a random number from 0 - i
         int j = distr(engine);                       // Set j as that number
@@ -167,28 +171,50 @@ void shuffleItems() // Defines the shuffleItems method
 
 void selectionSort() // Defines the selectionSort method
 {
-    shuffleItems();
-    /*sort magicItems.txt, print # of comparisons*/
+    int numComparisons = 0;         // The number of comparisons made
+    int n = lines.size();           // n = the length of the lines vector
+    for (int i = 0; i < n - 1; i++) // For every item in the vector
+    {
+        int toCompare = i;              // Sets the item to be compared to to i
+        for (int j = i + 1; j < n; j++) // For every item j in lines after i
+        {
+            numComparisons++;                // Increment numComparisons
+            if (lines[j] < lines[toCompare]) // If the next item in lines is less than the item being compared
+            {
+                toCompare = j; // Set the new item to be compared to to j
+            }
+        }
+        std::swap(lines[i], lines[toCompare]); // Swap the positions of the previously compared element and the current
+    }
+    std::cout << "Number of comparisons: " << numComparisons << std::endl; // Output the number of comparisons
 }
 
 void insertionSort() // Defines the insertionSort method
 {
-    shuffleItems();
+    int numComparisons = 0;     // The number of comparisons made
+    int n = lines.size();       // n = the length of lines vector
+    for (int i = 1; i < n; i++) // For every item i in the vector
+    {
+        int j = i;                               // Let j = i
+        while (j > 0 && lines[j - 1] > lines[j]) // While j > 0 and the previous element is larger than the current
+        {
+            numComparisons++;                  // Increment numComparisons
+            std::swap(lines[j], lines[j - 1]); // Swap the positions of the current and previous elements
+            j--;                               // Decrement j
+        }
+    }
+    std::cout << "Number of comparisons: " << numComparisons << std::endl; // Output the number of comparisons
 }
 
-void mergeSort() // Defines the mergeSort method
-{
-    shuffleItems();
-}
+void mergeSort() {} // Defines the mergeSort method
 
-void quickSort() // Defines the quickSort method
-{
-    shuffleItems();
-}
+void quickSort() {} // Defines the quickSort method
 
-int main() // // Defines the Main function
+void main() // // Defines the Main function
 {
     calcPalindrome(); // Calling method to calculate # of palindromes in magicItems.txt
-    file.close();     // Closes the file
-    return 0;
+    shuffleItems();   // Shuffles the magic items
+    selectionSort();  // Runs a selection sort over the randomized magic items vector
+    shuffleItems();   // Shuffles the magic items
+    insertionSort();  // Runs an insertion sort over the randomized magic items vector
 }
