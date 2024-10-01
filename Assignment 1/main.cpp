@@ -1,11 +1,14 @@
+// Algorithms ~ A. Labouseur, Assignment 1 - Connor Fleischman
+
 /*
-    iostream:
-    fstream:
-    vector:
-    algorithm:
-    random:
-    string:
+    iostream: std::cout, std::endl
+    fstream: std::ifstream, std::getline, file.open, file.close
+    vector: std::vector, lines.push_back, lines.size, lines.clear, lines.shrink_to_fit, lines.reserve, lines.insert
+    algorithm: std::swap
+    random: std::random_device, std::default_random_engine, std::uniform_int_distribution
+    string: std::string, std::isalnum, std::tolower, parsedInput.push_back, std::getline
 */
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -292,7 +295,7 @@ void mergeSort(std::vector<std::string> list) // Defines the mergeSort method ta
 
 int quickPartitions(std::vector<std::string> list, int p) // Partitions a vector of strings, list, around a point, p
 {
-    int n = list.size() - 1;     // sets n to the size of the list -1
+    int n = list.size() - 1;     // sets n to the size of the list - 1
     std::swap(list[p], list[n]); // swaps the position of p and n in list
     int l = 0;                   // sets l = 0
 
@@ -305,6 +308,7 @@ int quickPartitions(std::vector<std::string> list, int p) // Partitions a vector
             std::swap(list[l], list[i]); // swaps the position of l and i in the list
         }
     }
+
     std::swap(list[n], list[l + 1]); // swaps the position of n and l + 1 in the list
 
     return l + 1; // returns l + 1
