@@ -351,11 +351,13 @@ int main() // Comprised of the function calls for Assignment 1
     shuffleItems();     // Shuffles magicItems.txt using the Knuth Shuffle
     insertionSort();    // Runs an insertion sort over the items in magicItems.txt
 
+    lines.clear();                                                         // Empties the lines vector for the next sort
     numComparisons = 0;                                                    // Resets the comparison counter
     shuffleItems();                                                        // Shuffles magicItems.txt using the Knuth Shuffle
     mergeSort(lines);                                                      // Runs a merge sort over the items in magicItems.txt
     std::cout << "Number of comparisons: " << numComparisons << std::endl; // Outputs the number of comparisons preformed
 
+    lines.clear();                                                         // Empties the lines vector for the next sort
     numComparisons = 0;                                                    // Resets the comparison counter
     shuffleItems();                                                        // Shuffles magicItems.txt using the Knuth Shuffle
     quickSort(lines);                                                      // Runs a quick sort over the items in magicItems.txt
