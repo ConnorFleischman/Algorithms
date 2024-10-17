@@ -84,19 +84,8 @@ void mergeSort(std::vector<std::string> list) // Defines the mergeSort method ta
    }
 }
 
-void writeToFile(std::string fileName, std::vector<std::string> lines)
+std::vector<std::string> randomize() // Comprised of the function calls to shuffle the items
 {
-   std::ofstream toFile(fileName);
-   for (auto n : lines)
-   {
-      toFile << n << std::endl;
-   }
-   toFile.close();
-}
-
-int main()
-{
-   std::vector<std::string> sortedItems = lines;
-   writeToFile("sortedItems.txt", sortedItems);
-   return 0;
+   mergeSort(lines); // Runs a merge sort over the items in magicItems.txt
+   return lines;     // Returns the sorted vector "lines"
 }
