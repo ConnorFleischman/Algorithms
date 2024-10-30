@@ -1,74 +1,27 @@
+#include <iostream>
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include <string>
-#include <math.h>
-#include <utility>
 
 using namespace std;
 
 std::vector<std::string> lines;       // Declares the lines a vector of strings
+std::vector<std::string> keys;        // Declares keys a vector of strings
 std::ifstream file("magicItems.txt"); // Opens and reads the file
 
-void mergePartitions(std::vector<std::string> list, int m) // Merges a vector of strings, list, around a point, m
+std::vector<std::string> insertionSort() // Defines the insertionSort method
 {
-   int i = 1;                        // set i = 1
-   int j = m + 1;                    // set j = mergePoint + 1
-   int n = list.size() - 1;          // set n = length(list) - 1
-   std::vector<std::string> temp(n); // creates a new temporary vector with n elements
-
-   for (int k = 1; k < n; k++) // for every element of list besides list
+   int n = lines.size();       // n = the length of lines vector
+   for (int i = 1; i < n; i++) // For every item i in the vector other than the first
    {
-      if (j > n) // if after the mergePoint > the n
+      int j = i;                      // Let j = i
+      while (lines[j - 1] > lines[j]) // While the previous element is larger than the current
       {
-         temp[k].assign(list[i]); // assign the value at temp[k], list[i]
-         i++;                     // Increment i
-      }
-      else if (i > m) // if i > the mergePoint
-      {
-         temp[k].assign(list[j]); // assign the value at temp[k], list[j]
-         j++;                     // Increment j
-      }
-      else if (list[i] < list[j]) // if the element at i of list < the element at j of list
-      {
-         temp[k].assign(list[i]); // assign the value at temp[k], list[i]
-         i++;                     // Increment i
-      }
-      else
-      {
-         temp[k].assign(list[j]); // assign the value at temp[k], list[j]
-         j++;                     // Increment j
+         std::swap(lines[j], lines[j - 1]); // Swap the positions of the current and previous elements
+         j--;                               // Decrement j
       }
    }
-
-   for (int k = 1; k < n; k++) // for every element of list besides list
-   {
-      list[k].assign(temp[k]); // assign the value at list[k], temp[k]
-   }
-
-   temp.clear(); // clear temp
-}
-
-void mergeSort(std::vector<std::string> list) // Defines the mergeSort method taking a list to be sorted
-{
-   int n = list.size(); // n = the length of inserted list
-
-   if (n > 1) // if the size of list is 2 or more
-   {
-      int m = floor(n / 2);                                               // m = floor of (n/2)
-      std::vector<std::string> left(list.begin(), list.begin() + m);      // left = new vector<string> consisting of original list to m
-      std::vector<std::string> right(list.begin() + (m + 1), list.end()); // right = new vector<string> consisting of list[m] to end of list
-
-      mergeSort(left);  // recurse on left side
-      mergeSort(right); // recurse on right side
-
-      list.clear();                                        // clear the unsorted list
-      list.reserve(left.size() + right.size());            // reserve space in unsorted list for sorted left and right
-      list.insert(list.end(), left.begin(), left.end());   // insert items from left into list
-      list.insert(list.end(), right.begin(), right.end()); // insert items from right into list
-
-      mergePartitions(list, m); // merges all sublist around the merge point
-   }
+   return lines; // Returns the sorted array
 }
 
 std::pair<std::vector<std::string>, std::vector<std::string>> randomize() // Comprised of the function calls to shuffle the items
@@ -82,7 +35,13 @@ std::pair<std::vector<std::string>, std::vector<std::string>> randomize() // Com
 
    file.close(); // Closes the file
 
-   std::vector<std::string> keys(lines.begin(), lines.begin() + 42); // Defines the 42 key items being searched for
-   mergeSort(lines);                                                 // Runs a merge sort over the items in magicItems.txt
-   return std::make_pair(lines, keys);                               // Returns the sorted vector "lines"
+   srand(static_cast<unsigned int>(time(0))); // Seeds the random number generator with the time
+   int start = rand() % 623;                  // Declares start as a random number between 1-623 (allowing for key space and for list notation)
+
+   for (int i = 0; i < 42; i++) // For 42 keys
+   {
+      keys.push_back(lines[i + start]); // Select the keys as 42 consecutive strings at some distance from the beginning of the list
+   }
+
+   return std::make_pair(keys, insertionSort()); // Returns the sorted vector "lines"
 }
