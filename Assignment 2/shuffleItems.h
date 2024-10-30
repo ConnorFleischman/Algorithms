@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <string>
 #include <math.h>
+#include <utility>
 
 using namespace std;
 
@@ -11,15 +12,6 @@ std::ifstream file("magicItems.txt"); // Opens and reads the file
 
 void mergePartitions(std::vector<std::string> list, int m) // Merges a vector of strings, list, around a point, m
 {
-   std::string line; // Declares line as a string
-
-   while (std::getline(file, line)) // While there is a new line in the file
-   {
-      lines.push_back(line); // Add the new line to the vector lines
-   }
-
-   file.close(); // Closes the file
-
    int i = 1;                        // set i = 1
    int j = m + 1;                    // set j = mergePoint + 1
    int n = list.size() - 1;          // set n = length(list) - 1
@@ -77,15 +69,20 @@ void mergeSort(std::vector<std::string> list) // Defines the mergeSort method ta
 
       mergePartitions(list, m); // merges all sublist around the merge point
    }
-
-   for (int i = 1; i < n; i++)
-   {
-      std::swap(lines[i], list[i]); // Swap the positions of i and j
-   }
 }
 
-std::vector<std::string> randomize() // Comprised of the function calls to shuffle the items
+std::pair<std::vector<std::string>, std::vector<std::string>> randomize() // Comprised of the function calls to shuffle the items
 {
-   mergeSort(lines); // Runs a merge sort over the items in magicItems.txt
-   return lines;     // Returns the sorted vector "lines"
+   std::string line; // Declares line as a string
+
+   while (std::getline(file, line)) // While there is a new line in the file
+   {
+      lines.push_back(line); // Add the new line to the vector lines
+   }
+
+   file.close(); // Closes the file
+
+   std::vector<std::string> keys(lines.begin(), lines.begin() + 42); // Defines the 42 key items being searched for
+   mergeSort(lines);                                                 // Runs a merge sort over the items in magicItems.txt
+   return std::make_pair(lines, keys);                               // Returns the sorted vector "lines"
 }
