@@ -58,16 +58,17 @@ std::string binarySearch(const std::vector<std::string> lines, const std::string
       }
       else if (lines[middle] < key) // If the middle element is less than the key
       {
-         stop = middle - 1; // Set the new stop to be one less than the middle (since element in bottom half)
+         start = middle + 1; // Set the new stop to be one less than the middle (since element in bottom half)
       }
       else // If the middle element is greater than the key
       {
-         start = middle + 1; // Set the new start to be one more than the middle (since element in top half)
+         stop = middle - 1; // Set the new start to be one more than the middle (since element in top half)
       }
    }
    // If element is not found:
-   comparisonCount.push_back(numComparisons); // Push 0 comparisons to count
-   return "";                                 // Return nothing
+   std::cout << "Number of comparisons: " << numComparisons << std::endl; // Print to console the number of comparisons
+   comparisonCount.push_back(numComparisons);                             // Push 0 comparisons to count
+   return "";                                                             // Return nothing
 }
 
 float averageComparisons() // Defines the method to compute the average number of comparisons
