@@ -1,16 +1,18 @@
 // Algorithms ~ A. Labouseur, Assignment 2 - Connor Fleischman
 
 /*
-   shuffleItems.h: randomize()
+   buildHashTable.h: createTable()
+   shuffleItems.h: randomize().first/.second
    iostream: std::cout, std::endl
    iomanip: std::setprecision, std::fixed
 */
+
 #include "buildHashTable.h"
 #include "shuffleItems.h"
 #include <iostream>
 #include <iomanip>
 
-using namespace std;
+using namespace std; // Globally used namespace
 
 vector<int> comparisonCount;      // Declares the global comparisonCount vector of ints
 vector<string> shuffled;          // Declares the global shuffled vector of strings
@@ -20,7 +22,7 @@ vector<vector<string>> hashTable; // Declares a hash table comprised of a vector
 //     code listings and documentation. Note the asymptotic running time
 //     of each search and explain why it is that way.
 
-string linearSearch(const vector<string> lines, const string key) // Defines the linear search function
+string linearSearch(const vector<string> &lines, const string &key) // Defines the linear search function
 {
    int numComparisons = 0; // Defines the number of comparisons to be 0
 
@@ -36,11 +38,12 @@ string linearSearch(const vector<string> lines, const string key) // Defines the
       }
    }
    // If element is not found:
-   comparisonCount.push_back(numComparisons); // Push 0 comparisons to count
-   return "";                                 // Return nothing
+   cout << "[NF] Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
+   comparisonCount.push_back(numComparisons);                        // Push 0 comparisons to count
+   return "";                                                        // Return nothing
 }
 
-string binarySearch(const vector<string> lines, const string key) // Defines the binary search function
+string binarySearch(const vector<string> &lines, const string &key) // Defines the binary search function
 {
    int start = 0;               // Defines the starting value
    int stop = lines.size() - 1; // Defines the stopping value (at end -1)
@@ -67,9 +70,9 @@ string binarySearch(const vector<string> lines, const string key) // Defines the
       }
    }
    // If element is not found:
-   cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
-   comparisonCount.push_back(numComparisons);                   // Push 0 comparisons to count
-   return "";                                                   // Return nothing
+   cout << "[NF] Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
+   comparisonCount.push_back(numComparisons);                        // Push 0 comparisons to count
+   return "";                                                        // Return nothing
 }
 
 float averageComparisons() // Defines the method to compute the average number of comparisons
@@ -87,12 +90,12 @@ float averageComparisons() // Defines the method to compute the average number o
    return average; // Returns the average number of comparisons needed to find the elements for a given search
 }
 
-bool searchItem(const string item) // Defines the function to search an item in the hash table
+bool searchItem(const string &item) // Defines the function to search an item in the hash table
 {
    int numComparisons = 0; // Defines the number of comparisons to be 0
 
-   int hashCode = makeHashCode(item);                  // Defines the hash code for an item
-   for (const string storedItem : hashTable[hashCode]) // For every item in the hash table with the same hash code value as the item to be found
+   int hashCode = makeHashCode(item);                   // Defines the hash code for an item
+   for (const string &storedItem : hashTable[hashCode]) // For every item in the hash table with the same hash code value as the item to be found
    {
       numComparisons++;       // Increment numComparisons
       if (storedItem == item) // If the item to be found is equal to the sorted item
@@ -103,36 +106,40 @@ bool searchItem(const string item) // Defines the function to search an item in 
       }
    }
    // If element is not found:
-   cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
-   comparisonCount.push_back(numComparisons);                   // Push 0 comparisons to count
-   return false;                                                // False = not found
+   cout << "[NF] Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
+   comparisonCount.push_back(numComparisons);                        // Push 0 comparisons to count
+   return false;                                                     // False = not found
 }
 
 int main() // Defines the main function
 {
-   vector<string> keys = randomize().first;      // Defines the 42 key items being searched for
-   vector<string> shuffled = randomize().second; // Defines the shuffled vector of items
+   vector<string> keys = randomize().first;      // Defines the 42 key items being searched for (from shuffleItems.h)
+   vector<string> shuffled = randomize().second; // Defines the shuffled vector of items (from shuffleItems.h)
    comparisonCount.resize(keys.size());          // Declares the vector's size to be the key's size
 
-   for (int i = 0; i < keys.size(); i++) // For every key
+   for (const string &key : keys) // For every key
    {
-      linearSearch(shuffled, keys[i]); // Search the shuffled vector for that key using a linear search
+      linearSearch(shuffled, key); // Search the shuffled vector for that key using a linear search
    }
    averageComparisons(); // Calculate the average number of comparisons made
 
-   for (int i = 0; i < keys.size(); i++) // for every key
+   for (const string &key : keys) // for every key
    {
-      binarySearch(shuffled, keys[i]); // Search the shuffled vector for that key using a binary search
+      binarySearch(shuffled, key); // Search the shuffled vector for that key using a binary search
    }
    averageComparisons(); // Calculate the average number of comparisons made
 
-   createTable(); // Defines and creates a has table (from buildHashTable.h)
+   shuffled.clear();          // Empties the shuffled vector
+   hashTable = createTable(); // Builds a hash table (from buildHashTable.h) to hashTable
 
-   for (int i = 0; i < keys.size(); i++) // For every key
+   for (const string &key : keys) // For every key
    {
-      searchItem(keys[i]); // Search the hash table for that key
+      searchItem(key); // Search the hash table for that key
    }
    averageComparisons(); // Calculate the average number of comparisons made
+
+   keys.clear();      // Empties the keys
+   hashTable.clear(); // Empties the hash table
 
    return 0; // Return 0
 }

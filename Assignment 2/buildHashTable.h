@@ -9,7 +9,7 @@ using namespace std; // Declaring the name space to use std::_
 const string FILE_NAME = "magicItems.txt"; // Declares the file name
 const int HASH_TABLE_SIZE = 250;           // Declares the hash table's size
 
-void readFileIntoVector(vector<string> vector) // Function to read the file to a vector of strings
+void readFileIntoVector(vector<string> &vector) // Function to read the file to a vector of strings
 {
    string line;                      // Defines a line
    ifstream fileStream(FILE_NAME);   // Reads and opens the file
@@ -20,19 +20,19 @@ void readFileIntoVector(vector<string> vector) // Function to read the file to a
    fileStream.close(); // Close the file
 }
 
-int makeHashCode(const string item) // Function to take an item and turn it into it's ASCII value
+int makeHashCode(const string &item) // Function to take an item and turn it into it's ASCII value
 {
-   int letterTotal = 0; // Defines the letter total as 0
-   for (char ch : item) // For every character in the item
+   int letterTotal = 0;        // Defines the letter total as 0
+   for (const char &ch : item) // For every character in the item
    {
       letterTotal += toupper(ch); // Add its uppercase ASCII value to the total
    }
    return letterTotal % HASH_TABLE_SIZE; // Return the letter total `mod` hash table size to get its bucket
 }
 
-void buildTable(const vector<string> items, vector<vector<string>> hashTable) // Function to build the hash table
+void buildTable(const vector<string> &items, vector<vector<string>> &hashTable) // Function to build the hash table
 {
-   for (const string item : items) // For each item in the vector of strings
+   for (const string &item : items) // For each item in the vector of strings
    {
       int hashCode = makeHashCode(item);   // Find the hash code for that item
       hashTable[hashCode].push_back(item); // Insert item into correct bucket based on the hash code ASCII value
@@ -43,7 +43,9 @@ vector<vector<string>> createTable() // Function to create the table (used by ma
 {
    vector<string> magicItems;                         // Declares the vector of strings to store the magic items
    readFileIntoVector(magicItems);                    // Populates the vector
-   vector<vector<string>> hashTable(HASH_TABLE_SIZE); // Create a hash table with fixed size of 250
+   vector<vector<string>> hashTable(HASH_TABLE_SIZE); // Declares a hash table comprised of a vector of vectors of strings with fixed size of 250
    buildTable(magicItems, hashTable);                 // Build hash table with the table and the vector of strings for buckets
-   return hashTable;                                  // Returns the hash table
+   magicItems.clear();                                // Empties the magic items
+
+   return hashTable; // Returns the hash table
 }
