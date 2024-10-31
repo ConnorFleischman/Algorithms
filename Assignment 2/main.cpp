@@ -12,14 +12,14 @@
 
 using namespace std;
 
-std::vector<int> comparisonCount;  // Declares the global comparisonCount vector of ints
-std::vector<std::string> shuffled; // Declares the global shuffled vector of strings
+vector<int> comparisonCount; // Declares the global comparisonCount vector of ints
+vector<string> shuffled;     // Declares the global shuffled vector of strings
 
 //  Record your results in a table in a LaTeX document along with your
 //     code listings and documentation. Note the asymptotic running time
 //     of each search and explain why it is that way.
 
-std::string linearSearch(const std::vector<std::string> lines, const std::string key) // Defines the linear search function
+string linearSearch(const vector<string> lines, const string key) // Defines the linear search function
 {
    int numComparisons = 0; // Defines the number of comparisons to be 0
 
@@ -29,9 +29,9 @@ std::string linearSearch(const std::vector<std::string> lines, const std::string
 
       if (lines[position] == key) // If the current element is the key
       {
-         std::cout << "Number of comparisons: " << numComparisons << std::endl; // Print to console the number of comparisons
-         comparisonCount.push_back(numComparisons);                             // Push this number to the comparison count vector
-         return lines[position];                                                // Return the found item
+         cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
+         comparisonCount.push_back(numComparisons);                   // Push this number to the comparison count vector
+         return lines[position];                                      // Return the found item
       }
    }
    // If element is not found:
@@ -39,7 +39,7 @@ std::string linearSearch(const std::vector<std::string> lines, const std::string
    return "";                                 // Return nothing
 }
 
-std::string binarySearch(const std::vector<std::string> lines, const std::string key) // Defines the binary search function
+string binarySearch(const vector<string> lines, const string key) // Defines the binary search function
 {
    int start = 0;               // Defines the starting value
    int stop = lines.size() - 1; // Defines the stopping value (at end -1)
@@ -52,9 +52,9 @@ std::string binarySearch(const std::vector<std::string> lines, const std::string
 
       if (lines[middle] == key) // If the middle element is the key
       {
-         std::cout << "Number of comparisons: " << numComparisons << std::endl; // Print to console the number of comparisons
-         comparisonCount.push_back(numComparisons);                             // Push this number to the comparison count vector
-         return lines[middle];                                                  // Return the found item
+         cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
+         comparisonCount.push_back(numComparisons);                   // Push this number to the comparison count vector
+         return lines[middle];                                        // Return the found item
       }
       else if (lines[middle] < key) // If the middle element is less than the key
       {
@@ -66,9 +66,9 @@ std::string binarySearch(const std::vector<std::string> lines, const std::string
       }
    }
    // If element is not found:
-   std::cout << "Number of comparisons: " << numComparisons << std::endl; // Print to console the number of comparisons
-   comparisonCount.push_back(numComparisons);                             // Push 0 comparisons to count
-   return "";                                                             // Return nothing
+   cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
+   comparisonCount.push_back(numComparisons);                   // Push 0 comparisons to count
+   return "";                                                   // Return nothing
 }
 
 float averageComparisons() // Defines the method to compute the average number of comparisons
@@ -79,18 +79,18 @@ float averageComparisons() // Defines the method to compute the average number o
       sum += comparison; // Set the sum as the sum + the current comparison
    }
 
-   float average = static_cast<float>(sum) / comparisonCount.size();                                              // Defines the average as a staticly cast float (sum / size of comparisonCount)
-   std::cout << std::fixed << std::setprecision(2) << "Average comparisons per search: " << average << std::endl; // Print to console the average comparisons per search
-   comparisonCount.clear();                                                                                       // Clear's the comparison count for the next search
+   float average = static_cast<float>(sum) / comparisonCount.size();                          // Defines the average as a staticly cast float (sum / size of comparisonCount)
+   cout << fixed << setprecision(2) << "Average comparisons per search: " << average << endl; // Print to console the average comparisons per search
+   comparisonCount.clear();                                                                   // Clear's the comparison count for the next search
 
    return average; // Returns the average number of comparisons needed to find the elements for a given search
 }
 
 int main() // Defines the main function
 {
-   std::vector<std::string> keys = randomize().first;      // Defines the 42 key items being searched for
-   std::vector<std::string> shuffled = randomize().second; // Defines the shuffled vector of items
-   std::vector<int> comparisonCount(keys.size());          // Declares the vector's size to be the key's size
+   vector<string> keys = randomize().first;      // Defines the 42 key items being searched for
+   vector<string> shuffled = randomize().second; // Defines the shuffled vector of items
+   vector<int> comparisonCount(keys.size());     // Declares the vector's size to be the key's size
 
    for (int i = 0; i < keys.size(); i++) // For every key
    {
