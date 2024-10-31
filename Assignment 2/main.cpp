@@ -138,8 +138,9 @@ int main() // Defines the main function
    }
    averageComparisons(); // Calculate the average number of comparisons made
 
-   keys.clear();      // Empties the keys
-   hashTable.clear(); // Empties the hash table
+   comparisonCount.clear(); // Empties the comparison count
+   keys.clear();            // Empties the keys
+   hashTable.clear();       // Empties the hash table
 
    return 0; // Return 0
 }
