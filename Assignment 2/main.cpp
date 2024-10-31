@@ -5,15 +5,16 @@
    iostream: std::cout, std::endl
    iomanip: std::setprecision, std::fixed
 */
-
+#include "buildHashTable.h"
 #include "shuffleItems.h"
 #include <iostream>
 #include <iomanip>
 
 using namespace std;
 
-vector<int> comparisonCount; // Declares the global comparisonCount vector of ints
-vector<string> shuffled;     // Declares the global shuffled vector of strings
+vector<int> comparisonCount;      // Declares the global comparisonCount vector of ints
+vector<string> shuffled;          // Declares the global shuffled vector of strings
+vector<vector<string>> hashTable; // Declares a hash table comprised of a vector of vectors of strings
 
 //  Record your results in a table in a LaTeX document along with your
 //     code listings and documentation. Note the asymptotic running time
@@ -86,11 +87,32 @@ float averageComparisons() // Defines the method to compute the average number o
    return average; // Returns the average number of comparisons needed to find the elements for a given search
 }
 
+bool searchItem(const string item) // Defines the function to search an item in the hash table
+{
+   int numComparisons = 0; // Defines the number of comparisons to be 0
+
+   int hashCode = makeHashCode(item);                  // Defines the hash code for an item
+   for (const string storedItem : hashTable[hashCode]) // For every item in the hash table with the same hash code value as the item to be found
+   {
+      numComparisons++;       // Increment numComparisons
+      if (storedItem == item) // If the item to be found is equal to the sorted item
+      {
+         cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
+         comparisonCount.push_back(numComparisons);                   // Push this number to the comparison count vector
+         return true;                                                 // True = found
+      }
+   }
+   // If element is not found:
+   cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
+   comparisonCount.push_back(numComparisons);                   // Push 0 comparisons to count
+   return false;                                                // False = not found
+}
+
 int main() // Defines the main function
 {
    vector<string> keys = randomize().first;      // Defines the 42 key items being searched for
    vector<string> shuffled = randomize().second; // Defines the shuffled vector of items
-   vector<int> comparisonCount(keys.size());     // Declares the vector's size to be the key's size
+   comparisonCount.resize(keys.size());          // Declares the vector's size to be the key's size
 
    for (int i = 0; i < keys.size(); i++) // For every key
    {
@@ -101,6 +123,14 @@ int main() // Defines the main function
    for (int i = 0; i < keys.size(); i++) // for every key
    {
       binarySearch(shuffled, keys[i]); // Search the shuffled vector for that key using a binary search
+   }
+   averageComparisons(); // Calculate the average number of comparisons made
+
+   createTable(); // Defines and creates a has table (from buildHashTable.h)
+
+   for (int i = 0; i < keys.size(); i++) // For every key
+   {
+      searchItem(keys[i]); // Search the hash table for that key
    }
    averageComparisons(); // Calculate the average number of comparisons made
 
