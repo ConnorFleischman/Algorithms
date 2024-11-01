@@ -2,7 +2,7 @@
 
 /*
    buildHashTable.h: createTable()
-   shuffleItems.h: randomize().first/.second
+   shuffleItems.h: randomize().first/.second, KEYS_SIZE
    iostream: std::cout, std::endl
    iomanip: std::setprecision, std::fixed
 */
@@ -14,13 +14,9 @@
 
 using namespace std; // Globally used namespace
 
-vector<int> comparisonCount;      // Declares the global comparisonCount vector of ints
+int comparisonCount = 0;          // Declares comparisonCount as 0 to store the total number of comparisons made for a search
 vector<string> shuffled;          // Declares the global shuffled vector of strings
 vector<vector<string>> hashTable; // Declares a hash table comprised of a vector of vectors of strings
-
-//  Record your results in a table in a LaTeX document along with your
-//     code listings and documentation. Note the asymptotic running time
-//     of each search and explain why it is that way.
 
 string linearSearch(const vector<string> &lines, const string &key) // Defines the linear search function
 {
@@ -33,13 +29,13 @@ string linearSearch(const vector<string> &lines, const string &key) // Defines t
       if (lines[position] == key) // If the current element is the key
       {
          cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
-         comparisonCount.push_back(numComparisons);                   // Push this number to the comparison count vector
+         comparisonCount += numComparisons;                           // Increment comparison count with the number of comparisons made to find keu
          return lines[position];                                      // Return the found item
       }
    }
    // If element is not found:
    cout << "[NF] Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
-   comparisonCount.push_back(numComparisons);                        // Push 0 comparisons to count
+   comparisonCount += numComparisons;                                // Increment comparison count with the number of comparisons made to find keu
    return "";                                                        // Return nothing
 }
 
@@ -57,7 +53,7 @@ string binarySearch(const vector<string> &lines, const string &key) // Defines t
       if (lines[middle] == key) // If the middle element is the key
       {
          cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
-         comparisonCount.push_back(numComparisons);                   // Push this number to the comparison count vector
+         comparisonCount += numComparisons;                           // Increment comparison count with the number of comparisons made to find keu
          return lines[middle];                                        // Return the found item
       }
       else if (lines[middle] < key) // If the middle element is less than the key
@@ -71,21 +67,15 @@ string binarySearch(const vector<string> &lines, const string &key) // Defines t
    }
    // If element is not found:
    cout << "[NF] Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
-   comparisonCount.push_back(numComparisons);                        // Push 0 comparisons to count
+   comparisonCount += numComparisons;                                // Increment comparison count with the number of comparisons made to find keu
    return "";                                                        // Return nothing
 }
 
 float averageComparisons() // Defines the method to compute the average number of comparisons
 {
-   int sum = 0;                           // Defines the sum as 0
-   for (int comparison : comparisonCount) // For every comparison in comparisonCount
-   {
-      sum += comparison; // Set the sum as the sum + the current comparison
-   }
-
-   float average = static_cast<float>(sum) / comparisonCount.size();                          // Defines the average as a staticly cast float (sum / size of comparisonCount)
+   float average = static_cast<float>(comparisonCount / KEYS_SIZE);                           // Defines the average as a staticly cast float (comparisonCount / # of keys (defined in shuffleItems.h))
    cout << fixed << setprecision(2) << "Average comparisons per search: " << average << endl; // Print to console the average comparisons per search
-   comparisonCount.clear();                                                                   // Clear's the comparison count for the next search
+   comparisonCount = 0;                                                                       // Reset's the comparison count for the next search
 
    return average; // Returns the average number of comparisons needed to find the elements for a given search
 }
@@ -101,13 +91,13 @@ bool searchItem(const string &item) // Defines the function to search an item in
       if (storedItem == item) // If the item to be found is equal to the sorted item
       {
          cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
-         comparisonCount.push_back(numComparisons);                   // Push this number to the comparison count vector
+         comparisonCount += numComparisons;                           // Increment comparison count with the number of comparisons made to find keu
          return true;                                                 // True = found
       }
    }
    // If element is not found:
    cout << "[NF] Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
-   comparisonCount.push_back(numComparisons);                        // Push 0 comparisons to count
+   comparisonCount += numComparisons;                                // Increment comparison count with the number of comparisons made to find keu
    return false;                                                     // False = not found
 }
 
@@ -115,7 +105,6 @@ int main() // Defines the main function
 {
    vector<string> keys = randomize().first;      // Defines the 42 key items being searched for (from shuffleItems.h)
    vector<string> shuffled = randomize().second; // Defines the shuffled vector of items (from shuffleItems.h)
-   comparisonCount.resize(keys.size());          // Declares the vector's size to be the key's size
 
    for (const string &key : keys) // For every key
    {
@@ -138,9 +127,9 @@ int main() // Defines the main function
    }
    averageComparisons(); // Calculate the average number of comparisons made
 
-   comparisonCount.clear(); // Empties the comparison count
-   keys.clear();            // Empties the keys
-   hashTable.clear();       // Empties the hash table
+   comparisonCount = 0; // Reset's the comparison count
+   keys.clear();        // Empties the keys
+   hashTable.clear();   // Empties the hash table
 
    return 0; // Return 0
 }

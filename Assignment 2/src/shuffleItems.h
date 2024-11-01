@@ -7,6 +7,7 @@ using namespace std;
 
 vector<string> lines;            // Declares the lines a vector of strings
 vector<string> keys;             // Declares keys a vector of strings
+int KEYS_SIZE = 42;              // Declares a key selection size of 42
 ifstream file("magicItems.txt"); // Opens and reads the file
 
 vector<string> insertionSort() // Defines the insertionSort method
@@ -38,7 +39,7 @@ pair<vector<string>, vector<string>> randomize() // Comprised of the function ca
    srand(static_cast<unsigned int>(time(0))); // Seeds the random number generator with the time
    int start = rand() % 625;                  // Declares start as a random number between 1-625 (allowing for key space and out of bounds)
 
-   for (int i = 0; i < 42; i++) // For 42 keys
+   for (int i = 0; i < KEYS_SIZE; i++) // For 42 keys
    {
       keys.push_back(lines[i + start]); // Select the keys as 42 consecutive strings at some distance from the beginning of the list
    }

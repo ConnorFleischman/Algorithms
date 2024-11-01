@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.10.4)  1 NOV 2024 01:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.10.4)  1 NOV 2024 10:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/conno/OneDrive - Landfall Navigation/Documents/School/3a Junior Sem 1/Algorithm Analysis & Design - Cmpt 435/Algorithms/Assignment 2/src/main.tex"
-(c:/Users/conno/OneDrive - Landfall Navigation/Documents/School/3a Junior Sem 1/Algorithm Analysis & Design - Cmpt 435/Algorithms/Assignment 2/src/main.tex
+**"c:/Users/conno/OneDrive - Landfall Navigation/Documents/School/3a Junior Sem 1/Algorithm Analysis & Design - Cmpt 435/Algorithms/Assignment 1/src/main.tex"
+(c:/Users/conno/OneDrive - Landfall Navigation/Documents/School/3a Junior Sem 1/Algorithm Analysis & Design - Cmpt 435/Algorithms/Assignment 1/src/main.tex
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-30>
 (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -126,34 +126,152 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 39.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 39.
- (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+
+
+LaTeX Warning: File `Results.png' not found on input line 44.
+
+
+c:/Users/conno/OneDrive - Landfall Navigation/Documents/School/3a Junior Sem 1/Algorithm Analysis & Design - Cmpt 435/Algorithms/Assignment 1/src/main.tex:44: Package pdftex.def Error: File `Results.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.44 ...aphics[width=120mm,scale=0.5]{Results.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+
+[1
+
+{C:/Users/conno/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/05/25 1.10b listings language file
 ) (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/05/25 1.10b listings language file
 ) (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2024/05/25 1.10b (Carsten Heinz)
-))
-! Incomplete \ifx; all text was ignored after line 60.
-<inserted text> 
-                \fi 
-<*> ...t 435/Algorithms/Assignment 2/src/main.tex"
-                                                  
-The file ended while I was skipping conditional text.
-This kind of error happens when you say `\if...' and forget
-the matching `\fi'. I've inserted a `\fi'; this might work.
+) (main.cpp
 
-! Emergency stop.
-<*> ...t 435/Algorithms/Assignment 2/src/main.tex"
-                                                  
-*** (job aborted, no legal \end found)
+[2]) (main.cpp)
 
- 
+LaTeX Warning: Reference `AssignmentResult' on page 3 undefined on input line 57.
+
+
+LaTeX Warning: Reference `Palindromes' on page 3 undefined on input line 58.
+
+
+LaTeX Warning: Reference `Shuffle' on page 3 undefined on input line 59.
+
+
+LaTeX Warning: Reference `Selection' on page 3 undefined on input line 59.
+
+
+LaTeX Warning: Reference `Insertion' on page 3 undefined on input line 61.
+
+
+LaTeX Warning: Reference `Merge' on page 3 undefined on input line 62.
+
+
+LaTeX Warning: Reference `Quick' on page 3 undefined on input line 62.
+
+(main.cpp
+
+[3])
+
+LaTeX Warning: Reference `Stack' on page 4 undefined on input line 67.
+
+
+LaTeX Warning: Reference `Queue' on page 4 undefined on input line 67.
+
+
+
+[4] (main.cpp)
+
+LaTeX Warning: Reference `Node' on page 5 undefined on input line 73.
+
+(main.cpp
+
+[5])
+
+LaTeX Warning: Reference `Node' on page 6 undefined on input line 79.
+
+
+LaTeX Warning: Reference `Stack' on page 6 undefined on input line 81.
+
+
+
+[6] (main.cpp
+
+[7])
+
+LaTeX Warning: Reference `Stack' on page 8 undefined on input line 85.
+
+
+LaTeX Warning: Reference `Queue' on page 8 undefined on input line 85.
+
+(main.cpp
+
+[8]
+
+[9])
+Overfull \hbox (5.17923pt too wide) in paragraph at lines 91--93
+\OT1/cmr/m/n/12 Here we de-fine the shuf-fling method which is used to ran-dom-ize the magicItems
+ []
+
+(main.cpp
+
+[10]) (main.cpp
+
+[11]) (main.cpp)
+
+LaTeX Warning: Reference `Shuffle' on page 12 undefined on input line 107.
+
+
+
+[12] (main.cpp
+
+[13]
+
+[14])
+
+LaTeX Warning: Reference `Merge' on page 15 undefined on input line 112.
+
+
+LaTeX Warning: Reference `Merge' on page 15 undefined on input line 113.
+
+(main.cpp
+
+[15])
+
+[16]
+
+[17] (main.aux)
+ ***********
+LaTeX2e <2024-06-01> patch level 2
+L3 programming layer <2024-08-30>
+ ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 3557 strings out of 473899
- 53324 string characters out of 5726500
- 630048 words of memory out of 5000000
- 26446 multiletter control sequences out of 15000+600000
- 560522 words of font info for 45 fonts, out of 8000000 for 9000
+ 3813 strings out of 473899
+ 58379 string characters out of 5726500
+ 1051701 words of memory out of 5000000
+ 26672 multiletter control sequences out of 15000+600000
+ 561130 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,65p,414b,1239s stack positions out of 10000i,1000n,20000p,200000b,200000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 57i,6n,65p,442b,1819s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (17 pages, 132478 bytes).
+PDF statistics:
+ 87 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
