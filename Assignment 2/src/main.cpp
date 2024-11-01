@@ -73,7 +73,7 @@ string binarySearch(const vector<string> &lines, const string &key) // Defines t
 
 float averageComparisons() // Defines the method to compute the average number of comparisons
 {
-   float average = static_cast<float>(comparisonCount / KEYS_SIZE);                           // Defines the average as a staticly cast float (comparisonCount / # of keys (defined in shuffleItems.h))
+   float average = static_cast<float>(comparisonCount) / KEYS_SIZE;                           // Defines the average as a staticly cast float (comparisonCount / # of keys (defined in shuffleItems.h))
    cout << fixed << setprecision(2) << "Average comparisons per search: " << average << endl; // Print to console the average comparisons per search
    comparisonCount = 0;                                                                       // Reset's the comparison count for the next search
 

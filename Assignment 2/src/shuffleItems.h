@@ -3,7 +3,7 @@
 #include <vector>
 #include <algorithm>
 
-using namespace std;
+using namespace std; // Declaring the name space to use std::_
 
 vector<string> lines;            // Declares the lines a vector of strings
 vector<string> keys;             // Declares keys a vector of strings

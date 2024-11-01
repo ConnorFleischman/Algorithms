@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.10.4)  1 NOV 2024 01:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.10.4)  1 NOV 2024 17:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/conno/OneDrive - Landfall Navigation/Documents/School/3a Junior Sem 1/Algorithm Analysis & Design - Cmpt 435/Algorithms/Assignment 2/src/main.tex"
-(c:/Users/conno/OneDrive - Landfall Navigation/Documents/School/3a Junior Sem 1/Algorithm Analysis & Design - Cmpt 435/Algorithms/Assignment 2/src/main.tex
+**"c:/Users/conno/OneDrive - Landfall Navigation/Documents/School/3a Junior Sem 1/Algorithm Analysis & Design - Cmpt 435/Algorithms/Assignment 2/main.tex"
+(c:/Users/conno/OneDrive - Landfall Navigation/Documents/School/3a Junior Sem 1/Algorithm Analysis & Design - Cmpt 435/Algorithms/Assignment 2/main.tex
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-30>
 (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -88,20 +88,20 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 ) (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
  (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count277
@@ -123,37 +123,62 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 \c@lstlisting=\count283
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 39.
+(Font)              <14.4> on input line 46.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 39.
- (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+(Font)              <7> on input line 46.
+<./figures/LinSearch.png, id=1, 447.17062pt x 266.49562pt>
+File: ./figures/LinSearch.png Graphic file (type png)
+<use ./figures/LinSearch.png>
+Package pdftex.def Info: ./figures/LinSearch.png  used on input line 55.
+(pdftex.def)             Requested size: 223.58476pt x 133.24748pt.
+<./figures/Prerequisites.png, id=3, 341.77687pt x 90.3375pt>
+File: ./figures/Prerequisites.png Graphic file (type png)
+<use ./figures/Prerequisites.png>
+Package pdftex.def Info: ./figures/Prerequisites.png  used on input line 61.
+(pdftex.def)             Requested size: 170.88802pt x 45.16862pt.
+
+
+[1
+
+{C:/Users/conno/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./figures/LinSearch.png>]
+<./figures/BinSearch.png, id=12, 451.6875pt x 268.75406pt>
+File: ./figures/BinSearch.png Graphic file (type png)
+<use ./figures/BinSearch.png>
+Package pdftex.def Info: ./figures/BinSearch.png  used on input line 73.
+(pdftex.def)             Requested size: 225.84319pt x 134.3767pt.
+
+
+[2 <./figures/Prerequisites.png> <./figures/BinSearch.png>] (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/05/25 1.10b listings language file
 ) (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/05/25 1.10b listings language file
 ) (C:\Users\conno\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2024/05/25 1.10b (Carsten Heinz)
-))
-! Incomplete \ifx; all text was ignored after line 60.
-<inserted text> 
-                \fi 
-<*> ...t 435/Algorithms/Assignment 2/src/main.tex"
-                                                  
-The file ended while I was skipping conditional text.
-This kind of error happens when you say `\if...' and forget
-the matching `\fi'. I've inserted a `\fi'; this might work.
+) (src/shuffleItems.h
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 15.
 
-! Emergency stop.
-<*> ...t 435/Algorithms/Assignment 2/src/main.tex"
-                                                  
-*** (job aborted, no legal \end found)
 
- 
+[3])
+
+[4] (main.aux)
+ ***********
+LaTeX2e <2024-06-01> patch level 2
+L3 programming layer <2024-08-30>
+ ***********
+ ) 
 Here is how much of TeX's memory you used:
- 3557 strings out of 473899
- 53324 string characters out of 5726500
- 630048 words of memory out of 5000000
- 26446 multiletter control sequences out of 15000+600000
- 560522 words of font info for 45 fonts, out of 8000000 for 9000
+ 3654 strings out of 473899
+ 55311 string characters out of 5726500
+ 834399 words of memory out of 5000000
+ 26532 multiletter control sequences out of 15000+600000
+ 561123 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,65p,414b,1239s stack positions out of 10000i,1000n,20000p,200000b,200000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 57i,6n,65p,352b,1851s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/conno/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (4 pages, 147502 bytes).
+PDF statistics:
+ 47 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+
