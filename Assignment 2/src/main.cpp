@@ -2,20 +2,20 @@
 
 /*
    buildHashTable.h: createTable()
-   shuffleItems.h: randomize().first/.second, KEYS_SIZE
+   sortItems.h: sort().first/.second, KEYS_SIZE
    iostream: std::cout, std::endl
    iomanip: std::setprecision, std::fixed
 */
 
 #include "buildHashTable.h"
-#include "shuffleItems.h"
+#include "sortItems.h"
 #include <iostream>
 #include <iomanip>
 
 using namespace std; // Globally used namespace
 
 int comparisonCount = 0;          // Declares comparisonCount as 0 to store the total number of comparisons made for a search
-vector<string> shuffled;          // Declares the global shuffled vector of strings
+vector<string> sorted;            // Declares the global sorted vector of strings
 vector<vector<string>> hashTable; // Declares a hash table comprised of a vector of vectors of strings
 
 string linearSearch(const vector<string> &lines, const string &key) // Defines the linear search function
@@ -80,7 +80,7 @@ float averageComparisons() // Defines the method to compute the average number o
    return average; // Returns the average number of comparisons needed to find the elements for a given search
 }
 
-bool searchItem(const string &item) // Defines the function to search an item in the hash table
+string searchItem(const string &item) // Defines the function to search an item in the hash table
 {
    int numComparisons = 0; // Defines the number of comparisons to be 0
 
@@ -92,33 +92,33 @@ bool searchItem(const string &item) // Defines the function to search an item in
       {
          cout << "Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
          comparisonCount += numComparisons;                           // Increment comparison count with the number of comparisons made to find keu
-         return true;                                                 // True = found
+         return storedItem;                                           // True = found
       }
    }
    // If element is not found:
    cout << "[NF] Number of comparisons: " << numComparisons << endl; // Print to console the number of comparisons
    comparisonCount += numComparisons;                                // Increment comparison count with the number of comparisons made to find keu
-   return false;                                                     // False = not found
+   return "";                                                        // False = not found
 }
 
 int main() // Defines the main function
 {
-   vector<string> keys = randomize().first;      // Defines the 42 key items being searched for (from shuffleItems.h)
-   vector<string> shuffled = randomize().second; // Defines the shuffled vector of items (from shuffleItems.h)
+   vector<string> keys = sort().first; // Defines the 42 key items being searched for (from shuffleItems.h)
+   sorted = sort().second;             // Defines the sorted vector of items (from shuffleItems.h)
 
    for (const string &key : keys) // For every key
    {
-      linearSearch(shuffled, key); // Search the shuffled vector for that key using a linear search
+      linearSearch(sorted, key); // Search the sorted vector for that key using a linear search
    }
    averageComparisons(); // Calculate the average number of comparisons made
 
    for (const string &key : keys) // for every key
    {
-      binarySearch(shuffled, key); // Search the shuffled vector for that key using a binary search
+      binarySearch(sorted, key); // Search the sorted vector for that key using a binary search
    }
    averageComparisons(); // Calculate the average number of comparisons made
 
-   shuffled.clear();          // Empties the shuffled vector
+   sorted.clear();            // Empties the sorted vector
    hashTable = createTable(); // Builds a hash table (from buildHashTable.h) to hashTable
 
    for (const string &key : keys) // For every key

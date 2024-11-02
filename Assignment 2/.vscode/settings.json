@@ -50,5 +50,9 @@
       "ctime": "cpp",
       "iomanip": "cpp",
       "sstream": "cpp"
-   }
+   },
+   "cSpell.words": [
+      "iomanip",
+      "iostream"
+   ]
 }

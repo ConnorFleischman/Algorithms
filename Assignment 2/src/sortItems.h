@@ -25,7 +25,7 @@ vector<string> insertionSort() // Defines the insertionSort method
    return lines; // Returns the sorted array
 }
 
-pair<vector<string>, vector<string>> randomize() // Comprised of the function calls to shuffle the items
+pair<vector<string>, vector<string>> sort() // Comprised of the function calls to shuffle the items
 {
    string line; // Declares line as a string
 
@@ -37,7 +37,7 @@ pair<vector<string>, vector<string>> randomize() // Comprised of the function ca
    file.close(); // Closes the file
 
    srand(static_cast<unsigned int>(time(0))); // Seeds the random number generator with the time
-   int start = rand() % 625;                  // Declares start as a random number between 1-625 (allowing for key space and out of bounds)
+   int start = rand() % 625;                  // Declares start as a random number between 0-624 (allowing for key space and out of bounds)
 
    for (int i = 0; i < KEYS_SIZE; i++) // For 42 keys
    {
