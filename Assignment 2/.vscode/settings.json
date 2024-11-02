@@ -52,6 +52,7 @@
       "sstream": "cpp"
    },
    "cSpell.words": [
+      "fstream",
       "iomanip",
       "iostream"
    ]
