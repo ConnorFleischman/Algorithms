@@ -21,7 +21,7 @@
    backgroundcolor=\color{background},   
    commentstyle=\color{codegreen},
    keywordstyle=\color{keywordcolor}\bfseries,
-   numberable=\tiny\color{codegray},
+   numberstyle=\tiny\color{codegray},
    stringstyle=\color{codepurple},
    basicstyle=\ttfamily\small,
    frame=single, 
@@ -135,6 +135,7 @@ This is done on lines 27-33.
 \indent Insertion sort is defined on line 1 and has a return value of a vector of strings.
 Insertion sort takes the unsorted magic items, written to a vector of strings, sorts it using an insertion sort, and returns it to sort().second.
 This is why we set 'keys = sort().first' (ln 3, sec \ref{Main}) and 'sorted = sort().second' (ln 4, sec \ref{Main}).
+Finally in the sort() function we read the file 'magicItems.txt' into a vector of strings called lines for manipulation.
 
 \subsection{Breakdown - linearSearch()} \label{LinSchCde}
 \lstinputlisting[language=C++, firstline=21, lastline=40]{main.cpp}
