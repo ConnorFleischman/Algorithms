@@ -21,7 +21,7 @@
    backgroundcolor=\color{background},   
    commentstyle=\color{codegreen},
    keywordstyle=\color{keywordcolor}\bfseries,
-   numberstyle=\tiny\color{codegray},
+   numberable=\tiny\color{codegray},
    stringstyle=\color{codepurple},
    basicstyle=\ttfamily\small,
    frame=single, 
@@ -49,6 +49,7 @@
 \end{center}
 \newpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Assignment Results}
 Assignment 02 was to perform different searches on the magic items text file provided in Assignment 01 for 42 random keys, picked from magic items.
 
@@ -84,7 +85,7 @@ Meaning, the keys used for test one in linear search were the same keys used for
 \indent As shown above, the binary searching algorithm I implemented was quite efficient.
 But the same logic applied to linear search applies here, although 100\% of tests were more efficient than the average case, does not mean that with more testing it can't be inefficient.
 
-\subsection{Hash Table Search} \label{HshTblShs}
+\subsection{Hash Table Search} \label{HshTblSch}
 The last search assigned was to take the magic items, create a hash table of 250 buckets, populate it with the items, and search for the keys using the hash table.
 A hash table is a 2-dimensional table where each value in the table has its own table of values.
 \newline
@@ -98,13 +99,71 @@ It also shows how efficient hash searching is compared to the other searching al
 It would be interesting to see if the average of all tests would fall below the expected threshold if more tests were performed.
 \newpage
 
-\section{Code Breakdown}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Code Breakdown - Linear \& Binary Search}
 My code consists of three C++ documents. 
 A 'main.cpp' file housing the majority of the computations, and two assistive files, 'sortItems.h' and 'buildHashTable.h'.
 These files are woven together through 'main.cpp' so that when executed it prints out the results of the searches to the console.
 These files are in the './Assignment2/src' folder.
 
-\subsection{Prerequisites} \label{Prereq}
+\subsection{Breakdown - main()} \label{Main}
+Our program begins through the main function below.
+Do not worry if this seems complex, we will break it down piece by piece.
+\lstinputlisting[language=C++, firstline=104, lastline=135]{main.cpp}
+When the executable is ran a vector of strings called keys is declared and instantiated as sort.first().
+This comes from the 'sortItems.h' file which returns a pair, for more detail see section \ref{SrtItm}.
+Then sorted is instantiated as sort.second(), from 'sortItems.h', for more detail see section \ref{SrtItm}.
+\newline
+\indent A linear search is then performed for each key in keys using the sorted magic items.
+After, the average comparisons is calculated and produced for that search on each key.
+Next a binary search is used for the same keys as before to search through magic items.
+Again, the program calculates and produces the average number of comparisons for a key based off the 42 keys.
+\newline
+\indent Finally, the code clears the sorted list and creates a hash table from 'buildHashTable.h' using createTable().
+The same search is performed for the same 42 keys as prior, but instead of searching through the magic items, the program uses a hash table populated with the magic items.
+Then the average comparisons is found and output and the comparison count is reset to 0 and keys and the hash table are all cleared.
+
+\subsection{Breakdown - sortItems.h} \label{SrtItm}
+The main function firstly uses a function from 'sortItems.h'.
+Specifically, it uses the pair of return values given from the sort() method in 'sortItems.h'.
+It sets a vector of strings called keys to sort().first, and sorted, which was defined in section \ref{Prereq}, as sort().second afterwards.
+\lstinputlisting[language=C++, firstline=13, lastline=48]{sortItems.h}
+As we can see on line 35, sort().first is keys and sort().second is the insertionSort() function.
+Keys is defined as a vector of strings which, after randomly selecting a starting value within the bounds of the data, we store the next 42 values as keys.
+This is done on lines 27-33.
+\newline
+\indent Insertion sort is defined on line 1 and has a return value of a vector of strings.
+Insertion sort takes the unsorted magic items, written to a vector of strings, sorts it using an insertion sort, and returns it to sort().second.
+This is why we set 'keys = sort().first' (ln 3, sec \ref{Main}) and 'sorted = sort().second' (ln 4, sec \ref{Main}).
+
+\subsection{Breakdown - linearSearch()} \label{LinSchCde}
+\lstinputlisting[language=C++, firstline=21, lastline=40]{main.cpp}
+
+\subsection{Breakdown - binarySearch()} \label{BinSchCde}
+\lstinputlisting[language=C++, firstline=42, lastline=72]{main.cpp}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Code Breakdown - Hash Table Searching}
+\subsection{buildHashTable.h} \label{BldHshTbl}
+\lstinputlisting[language=C++, firstline=10, lastline=49]{buildHashTable.h}
+
+\subsection{searchItem()} \label{HshSchCde}
+\lstinputlisting[language=C++, firstline=83, lastline=102]{main.cpp}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Code Breakdown - Misc.} \label{Misc}
+\subsection{averageComparisons()} \label{AvgComp}
+Here we are calculating the average number of comparisons needed to find every key in the sorted, or hashed, data set.
+\lstinputlisting[language=C++, firstline=74, lastline=81]{main.cpp}
+To do to two decimal places, as specified in the Assignment 02 instructions, we must use a fixed precision floating point number.
+To find the average of the comparisons we use a globally scoped variable called comparisonCount defined in section \ref{Prereq}.
+With this we divide it by the total number of keys, defined in section \ref{SrtItm} on line 3.
+This gives us the average which is then output to the console to two decimal places.
+Then the comparison count is reset to 0 for the next search.
+
+\subsection{main.cpp - Prerequisites} \label{Prereq}
 \lstinputlisting[language=C++, firstline=10, lastline=19]{main.cpp}
 Beginning 'main.cpp' we include 'buildHashTable.h' and 'sortItems.h' as well as 'iostream' and 'iomanip'.
 These allow us to use functions like createTable() and sort.first() or .second() for our algorithms.
@@ -120,65 +179,16 @@ Globally scoped variables:
 \newline
 \indent hashTable - a vector of vectors of strings, or a vector of buckets of strings
 
-\subsection{Main} \label{Main}
-Our program begins through the main function below.
-Do not worry if this seems complex, we will break it down piece by piece.
-\lstinputlisting[language=C++, firstline=104, lastline=135]{main.cpp}
-When the executable is ran a vector of strings called keys is declared and instantiated as sort.first().
-This comes from the 'sortItems.h' file which returns a pair, for more detail see section \ref{SrtItm}.
-Then sorted is instantiated as sort.second(), from 'sortItems.h', for more detail see section \ref{SrtItm}.
-\indent A linear search is then performed for each key in keys using the sorted magic items.
-After, the average comparisons is calculated and produced for that search on each key.
-Next a binary search is used for the same keys as before to search through magic items.
-Again, the program calculates and produces the average number of comparisons for a key based off the 42 keys.
-\newline
-\indent Finally, the code clears the sorted list and creates a hash table from 'buildHashTable.h' using createTable().
-The same search is performed for the same 42 keys as prior, but instead of searching through the magic items, the program uses a hash table populated with the magic items.
-Then the average comparisons is found and output and the comparison count is reset to 0 and keys and the hash table are all cleared.
+\subsection{sortItems.h - Prerequisites} \label{SrtItmGV}
+\lstinputlisting[language=C++, firstline=1, lastline=11]{sortItems.h}
 
-\subsection{Sort Items} \label{SrtItm}
-The main function firstly uses a function from 'sortItems.h'.
-Specifically, it uses the pair of return values given from the sort() method in 'sortItems.h'.
-It sets a vector of strings called keys to sort().first, and sorted, which was defined in section \ref{Main}, as sort().second afterwards.
-\lstinputlisting[language=C++, firstline=8, lastline=48]{sortItems.h}
-As we can see on line 40, sort().first is keys and sort().second is the insertionSort() function.
-Keys is defined as a vector of strings which, after randomly selecting a starting value within the bounds of the data, we store the next 42 values as keys.
-This is done on lines 32-38.
-\newline
-\indent Insertion sort is defined on line 6 and has a return value of a vector of strings.
-Insertion sort takes the unsorted magic items, written to a vector of strings, sorts it using an insertion sort, and returns it to sort().second.
-This is why we set 'keys = sort().first' (ln 3, sec \ref{Main}) and 'sorted = sort().second' (ln 4, sec \ref{Main}).
+\subsection{buildHashTable.h - Prerequisites} \label{BldHshTblGV}
+\lstinputlisting[language=C++, firstline=1, lastline=8]{buildHashTable.h}
+\newpage
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Insertion Sort} \label{InsSrt}
-The second sorting method was Insertion sort which takes the list and compares each element one by one. 
-Meaning the first element is compared to the second, if its greater than the second, swap, then go to the third element, if its less 
-than the second swap, if its less than the first, swap again. This continues until the array is sorted
-\lstinputlisting[language=C++, firstline=13, lastline=26]{sortItems.h}
-
-
-
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Final Thoughts}
 % BREAK DOWN CODE DOC BY DOC FUNC BY FUNC, DON'T WORD FOR WORD, INSTEAD SAY WHAT IT DOES, HOW, WHY, EFFICIENCY...
 Note the asymptotic running time of each search and explain why it is that way. 
 Including the asymptotic running time of	hashing	with chaining and explain why it is that way.
-
-\section{Final Thoughts}
-text
-
 \end{document}
