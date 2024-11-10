@@ -12,19 +12,18 @@ vector<string> parse()
    vector<string> lines;
    ifstream file("./input/magicItems.txt"); // Open the file
 
-   if (file.is_open())
+   if (file.is_open()) // If the file is open
    {
-      string line;
-      while (getline(file, line)) // Read each line
+      string line;                // Declares a line as a string
+      while (getline(file, line)) // Read each line in the file
       {
-         lines.push_back(line); // Add line to vector
+         lines.push_back(line); // Add each line to the vector lines
       }
-      file.close();
+      file.close(); // Close the file
    }
-   else
+   else // If the file is not open
    {
-      cout << "Error opening file" << endl;
+      cout << "Error opening file" << endl; // Log that the file did not open
    }
-
    return lines;
 }
