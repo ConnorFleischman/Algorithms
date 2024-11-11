@@ -17,7 +17,7 @@ public:
    Node(string value) // When a node is constructed
    {
       this->data = value;    // Set this node's data to some value
-      this->path = nullptr;  // Set this node's path to null
+      this->path = "";       // Set this node's path to an empty string
       this->left = nullptr;  // Set this node's left child to null
       this->right = nullptr; // Set this node's right child to null
    }
@@ -39,7 +39,7 @@ public:
       if (root == nullptr) // If the root is not set
       {
          root = new Node(value);                                                          // Set this value as the root
-         root->path += "Root";                                                            // Set it's path as root
+         root->path = "Root";                                                             // Set it's path as root
          cout << "Inserted node of value: " + value + ", at path: " + root->path << endl; // Record insertion
       }
       else // If there is a root
@@ -81,17 +81,29 @@ public:
                }
             }
          }
-
          // Once the value has found its place
          band++;                                                                             // Note that we had gone down a level
          cout << "Inserted node of value: " + value + ", at path: " + newNode->path << endl; // Record that the value was inserted at some path
       }
    }
-   string remove(string value) // Remove a specific node
+   string remove(string value) // Remove a specific node, return that nodes path
    {
-      // --WIP-- //
-      Node *currNode = nullptr;
-      return currNode->data;
+      Node *currNode = root;  // Pointer to the current node, set to root first
+      while (!isEmpty(false)) // Loop created to traverse tree if tree is not empty
+      {
+         if (value == currNode->data) // If the value is equal to the current node's data
+         {
+            return currNode->path; // Return the current node's path and break from the loop
+         }
+         else if (value < currNode->data) // If the value is less than the current's data
+         {
+            currNode = currNode->left; // Set the current to that nodes left child and loop
+         }
+         else // If the value is greater than the current's data
+         {
+            currNode = currNode->right; // Set the current to that nodes right child and loop
+         }
+      }
    }
    bool isEmpty(bool debug) // Returns if the tree is empty, with optional debugging logs
    {
@@ -110,6 +122,21 @@ public:
             cout << "The tree is NOT empty" << endl; // Log the tree is populated
          }
          return false; // Return false
+      }
+   }
+   void traverse()
+   {
+      cout << "In-order traversal: ";
+      recurseTraverse(root);
+      cout << endl;
+   }
+   void recurseTraverse(Node *currNode) // print the tree in Left, Root, Right order
+   {
+      if (currNode != nullptr) // If the current node is not null
+      {
+         recurseTraverse(currNode->left);  // Recurse with the current node's left child (until null)
+         cout << currNode->data << ", ";   // Print the node who's left child is null
+         recurseTraverse(currNode->right); // Recurse with that nodes right child (until null)
       }
    }
 };
