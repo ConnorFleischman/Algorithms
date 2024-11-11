@@ -47,7 +47,7 @@ public:
          Node *newNode = new Node(value);
          newNode->path += "Root, ";
 
-         while (true) // Loop created to traverse tree
+         while (currNode != nullptr) // Loop created to traverse tree
          {
             if (newNode->data < currNode->data) // If the node to be inserted is less than the current node
             {
@@ -120,10 +120,10 @@ public:
          return false; // Return false
       }
    }
-   void traverse()
+   void traverse() // Performs an in-order traversal on the tree
    {
       cout << "In-order traversal: ";
-      recurseTraverse(root);
+      recurseTraverse(root); // Begins the recursion on the root
       cout << endl;
    }
    void recurseTraverse(Node *currNode) // print the tree in Left, Root, Right order
@@ -134,5 +134,25 @@ public:
          cout << currNode->data << ", ";   // Print the node who's left child is null
          recurseTraverse(currNode->right); // Recurse with that nodes right child (until null)
       }
+   }
+   string search(string value)
+   {
+      Node *currNode = root;      // Pointer to the current node, set to root first
+      while (currNode != nullptr) // While the current node exists
+      {
+         if (value == currNode->data) // If the value to be found is equal to the current node's data
+         {
+            return currNode->path; // Return that the node was found at it's path
+         }
+         else if (value < currNode->data) // If the value is less than the current
+         {
+            currNode = currNode->left; // Set the new current node to the old's left child
+         }
+         else // If the value is greater than the current
+         {
+            currNode = currNode->right; // Set the new current node to the old's right child
+         }
+      }
+      return "Node not found"; // If the node is not found, return and log not found
    }
 };
