@@ -16,3 +16,8 @@ void inOrderTraversal(BinaryTree tree)
 {
    tree.traverse();
 }
+
+string keyLookUp(string key, BinaryTree tree)
+{
+   return tree.search(key);
+}

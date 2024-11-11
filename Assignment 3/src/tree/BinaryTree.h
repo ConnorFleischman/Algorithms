@@ -32,26 +32,25 @@ public:
    {
       root = nullptr; // Set this tree's root to null
    }
+
    void insert(string value) // Inserts a new node
    {
       if (root == nullptr) // If the root is not set
       {
-         root = new Node(value); // Set this value as the root
-         root->path = "Root";    // Set it's path as root
-
+         root = new Node(value);                                               // Set this value as the root
+         root->path = "Root";                                                  // Set it's path as root
          cout << "Inserted node: " + value + " | Path: " + root->path << endl; // Record insertion
       }
       else // If there is a root
       {
          Node *currNode = root; // Pointer to the current node, set to root first
          Node *newNode = new Node(value);
-         newNode->path += "Root, ";
-
+         newNode->path += "Root -> ";
          while (currNode != nullptr) // Loop created to traverse tree
          {
             if (newNode->data < currNode->data) // If the node to be inserted is less than the current node
             {
-               newNode->path += "L, ";        // Add to its path
+               newNode->path += "L -> ";      // Add to its path
                if (currNode->left == nullptr) // If the current node's left child is not set
                {
                   currNode->left = newNode; // Set the current's left child to the new node
@@ -65,7 +64,7 @@ public:
             }
             else // If the new node is >= to the current
             {
-               newNode->path += "R, ";         // Add to its path
+               newNode->path += "R -> ";       // Add to its path
                if (currNode->right == nullptr) // If the current node's right child is not set
                {
                   currNode->right = newNode; // Set the current's right child to the new node
@@ -82,6 +81,7 @@ public:
          cout << "Inserted node: " + value + " | Path: " + newNode->path << endl; // Record insertion
       }
    }
+
    string remove(string value) // Remove a specific node, return that nodes path
    {
       Node *currNode = root;  // Pointer to the current node, set to root first
@@ -101,6 +101,7 @@ public:
          }
       }
    }
+
    bool isEmpty(bool debug) // Returns if the tree is empty, with optional debugging logs
    {
       if (root == nullptr) // If the root is not set
@@ -120,12 +121,14 @@ public:
          return false; // Return false
       }
    }
+
    void traverse() // Performs an in-order traversal on the tree
    {
-      cout << "In-order traversal: ";
+      cout << "In-order traversal: " << endl;
       recurseTraverse(root); // Begins the recursion on the root
       cout << endl;
    }
+
    void recurseTraverse(Node *currNode) // print the tree in Left, Root, Right order
    {
       if (currNode != nullptr) // If the current node is not null
@@ -135,7 +138,8 @@ public:
          recurseTraverse(currNode->right); // Recurse with that nodes right child (until null)
       }
    }
-   string search(string value)
+
+   string search(string value) // Searches for a value in the binary tree
    {
       Node *currNode = root;      // Pointer to the current node, set to root first
       while (currNode != nullptr) // While the current node exists
