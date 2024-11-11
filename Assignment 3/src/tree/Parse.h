@@ -7,10 +7,10 @@
 
 using namespace std; // Globally used namespace (removes use of std::)
 
-vector<string> parse()
+vector<string> parse() // Fills lines with the items in file: magicItems.txt
 {
-   vector<string> lines;
-   ifstream file("./input/magicItems.txt"); // Open the file
+   vector<string> lines;                         // Declare vector of strings 'lines'
+   ifstream file("./tree/input/magicItems.txt"); // Open the file
 
    if (file.is_open()) // If the file is open
    {
