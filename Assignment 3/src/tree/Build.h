@@ -13,3 +13,12 @@ vector<string> buildKeys()
    vector<string> keys = parseKeys(); // Fill keys with the magic item keys
    return keys;                       // Return the vector keys
 }
+
+BinaryTree buildTree(vector<string> lines, BinaryTree tree)
+{
+   for (const string line : lines)
+   {
+      tree.insert(line);
+   }
+   return tree;
+}

@@ -8,11 +8,10 @@
 using namespace std; // Globally used namespace (removes use of std::)
 
 // Function to load data from the file into a vector of strings
-vector<string> parse()
+vector<string> parseGrpahs() // hgeeh
 {
    vector<string> lines;
    ifstream file("./input/graphs1.txt"); // Open the file
-
    if (file.is_open())
    {
       string line;

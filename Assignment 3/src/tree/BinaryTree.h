@@ -126,7 +126,7 @@ public:
    {
       cout << "In-order traversal: " << endl;
       recurseTraverse(root); // Begins the recursion on the root
-      cout << endl;
+      cout << "-- COMPLETE --" << endl;
    }
 
    void recurseTraverse(Node *currNode) // print the tree in Left, Root, Right order
