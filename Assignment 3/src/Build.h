@@ -18,26 +18,22 @@ vector<string> buildKeys()
 
 BinaryTree buildTree(vector<string> lines, BinaryTree tree)
 {
-   for (string line : lines)
+   for (string line : lines) // For every line in lines
    {
-      tree.insert(line);
+      tree.insert(line); // Insert each line into the tree
    }
-   return tree;
+   return tree; // Return the tree
 }
 
-vector<string> buildInstructions()
+vector<vector<string>> buildInstructions()
 {
-   vector<string> lines = parseGraph(); // Fill the lines with the parsed graph blueprint
-   return lines;                        // Return the vector of lines
+   vector<vector<string>> instructions = parseGraph(); // Fill the lines with the parsed graph blueprint
+   return instructions;                                // Return the vector of lines
 }
 
-Graph buildGraph(vector<string> lines, Graph graph)
+Graph buildGraph(vector<vector<string>> instructions, Graph graph)
 {
-   for (string line : lines)
+   for (vector<string> graph : instructions)
    {
-      if (line.front() == 'n' && FLAG)
-      {
-         // set flag to true
-      }
    }
 }
