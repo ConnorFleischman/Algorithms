@@ -39,7 +39,7 @@ string linearSearch(const vector<string> &lines, const string &key) // Defines t
    return "";                                                        // Return nothing
 }
 
-string binarySearch(const vector<string> &lines, const string &key) // Defines the binary search function
+string binarySearch(const vector<string> &lines, const string &key) // Defines the binary search functio
 {
    int start = 0;               // Defines the starting value
    int stop = lines.size() - 1; // Defines the stopping value (at end -1)

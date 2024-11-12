@@ -1,7 +1,6 @@
 // Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
 
 #include "BinaryTree.h"
-#include <vector>
 
 void inOrderTraversal(BinaryTree tree)
 {
