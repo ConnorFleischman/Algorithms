@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
-#include "UnidrectedGraph.h"
+#include "UndirectedGraph.h"
 
 using namespace std; // Globally used namespace (removes use of std::)
 
