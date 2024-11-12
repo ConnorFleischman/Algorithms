@@ -7,7 +7,7 @@
 
 using namespace std; // Globally used namespace (removes use of std::)
 
-class Vertex
+class Vertex // Defines the Vertex class
 {
 public:
    string id;                  // Identifies the id of this vertex
@@ -21,138 +21,164 @@ public:
    }
 };
 
-class Matrix
+class Graph // Defines the Graph class
 {
 private:
-   vector<Vertex *> vertices;
+   vector<Vertex *> vertices; // Vertices is a list of the vertices in the graph
 
 public:
-   Matrix() {}
+   Graph() {} // Graph constructor
 
-   void insertVertex(string vertexID)
+   void insertVertex(string vertexID) // Insert a vertex into the graph by some ID
    {
       Vertex *newVertex = new Vertex(vertexID); // create new vertex
       vertices.push_back(newVertex);            // add new vertex to vertices
    }
 
-   bool deleteVertex(Vertex *vertexID)
+   bool deleteVertex(string vertexID) // Delete a vertex from the graph by some ID
    {
-      if (!isEmpty())
+      if (!isEmpty()) // If the graph is not empty
       {
-         for (Vertex *vertex : vertices)
+         for (int i = 0; i < vertices.size(); i++) // For every vertex in the graph
          {
-            if (vertex->id == vertexID->id)
+            if (vertices[i]->id == vertexID) // If the vertex to be deleted is found in the vertices vector
             {
-               delete vertex;
-               vertices.erase(vertex);
-               return true
+               for (Vertex *neighbor : vertices[i]->neighbors) // For every vertex neighboring the to be deleted vertex
+               {
+                  for (int j = 0; j < neighbor->neighbors.size(); j++) // For every one of that vertex's neighbors
+                  {
+                     if (neighbor->neighbors[j] == vertices[i]) // If that vertex's neighbor is the neighbor to delete
+                     {
+                        neighbor->neighbors.erase(neighbor->neighbors.begin() + j); // Remove the neighbor from that vertex's list of neighbors
+                        break;                                                      // Break out of the loop
+                     }
+                  }
+               }
+               delete vertices[i];                   // Delete the actual vertex
+               vertices.erase(vertices.begin() + i); // Erase the deleted vertex from the list of vertices
+               cout << "Vertex deleted" << endl;
+               return true;
             }
          }
+         // If the vertex is not found
          cout << "Vertex not found" << endl;
          return false;
       }
-      else
+      else // If the graph is empty
       {
-         cout << "Cannot delete from an empty Matrix" << endl;
+         cout << "Cannot delete from an empty Graph" << endl;
          return false;
       }
    }
 
-   void insertEdge(Vertex *vertexStart, Vertex *vertexEnd)
+   void insertEdge(string vertexStartID, string vertexEndID) // Insert an edge between two vertex IDs
    {
-      vertexStart->neighbors.push_back(vertexEnd);
-      vertexEnd->neighbors.push_back(vertexStart);
+      Vertex *vertexStart = search(vertexStartID); // Search for the starting vertex by its ID
+      Vertex *vertexEnd = search(vertexEndID);     // Search for the ending vertex by its ID
+
+      if (vertexStart && vertexEnd) // If both vertices exist
+      {
+         vertexStart->neighbors.push_back(vertexEnd); // Update the starting vertex's neighbors list so that it has the ending vertex as a neighbor
+         vertexEnd->neighbors.push_back(vertexStart); // Update the ending vertex's neighbors list so that it has the starting vertex as a neighbor
+      }
    }
 
-   bool isEmpty()
+   Vertex *search(string vertexID) // Search for a vertex in the graph by its ID (string), return the Vertex, if found, or null, if not
+   {
+      for (Vertex *vertex : vertices) // For every vertex in the graph
+      {
+         if (vertex->id == vertexID) // If their ID is the ID being looked for
+         {
+            return vertex; // Return that vertex
+         }
+      }
+      // If the vertex is not found
+      return nullptr;
+   }
+
+   bool isEmpty() // Returns true/false depending on if the graph is empty
    {
       return vertices.empty();
    }
 
-   bool clear()
+   bool clear() // Empties the graph
    {
-      for (Vertex *vertex : vertices)
+      for (Vertex *vertex : vertices) // For every vertex in the graph
       {
-         delete vertex;
+         delete vertex; // Delete that vertex, allocate memory space too
       }
-      vertices.clear();
-      cout << "Matrix emptied" << endl;
-      return isEmpty();
+      vertices.clear(); // Clear the vector of vertices, vertices
+      cout << "Graph emptied" << endl;
+      return isEmpty(); // Return if the graph is empty
    }
 
-   void display()
+   void displayAsAdjacencyList() // Method to display the graph as an Adjacency List
    {
-      if (isEmpty)
+      if (isEmpty()) // If the graph is empty
       {
-         cout << "Matrix is empty" << endl;
+         cout << "Graph is empty" << endl;
          return;
       }
-      else
+      else // If the graph is not empty
       {
-         for (Vertex *vertex : vertices)
+         cout << "Adjacency List:" << endl;
+         cout << "---------------------------------------" << endl;
+         for (Vertex *vertex : vertices) // For every vertex in the graph
          {
-            cout << "[" << vertex->id << "]: ";
-            for (Vertex *neighbor : vertex->neighbors)
+            cout << "[" << vertex->id << "]: ";        // Display that vertex
+            for (Vertex *neighbor : vertex->neighbors) // For every one of that vertex's neighbors
             {
-               cout << neighbor->id << " ";
+               cout << neighbor->id << " "; // Display that neighbor
             }
-            cout << endl;
+            cout << endl; // Once all neighbors are displayed, new line, move to next vertex
          }
       }
    }
-};
 
-class AdjacencyList
-{
-private:
-   vector<Vertex *> vertices;
-
-public:
-   AdjacencyList() {}
-
-   bool isEmpty()
+   void displayAsMatrix() // Method to display the graph as a Matrix
    {
-      return vertices.empty();
-   }
-
-   bool clear()
-   {
-      for (Vertex *vertex : vertices)
+      if (isEmpty()) // If the graph is empty
       {
-         delete vertex;
-      }
-      vertices.clear();
-      cout << "Adjacency List emptied" << endl;
-      return isEmpty();
-   }
-
-   void display()
-   {
-      if (isEmpty)
-      {
-         cout << "Adjacency List is empty" << endl;
+         cout << "Graph is empty" << endl;
          return;
       }
-      else
+      else // If the graph is not empty
       {
-         for (Vertex *vertex : vertices)
+         cout << "Matrix:" << endl;
+         cout << "---------------------------------------" << endl;
+         cout << "";
+         // Column display
+         for (int i = 0; i < vertices.size(); i++) // For every element in vertices
          {
-            cout << "[" << vertex->id << "]: ";
-            for (Vertex *neighbor : vertex->neighbors)
+            cout << "[" << vertices[i]->id << "] "; // Display that vertex (col header)
+         }
+         cout << endl;
+         // Row display
+         for (int i = 0; i < vertices.size(); i++)
+         {
+            cout << "[" << vertices[i]->id << "] |";  // Display that vertex (row header)
+            for (int j = 0; j < vertices.size(); j++) // For every element in vertices
             {
-               cout << neighbor->id << " ";
+               bool isNeighbor = false;                        // Flag to record if a row's vertex has some col as a neighbor
+               for (Vertex *neighbor : vertices[i]->neighbors) // For every neighbor in the current vertex(col)'s neighbors
+               {
+                  if (neighbor->id == vertices[j]->id) // If the neighbor's ID is equal to the current vertex(row)'s ID
+                  {
+                     isNeighbor = true;
+                     break;
+                  }
+               }
+               if (isNeighbor) // If the col/row intersect shows that the vertexes at those positions are neighbors
+               {
+                  cout << 'X'; // Record that there is an edge between these two vertices
+               }
+               else // If no neighbor exists at the col/row intersection
+               {
+                  cout << '-'; // Record that no edge exists between these two vertices
+               }
             }
-            cout << endl;
+            cout << endl; // End this row, go to the next row
          }
       }
    }
-};
-
-class LinkedObjects
-{
-private:
-   vector<Vertex *> vertices;
-
-public:
-   LinkedObjects() {}
 };
