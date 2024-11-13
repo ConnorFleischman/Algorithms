@@ -8,31 +8,30 @@
 
 vector<string> buildLines() // Returns the magic items in a vector of strings
 {
-   return parseItems();
+   return parseItems(); // Call the parse function from "Parse.h"
 }
 
 vector<string> buildKeys() // Returns the keys in a vector of strings
 {
-   return parseKeys();
+   return parseKeys(); // Call the parse function from "Parse.h"
 }
 
 vector<vector<string>> buildInstructions() // Returns the instructions to build all graphs in a vector of vectors of strings
 {
-   return parseGraph();
+   return parseGraph(); // Call the parse function from "Parse.h"
 }
 
-BinaryTree *buildTree(vector<string> lines, BinaryTree *tree) // Builds and returns a tree made of lines into the tree
+void buildTree(vector<string> &lines, BinaryTree &tree) // Builds and returns a tree made of lines into the tree
 {
    for (string line : lines) // For every line in lines
    {
-      tree->insert(line); // Insert each line into the tree
+      tree.insert(line); // Insert each line into the tree
    }
-   return tree; // Return the tree
 }
 
-Graph *buildGraph(vector<string> graphInstructions, Graph *graph) // Given the instructions for one graph, build and return that graph
+void buildGraph(vector<string> &graphInstructions, Graph &graph) // Given the instructions for one graph, build and return that graph
 {
-   for (string instruction : graphInstructions) // For every instruction in the vector of instructions
+   for (string &instruction : graphInstructions) // For every instruction in the vector of instructions
    {
       istringstream inst(instruction);    // Break the instruction into individual words
       string identifier, opcode, operand; // Declare both identifier and opcode as strings and operand as a string
@@ -41,15 +40,14 @@ Graph *buildGraph(vector<string> graphInstructions, Graph *graph) // Given the i
 
       if (opcode == "vertex") // If the opcode is vertex
       {
-         graph->insertVertex(operand); // add a vertex with id: operand to the graph
+         graph.insertVertex(operand); // add a vertex with id: operand to the graph
       }
       else if (opcode == "edge") // If the opcode is edge
       {
          istringstream edge(operand); // Break the operand into individual words
          string v1, bridge, v2;       // Declare the vertices being connected and the connection symbol
          edge >> v1 >> bridge >> v2;  // Read the first three words to these strings
-         graph->insertEdge(v1, v2);   // add a edge from v1 - v2
+         graph.insertEdge(v1, v2);    // add a edge from v1 - v2
       }
    }
-   return graph;
 }

@@ -15,7 +15,7 @@ public:
    Node *left;  // Identifies the pointer to the left child leaf node
    Node *right; // Identifies the pointer to the right child leaf node
 
-   Node(string value) // When a node is constructed
+   Node(string &value) // When a node is constructed
    {
       this->data = value; // Set this node's data to some value
       this->path = "";    // Set this node's path to an empty string
@@ -32,13 +32,7 @@ public:
       root = nullptr; // Set this tree's root to null
    }
 
-   ~BinaryTree() // Binary Tree destructor
-   {
-      deleteTree(root); // Delete the tree starting at the root node and recursing through the whole tree
-      cout << "Binary Tree deleted" << endl;
-   }
-
-   void insert(string value) // Inserts a new node
+   void insert(string &value) // Inserts a new node
    {
       if (root == nullptr) // If the root is not set
       {
@@ -87,55 +81,33 @@ public:
       }
    }
 
-   string remove(Node *node) // Remove a specific node, return that nodes path
-   {
-      Node *currNode = root;      // Pointer to the current node, set to root first
-      while (currNode != nullptr) // Loop created to traverse tree if tree is not empty
-      {
-         if (node->data == currNode->data) // If the value is equal to the current node's data
-         {
-            string path = node->path; // Temp variable for path storage
-            delete node;              // Delete the node
-            delete currNode;          // Delete the helper node
-            return path;              // Return the current node's path and break from the loop
-         }
-         else if (node->data < currNode->data) // If the value is less than the current's data
-         {
-            currNode = currNode->left; // Set the current to that nodes left child and loop
-         }
-         else // If the value is greater than the current's data
-         {
-            currNode = currNode->right; // Set the current to that nodes right child and loop
-         }
-      }
-   }
-
    void deleteTree(Node *node) // Delete the tree using recursion to traverse and delete the whole tree
    {
       if (node != nullptr) // If the node is not null
       {
          deleteTree(node->left);  // Recurse on the left child
          deleteTree(node->right); // Recurse on the right child
-         remove(node);            // Delete the source node
+         delete node;
+      }
+      else
+      {
+         cout << "Binary Tree empty" << endl;
       }
    }
 
-   bool isEmpty(bool debug) // Returns if the tree is empty, with optional debugging logs
+   Node *getRoot()
+   {
+      return root;
+   }
+
+   bool isEmpty() // Returns if the tree is empty
    {
       if (root == nullptr) // If the root is not set
       {
-         if (debug) // If debugging is on
-         {
-            cout << "The tree is empty" << endl; // Log the tree is empty
-         }
          return true; // Return true
       }
       else // If the root is set
       {
-         if (debug) // If debugging is on
-         {
-            cout << "The tree is NOT empty" << endl; // Log the tree is populated
-         }
          return false; // Return false
       }
    }
@@ -157,7 +129,7 @@ public:
       }
    }
 
-   string search(string value) // Searches for a value in the binary tree
+   string search(string &value) // Searches for a value in the binary tree
    {
       Node *currNode = root;      // Pointer to the current node, set to root first
       while (currNode != nullptr) // While the current node exists

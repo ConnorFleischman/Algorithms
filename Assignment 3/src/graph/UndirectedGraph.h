@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <queue>
 
 using namespace std; // Globally used namespace (removes use of std::)
 
@@ -30,20 +31,21 @@ private:
 public:
    Graph() {} // Graph constructor
 
-   ~Graph() // Graph destructor
-   {
-      for (Vertex *vertex : vertices) // For every vertex in the graph
-      {
-         delete vertex; // Delete that vertex
-      }
-      vertices.clear(); // Clear vertices
-      cout << "Graph deleted" << endl;
-   }
+   // ~Graph() // Graph destructor
+   // {
+   //    for (Vertex *vertex : vertices) // For every vertex in the graph
+   //    {
+   //       delete vertex; // Delete that vertex
+   //    }
+   //    vertices.clear(); // Clear vertices
+   //    cout << "Graph deleted" << endl;
+   // }
 
    void insertVertex(string vertexID) // Insert a vertex into the graph by some ID
    {
       Vertex *newVertex = new Vertex(vertexID); // create new vertex
       vertices.push_back(newVertex);            // add new vertex to vertices
+      cout << "Vertex #" << vertexID << " created" << endl;
    }
 
    bool deleteVertex(string vertexID) // Delete a vertex from the graph by some ID
@@ -91,6 +93,7 @@ public:
       {
          vertexStart->neighbors.push_back(vertexEnd); // Update the starting vertex's neighbors list so that it has the ending vertex as a neighbor
          vertexEnd->neighbors.push_back(vertexStart); // Update the ending vertex's neighbors list so that it has the starting vertex as a neighbor
+         cout << "Edge created from vertex #" << vertexStartID << " to #" << vertexEndID << endl;
       }
       else // If either vertex does not exist
       {
@@ -131,7 +134,7 @@ public:
    {
       if (isEmpty()) // If the graph is empty
       {
-         cout << "Graph is empty" << endl;
+         cout << "Cannot display Adj List: Graph is empty" << endl;
          return;
       }
       else // If the graph is not empty
@@ -154,7 +157,7 @@ public:
    {
       if (isEmpty()) // If the graph is empty
       {
-         cout << "Graph is empty" << endl;
+         cout << "Cannot display Matrix: Graph is empty" << endl;
          return;
       }
       else // If the graph is not empty
@@ -197,17 +200,41 @@ public:
       }
    }
 
-   // string traverseDF() // Traverses over all vertices in depth-first order
-   // {
-   //    Vertex *currVertex; // Set a pointer to the first vertex
+   void traverseDF(Vertex *vertex) // Recursively traverses over all vertices in depth-first order
+   {
+      if (!vertex->processed) // If the vertex is not processed
+      {
+         cout << vertex->id + " "; // print vertex id
+         vertex->processed = true; // Set the processed flag true
+      }
+      for (Vertex *neighbor : vertex->neighbors) // For each neighbor of this vertex
+      {
+         if (!neighbor->processed) // If the neighbor is unprocessed
+         {
+            traverseDF(neighbor); // Recurs on the unprocessed neighbor
+         }
+      }
+   }
 
-   //    for (Vertex *vertex : vertices) // For every vertex in vertices
-   //    {
-   //       vertex->processed = false; // Set each vertex's processed flag to false
-   //    }
-   // }
+   void traverseBF(Vertex *vertex) // Traverses over all vertices in breadth-first order
+   {
+      queue<Vertex *> queue;    // Declare queue to maintain sequence order
+      queue.push(vertex);       // Push the current vertex to the queue
+      vertex->processed = true; // Set this vertex's processed flag to true
+      while (!queue.empty())    // While the queue is not empty
+      {
+         Vertex *currVertex = queue.front(); // Declare currVertex as the first vertex in the queue
+         queue.pop();                        // Pop the first vertex off the front of the queue
+         cout << currVertex->id + " ";       // print the current vertex's id
 
-   // string traverseBF() // Traverses over all vertices in breadth-first order
-   // {
-   // }
+         for (Vertex *neighbor : currVertex->neighbors) // For every one of the popped vertex's neighboring vertices
+         {
+            if (!neighbor->processed) // If the neighbor is not processed
+            {
+               queue.push(neighbor);       // Enqueue that neighbor
+               neighbor->processed = true; // Set that neighbors processed flag to true
+            }
+         }
+      }
+   }
 };

@@ -1,24 +1,29 @@
 // Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
-#pragma once // This ensures the contents of the file is exported once, stopping any redefinition errors
 
 #include "UndirectedGraph.h"
 
-// string depthFirstTraversal(Graph *graph) // Perform a depth-first traversal on the graph
-// {
-//    return graph->traverseDF(); // Returns the traverse function from "UndirectedGraph.h"
-// }
-
-// string breadthFirstTraversal(Graph *graph) // Perform a breadth-first traversal on the graph
-// {
-//    return graph->traverseBF(); // Returns the traverse function from "UndirectedGraph.h"
-// }
-
-void displayMatrix(Graph *graph) // Display the graph as a matrix
+void depthFirstTraversal(Graph &graph, string vertexStartID) // Perform a depth-first traversal on the graph starting at some vertex's ID
 {
-   graph->displayAsMatrix(); // Call the display function from "UndirectedGraph.h"
+   graph.traverseDF(graph.search(vertexStartID)); // Call the traverse function starting at vertex ID, from "UndirectedGraph.h"
 }
 
-void displayAdjacencyList(Graph *graph) // Display the graph as an adjacency list
+void breadthFirstTraversal(Graph &graph, string vertexStartID) // Perform a breadth-first traversal on the graph
 {
-   graph->displayAsAdjacencyList(); // Call the display function from "UndirectedGraph.h"
+   graph.traverseBF(graph.search(vertexStartID)); // Call the traverse function from "UndirectedGraph.h"
+}
+
+void displayMatrix(Graph &graph) // Display the graph as a matrix
+{
+   graph.displayAsMatrix(); // Call the display function from "UndirectedGraph.h"
+}
+
+void displayAdjacencyList(Graph &graph) // Display the graph as an adjacency list
+{
+   graph.displayAsAdjacencyList(); // Call the display function from "UndirectedGraph.h"
+}
+
+bool clearGraph(Graph &graph) // Empty the graph
+{
+   graph.clear();          // Call the empty function from "UndirectedGraph.h"
+   return graph.isEmpty(); // Return if the graph is empty or not
 }
