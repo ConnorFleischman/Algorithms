@@ -1,5 +1,6 @@
 // Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
-#pragma once // This ensures the contents of the file is exported once, stopping any redefinition errors
+#ifndef H_PARSE
+#define H_PARSE
 
 #include <iostream>
 #include <fstream>
@@ -92,3 +93,5 @@ vector<vector<string>> parseGraph() // Returns a vector of graphs, consisting of
    }
    return graphs; // Return the vector of vectors of strings
 }
+
+#endif

@@ -1,5 +1,6 @@
 // Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
-#pragma once // This ensures the contents of the file is exported once, stopping any redefinition errors
+#ifndef H_UNDIRECTEDGRAPH
+#define H_UNDIRECTEDGRAPH
 
 #include <iostream>
 #include <fstream>
@@ -16,7 +17,7 @@ public:
    bool processed;             // Identifies the processed flag for this vertex
    vector<Vertex *> neighbors; // Identifies the list of neighbors of this vertex
 
-   Vertex(string idValue) // When a vertex is constructed
+   Vertex(string &idValue) // When a vertex is constructed
    {
       this->id = idValue;      // Set this vertex's id to some given value
       this->processed = false; // Set this vertex's processed flag to false
@@ -28,27 +29,66 @@ class Graph // Defines the Graph class
 private:
    vector<Vertex *> vertices; // Vertices is a list of the vertices in the graph
 
+   // Made traversal functions private, only accessible through traverse method
+   void traverseDF(Vertex *vertex) // Recursively traverses over all vertices in depth-first order
+   {
+      if (!vertex->processed) // If the vertex is not processed
+      {
+         cout << vertex->id << " "; // print vertex id
+         vertex->processed = true;  // Set the processed flag true
+      }
+      for (Vertex *neighbor : vertex->neighbors) // For each neighbor of this vertex
+      {
+         if (!neighbor->processed) // If the neighbor is unprocessed
+         {
+            traverseDF(neighbor); // Recurs on the unprocessed neighbor
+         }
+      }
+   }
+
+   void traverseBF(Vertex *vertex) // Traverses over all vertices in breadth-first order
+   {
+      queue<Vertex *> queue;    // Declare queue to maintain sequence order
+      queue.push(vertex);       // Push the current vertex to the queue
+      vertex->processed = true; // Set this vertex's processed flag to true
+      while (!queue.empty())    // While the queue is not empty
+      {
+         Vertex *currVertex = queue.front(); // Declare currVertex as the first vertex in the queue
+         queue.pop();                        // Pop the first vertex off the front of the queue
+         cout << currVertex->id << " ";      // print the current vertex's id
+
+         for (Vertex *neighbor : currVertex->neighbors) // For every one of the popped vertex's neighboring vertices
+         {
+            if (!neighbor->processed) // If the neighbor is not processed
+            {
+               queue.push(neighbor);       // Enqueue that neighbor
+               neighbor->processed = true; // Set that neighbors processed flag to true
+            }
+         }
+      }
+   }
+
 public:
    Graph() {} // Graph constructor
 
-   // ~Graph() // Graph destructor
-   // {
-   //    for (Vertex *vertex : vertices) // For every vertex in the graph
-   //    {
-   //       delete vertex; // Delete that vertex
-   //    }
-   //    vertices.clear(); // Clear vertices
-   //    cout << "Graph deleted" << endl;
-   // }
+   ~Graph() // Graph destructor
+   {
+      for (Vertex *vertex : vertices) // For every vertex in the graph
+      {
+         deleteVertex(vertex->id); // Delete that vertex
+      }
+      vertices.clear(); // Clear vertices
+      cout << "Graph deleted" << endl;
+   }
 
-   void insertVertex(string vertexID) // Insert a vertex into the graph by some ID
+   void insertVertex(string &vertexID) // Insert a vertex into the graph by some ID
    {
       Vertex *newVertex = new Vertex(vertexID); // create new vertex
       vertices.push_back(newVertex);            // add new vertex to vertices
       cout << "Vertex #" << vertexID << " created" << endl;
    }
 
-   bool deleteVertex(string vertexID) // Delete a vertex from the graph by some ID
+   bool deleteVertex(string &vertexID) // Delete a vertex from the graph by some ID
    {
       if (isEmpty()) // If the graph is empty
       {
@@ -84,7 +124,7 @@ public:
       }
    }
 
-   void insertEdge(string vertexStartID, string vertexEndID) // Insert an edge between two vertex IDs
+   void insertEdge(string &vertexStartID, string &vertexEndID) // Insert an edge between two vertex IDs
    {
       Vertex *vertexStart = search(vertexStartID); // Search for the starting vertex by its ID
       Vertex *vertexEnd = search(vertexEndID);     // Search for the ending vertex by its ID
@@ -97,11 +137,19 @@ public:
       }
       else // If either vertex does not exist
       {
-         cout << "Cannot insert edge from Vertex: " + vertexStartID + " to Vertex: " + vertexEndID << endl;
+         if (vertexStart == nullptr) // If the start vertex does not exist
+         {
+            cout << "Error: Vertex #" << vertexStartID << " does not exist" << endl;
+         }
+         if (vertexEnd == nullptr) // If the end vertex does not exist
+         {
+            cout << "Error: Vertex #" << vertexEndID << " does not exist" << endl;
+         }
+         cout << "Cannot insert edge from Vertex: " << vertexStartID << " to Vertex: " << vertexEndID << endl;
       }
    }
 
-   Vertex *search(string vertexID) // Search for a vertex in the graph by its ID (string), return the Vertex, if found, or null, if not
+   Vertex *search(string &vertexID) // Search for a vertex in the graph by its ID (string), return the Vertex, if found, or null, if not
    {
       for (Vertex *vertex : vertices) // For every vertex in the graph
       {
@@ -200,41 +248,18 @@ public:
       }
    }
 
-   void traverseDF(Vertex *vertex) // Recursively traverses over all vertices in depth-first order
+   void traverse(string type, Vertex *start) // Traverse, using some method, from some starting position
    {
-      if (!vertex->processed) // If the vertex is not processed
+      if (type == "depth") // If the type specified is depth
       {
-         cout << vertex->id + " "; // print vertex id
-         vertex->processed = true; // Set the processed flag true
+         traverseDF(start); // Perform a depth-first search
       }
-      for (Vertex *neighbor : vertex->neighbors) // For each neighbor of this vertex
-      {
-         if (!neighbor->processed) // If the neighbor is unprocessed
-         {
-            traverseDF(neighbor); // Recurs on the unprocessed neighbor
-         }
-      }
-   }
 
-   void traverseBF(Vertex *vertex) // Traverses over all vertices in breadth-first order
-   {
-      queue<Vertex *> queue;    // Declare queue to maintain sequence order
-      queue.push(vertex);       // Push the current vertex to the queue
-      vertex->processed = true; // Set this vertex's processed flag to true
-      while (!queue.empty())    // While the queue is not empty
+      if (type == "breadth") // If the type specified is breadth
       {
-         Vertex *currVertex = queue.front(); // Declare currVertex as the first vertex in the queue
-         queue.pop();                        // Pop the first vertex off the front of the queue
-         cout << currVertex->id + " ";       // print the current vertex's id
-
-         for (Vertex *neighbor : currVertex->neighbors) // For every one of the popped vertex's neighboring vertices
-         {
-            if (!neighbor->processed) // If the neighbor is not processed
-            {
-               queue.push(neighbor);       // Enqueue that neighbor
-               neighbor->processed = true; // Set that neighbors processed flag to true
-            }
-         }
+         traverseBF(start); // Perform a breadth-first search
       }
    }
 };
+
+#endif

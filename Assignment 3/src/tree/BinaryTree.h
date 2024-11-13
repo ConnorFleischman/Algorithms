@@ -1,5 +1,6 @@
 // Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
-#pragma once // This ensures the contents of the file is exported once, stopping any redefinition errors
+#ifndef H_BINARYTREE
+#define H_BINARYTREE
 
 #include <iostream>
 #include <fstream>
@@ -10,15 +11,15 @@ using namespace std; // Globally used namespace (removes use of std::)
 class Node // Defines a Node
 {
 public:
-   string data; // Identifies the data section of the parent node
+   string id;   // Identifies the id section of the parent node
    string path; // Identifies the path from root to this node
    Node *left;  // Identifies the pointer to the left child leaf node
    Node *right; // Identifies the pointer to the right child leaf node
 
-   Node(string &value) // When a node is constructed
+   Node(string &nodeID) // When a node is constructed
    {
-      this->data = value; // Set this node's data to some value
-      this->path = "";    // Set this node's path to an empty string
+      this->id = nodeID; // Set this node's id to some nodeID
+      this->path = "";   // Set this node's path to an empty string
    }
 };
 
@@ -32,22 +33,16 @@ public:
       root = nullptr; // Set this tree's root to null
    }
 
-   void insert(string &value) // Inserts a new node
+   void insert(string &nodeID) // Inserts a new node
    {
-      if (root == nullptr) // If the root is not set
+      if (root != nullptr) // If the root is set
       {
-         root = new Node(value);                                               // Set this value as the root
-         root->path = "Root";                                                  // Set it's path as root
-         cout << "Inserted node: " + value + " | Path: " + root->path << endl; // Record insertion
-      }
-      else // If there is a root
-      {
-         Node *currNode = root;           // Pointer to the current node, set to root first
-         Node *newNode = new Node(value); // Create a new node with the given value
-         newNode->path += "Root -> ";     // Begin its path
-         while (currNode != nullptr)      // Loop created to traverse tree
+         Node *currNode = root;            // Pointer to the current node, set to root first
+         Node *newNode = new Node(nodeID); // Create a new node with the given nodeID
+         newNode->path += "Root -> ";      // Begin its path
+         while (currNode != nullptr)       // Loop created to traverse tree
          {
-            if (newNode->data < currNode->data) // If the node to be inserted is less than the current node
+            if (newNode->id < currNode->id) // If the node to be inserted is less than the current node
             {
                newNode->path += "L -> ";      // Add to its path
                if (currNode->left == nullptr) // If the current node's left child is not set
@@ -76,8 +71,14 @@ public:
                }
             }
          }
-         // Once the value has found its place
-         cout << "Inserted node: " + value + " | Path: " + newNode->path << endl; // Record insertion
+         // Once the node has found its place
+         cout << "Inserted node: " << nodeID << " | Path: " << newNode->path << endl; // Record insertion
+      }
+      else // If there is no root
+      {
+         root = new Node(nodeID);                                                    // Set this nodeID as the root
+         root->path = "Root";                                                        // Set it's path as root
+         cout << "Inserted node: " << root->id << " | Path: " << root->path << endl; // Record insertion
       }
    }
 
@@ -95,7 +96,7 @@ public:
       }
    }
 
-   Node *getRoot()
+   Node *getRoot() // Returns the pointer to the root node to be used elsewhere
    {
       return root;
    }
@@ -124,25 +125,25 @@ public:
       if (currNode != nullptr) // If the current node is not null
       {
          recurseTraverse(currNode->left);  // Recurse with the current node's left child (until null)
-         cout << currNode->data << ", ";   // Print the node who's left child is null
+         cout << currNode->id << ", ";     // Print the node who's left child is null
          recurseTraverse(currNode->right); // Recurse with that nodes right child (until null)
       }
    }
 
-   string search(string &value) // Searches for a value in the binary tree
+   string search(string &nodeID) // Searches for a nodeID in the binary tree
    {
       Node *currNode = root;      // Pointer to the current node, set to root first
       while (currNode != nullptr) // While the current node exists
       {
-         if (value == currNode->data) // If the value to be found is equal to the current node's data
+         if (nodeID == currNode->id) // If the nodeID to be found is equal to the current node's id
          {
             return currNode->path; // Return that the node was found at it's path
          }
-         else if (value < currNode->data) // If the value is less than the current
+         else if (nodeID < currNode->id) // If the nodeID is less than the current
          {
             currNode = currNode->left; // Set the new current node to the old's left child
          }
-         else // If the value is greater than the current
+         else // If the nodeID is greater than the current
          {
             currNode = currNode->right; // Set the new current node to the old's right child
          }
@@ -150,3 +151,5 @@ public:
       return "Node not found"; // If the node is not found, return and log not found
    }
 };
+
+#endif

@@ -1,15 +1,37 @@
 // Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
+#ifndef H_USEGRAPH
+#define H_USEGRAPH
 
 #include "UndirectedGraph.h"
 
-void depthFirstTraversal(Graph &graph, string vertexStartID) // Perform a depth-first traversal on the graph starting at some vertex's ID
+// Graph mutation:
+void insertVertex(string &vertexID, Graph &graph)
 {
-   graph.traverseDF(graph.search(vertexStartID)); // Call the traverse function starting at vertex ID, from "UndirectedGraph.h"
+   graph.insertVertex(vertexID);
 }
 
-void breadthFirstTraversal(Graph &graph, string vertexStartID) // Perform a breadth-first traversal on the graph
+void insertEdge(string &startID, string &endID, Graph &graph)
 {
-   graph.traverseBF(graph.search(vertexStartID)); // Call the traverse function from "UndirectedGraph.h"
+   graph.insertEdge(startID, endID);
+}
+
+bool clearGraph(Graph &graph) // Empty the graph
+{
+   graph.clear();          // Call the empty function from "UndirectedGraph.h"
+   return graph.isEmpty(); // Return if the graph is empty or not
+}
+
+// Graph display:
+void depthFirstTraversal(string vertexStartID, Graph &graph) // Perform a depth-first traversal on the graph starting at some vertex's ID
+{
+   graph.traverse("depth", graph.search(vertexStartID)); // Call the traverse function starting at vertex ID, from "UndirectedGraph.h"
+   cout << endl;
+}
+
+void breadthFirstTraversal(string vertexStartID, Graph &graph) // Perform a breadth-first traversal on the graph
+{
+   graph.traverse("breadth", graph.search(vertexStartID)); // Call the traverse function from "UndirectedGraph.h"
+   cout << endl;
 }
 
 void displayMatrix(Graph &graph) // Display the graph as a matrix
@@ -22,8 +44,4 @@ void displayAdjacencyList(Graph &graph) // Display the graph as an adjacency lis
    graph.displayAsAdjacencyList(); // Call the display function from "UndirectedGraph.h"
 }
 
-bool clearGraph(Graph &graph) // Empty the graph
-{
-   graph.clear();          // Call the empty function from "UndirectedGraph.h"
-   return graph.isEmpty(); // Return if the graph is empty or not
-}
+#endif
