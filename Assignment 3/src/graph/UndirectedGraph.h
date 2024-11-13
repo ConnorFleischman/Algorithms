@@ -1,4 +1,5 @@
 // Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
+#pragma once // This ensures the contents of the file is exported once, stopping any redefinition errors
 
 #include <iostream>
 #include <fstream>
@@ -29,6 +30,16 @@ private:
 public:
    Graph() {} // Graph constructor
 
+   ~Graph() // Graph destructor
+   {
+      for (Vertex *vertex : vertices) // For every vertex in the graph
+      {
+         delete vertex; // Delete that vertex
+      }
+      vertices.clear(); // Clear vertices
+      cout << "Graph deleted" << endl;
+   }
+
    void insertVertex(string vertexID) // Insert a vertex into the graph by some ID
    {
       Vertex *newVertex = new Vertex(vertexID); // create new vertex
@@ -37,7 +48,12 @@ public:
 
    bool deleteVertex(string vertexID) // Delete a vertex from the graph by some ID
    {
-      if (!isEmpty()) // If the graph is not empty
+      if (isEmpty()) // If the graph is empty
+      {
+         cout << "Cannot delete from an empty Graph" << endl;
+         return false;
+      }
+      else // If the graph is not empty
       {
          for (int i = 0; i < vertices.size(); i++) // For every vertex in the graph
          {
@@ -64,11 +80,6 @@ public:
          cout << "Vertex not found" << endl;
          return false;
       }
-      else // If the graph is empty
-      {
-         cout << "Cannot delete from an empty Graph" << endl;
-         return false;
-      }
    }
 
    void insertEdge(string vertexStartID, string vertexEndID) // Insert an edge between two vertex IDs
@@ -80,6 +91,10 @@ public:
       {
          vertexStart->neighbors.push_back(vertexEnd); // Update the starting vertex's neighbors list so that it has the ending vertex as a neighbor
          vertexEnd->neighbors.push_back(vertexStart); // Update the ending vertex's neighbors list so that it has the starting vertex as a neighbor
+      }
+      else // If either vertex does not exist
+      {
+         cout << "Cannot insert edge from Vertex: " + vertexStartID + " to Vertex: " + vertexEndID << endl;
       }
    }
 
@@ -181,4 +196,18 @@ public:
          }
       }
    }
+
+   // string traverseDF() // Traverses over all vertices in depth-first order
+   // {
+   //    Vertex *currVertex; // Set a pointer to the first vertex
+
+   //    for (Vertex *vertex : vertices) // For every vertex in vertices
+   //    {
+   //       vertex->processed = false; // Set each vertex's processed flag to false
+   //    }
+   // }
+
+   // string traverseBF() // Traverses over all vertices in breadth-first order
+   // {
+   // }
 };

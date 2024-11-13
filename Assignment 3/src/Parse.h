@@ -1,4 +1,5 @@
 // Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
+#pragma once // This ensures the contents of the file is exported once, stopping any redefinition errors
 
 #include <iostream>
 #include <fstream>

@@ -1,4 +1,5 @@
 // Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
+#pragma once // This ensures the contents of the file is exported once, stopping any redefinition errors
 
 #include "./tree/BinaryTree.h"
 #include "./graph/UndirectedGraph.h"
@@ -7,51 +8,48 @@
 
 vector<string> buildLines() // Returns the magic items in a vector of strings
 {
-   vector<string> lines = parseItems(); // Fill lines with the magic items
-   return lines;                        // Return the vector lines
+   return parseItems();
 }
 
 vector<string> buildKeys() // Returns the keys in a vector of strings
 {
-   vector<string> keys = parseKeys(); // Fill keys with the magic item keys
-   return keys;                       // Return the vector keys
-}
-
-BinaryTree buildTree(vector<string> lines, BinaryTree tree) // Builds and returns a tree made of lines into the tree
-{
-   for (string line : lines) // For every line in lines
-   {
-      tree.insert(line); // Insert each line into the tree
-   }
-   return tree; // Return the tree
+   return parseKeys();
 }
 
 vector<vector<string>> buildInstructions() // Returns the instructions to build all graphs in a vector of vectors of strings
 {
-   vector<vector<string>> instructions = parseGraph(); // Fill the lines with the parsed graph blueprint
-   return instructions;                                // Return the vector of lines
+   return parseGraph();
 }
 
-Graph buildGraph(vector<string> graphInstructions, Graph graph) // Given the instructions for one graph, build and return that graph
+BinaryTree *buildTree(vector<string> lines, BinaryTree *tree) // Builds and returns a tree made of lines into the tree
+{
+   for (string line : lines) // For every line in lines
+   {
+      tree->insert(line); // Insert each line into the tree
+   }
+   return tree; // Return the tree
+}
+
+Graph *buildGraph(vector<string> graphInstructions, Graph *graph) // Given the instructions for one graph, build and return that graph
 {
    for (string instruction : graphInstructions) // For every instruction in the vector of instructions
    {
-      std::istringstream inst(instruction);              // Break the string into individual words
-      std::string firstWord, secondWord, remainingWords; // Declare both firstWord and secondWord as strings and remainingWords as a string
-      inst >> firstWord >> secondWord;                   // Read the first two words to these strings
-      getline(inst, remainingWords);                     // Read the remaining words to the string
+      istringstream inst(instruction);    // Break the instruction into individual words
+      string identifier, opcode, operand; // Declare both identifier and opcode as strings and operand as a string
+      inst >> identifier >> opcode;       // Read the first two words to these strings
+      getline(inst, operand);             // Read the remaining words to the string
 
-      if (secondWord == "vertex") // If the second word in the instruction is vertex
+      if (opcode == "vertex") // If the opcode is vertex
       {
-         // add a vertex with id to the graph at remainingWords
+         graph->insertVertex(operand); // add a vertex with id: operand to the graph
       }
-      else if (secondWord == "edge") // If the second word in the instruction is edge
+      else if (opcode == "edge") // If the opcode is edge
       {
-         // add a edge from v1 - v2, in remainingWords
-      }
-      else // If the second word in the instruction does not exist
-      {
-         // edge case
+         istringstream edge(operand); // Break the operand into individual words
+         string v1, bridge, v2;       // Declare the vertices being connected and the connection symbol
+         edge >> v1 >> bridge >> v2;  // Read the first three words to these strings
+         graph->insertEdge(v1, v2);   // add a edge from v1 - v2
       }
    }
+   return graph;
 }

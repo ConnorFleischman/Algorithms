@@ -1,4 +1,5 @@
 // Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
+#pragma once // This ensures the contents of the file is exported once, stopping any redefinition errors
 
 #include <iostream>
 #include <fstream>
@@ -16,10 +17,8 @@ public:
 
    Node(string value) // When a node is constructed
    {
-      this->data = value;    // Set this node's data to some value
-      this->path = "";       // Set this node's path to an empty string
-      this->left = nullptr;  // Set this node's left child to null
-      this->right = nullptr; // Set this node's right child to null
+      this->data = value; // Set this node's data to some value
+      this->path = "";    // Set this node's path to an empty string
    }
 };
 
@@ -28,9 +27,15 @@ class BinaryTree // Defines a Binary Tree
 private:
    Node *root; // Pointer to the root node
 public:
-   BinaryTree() // When a Binary Tree is constructed
+   BinaryTree() // Binary Tree constructor
    {
       root = nullptr; // Set this tree's root to null
+   }
+
+   ~BinaryTree() // Binary Tree destructor
+   {
+      deleteTree(root); // Delete the tree starting at the root node and recursing through the whole tree
+      cout << "Binary Tree deleted" << endl;
    }
 
    void insert(string value) // Inserts a new node
@@ -82,16 +87,19 @@ public:
       }
    }
 
-   string remove(string value) // Remove a specific node, return that nodes path
+   string remove(Node *node) // Remove a specific node, return that nodes path
    {
-      Node *currNode = root;  // Pointer to the current node, set to root first
-      while (!isEmpty(false)) // Loop created to traverse tree if tree is not empty
+      Node *currNode = root;      // Pointer to the current node, set to root first
+      while (currNode != nullptr) // Loop created to traverse tree if tree is not empty
       {
-         if (value == currNode->data) // If the value is equal to the current node's data
+         if (node->data == currNode->data) // If the value is equal to the current node's data
          {
-            return currNode->path; // Return the current node's path and break from the loop
+            string path = node->path; // Temp variable for path storage
+            delete node;              // Delete the node
+            delete currNode;          // Delete the helper node
+            return path;              // Return the current node's path and break from the loop
          }
-         else if (value < currNode->data) // If the value is less than the current's data
+         else if (node->data < currNode->data) // If the value is less than the current's data
          {
             currNode = currNode->left; // Set the current to that nodes left child and loop
          }
@@ -99,6 +107,16 @@ public:
          {
             currNode = currNode->right; // Set the current to that nodes right child and loop
          }
+      }
+   }
+
+   void deleteTree(Node *node) // Delete the tree using recursion to traverse and delete the whole tree
+   {
+      if (node != nullptr) // If the node is not null
+      {
+         deleteTree(node->left);  // Recurse on the left child
+         deleteTree(node->right); // Recurse on the right child
+         remove(node);            // Delete the source node
       }
    }
 

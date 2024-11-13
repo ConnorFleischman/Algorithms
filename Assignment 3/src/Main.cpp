@@ -6,28 +6,35 @@
 
 using namespace std; // Globally used namespace (removes use of std::)
 
-// Globally used variables
-BinaryTree tree; // Declare globally used binary tree 'tree'
-Graph graph;     // Declare globally used undirected graph 'graph'
-
-int main()
+void interactGraph(Graph *graph)
 {
-   for (vector<string> graphInstructions : buildInstructions())
+   for (vector<string> graphInstructions : buildInstructions()) // For every graph in the blueprint
    {
-      graph = buildGraph(graphInstructions, graph);
-      displayMatrix(graph);
-      displayAdjacencyList(graph);
-      // perform depth-first and breadth-first traversals printing all vertex IDs in the order traveled
+      graph = buildGraph(graphInstructions, graph); // Build that graph using the instructions
+      displayMatrix(graph);                         // Display that graph as a matrix
+      displayAdjacencyList(graph);                  // Display that graph as an adjacency list
+      // depthFirstTraversal(graph);                   // Perform a depth-first traversal of the graph
+      // breadthFirstTraversal(graph);                 // Perform a breadth-first traversal of the graph
    }
-   cout << "---------------------------------------------------------------------------------" << endl;
-   tree = buildTree(buildLines(), tree); // Fill tree with the magic items
-   cout << "---------------------------------------------------------------------------------" << endl;
+}
+
+void interactTree(BinaryTree *tree)
+{
+   vector<string> lines = buildLines();
+   tree = buildTree(lines, tree); // Fill tree with the magic items
    inOrderTraversal(tree);
-   cout << "---------------------------------------------------------------------------------" << endl;
    for (const string key : buildKeys())
    {
       cout << "Key: " + key + " | Located: " + keyLookUp(key, tree) << endl;
    }
-   cout << "---------------------------------------------------------------------------------" << endl;
-   return 0;
+}
+
+int main() // Declares main running sequence for the program
+{
+   Graph *graph;     // Declare globally used undirected graph 'graph'
+   BinaryTree *tree; // Declare globally used binary tree 'tree'
+
+   // interactGraph(graph);
+   interactTree(tree);
+   return 0; // Destructors automatically called
 }
