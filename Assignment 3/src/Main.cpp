@@ -8,9 +8,18 @@ using namespace std; // Globally used namespace (removes use of std::)
 
 // Globally used variables
 BinaryTree tree; // Declare globally used binary tree 'tree'
+Graph graph;     // Declare globally used undirected graph 'graph'
 
 int main()
 {
+   for (vector<string> graphInstructions : buildInstructions())
+   {
+      graph = buildGraph(graphInstructions, graph);
+      displayMatrix(graph);
+      displayAdjacencyList(graph);
+      // perform depth-first and breadth-first traversals printing all vertex IDs in the order traveled
+   }
+   cout << "---------------------------------------------------------------------------------" << endl;
    tree = buildTree(buildLines(), tree); // Fill tree with the magic items
    cout << "---------------------------------------------------------------------------------" << endl;
    inOrderTraversal(tree);

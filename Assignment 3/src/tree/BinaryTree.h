@@ -6,7 +6,7 @@
 
 using namespace std; // Globally used namespace (removes use of std::)
 
-class Node
+class Node // Defines a Node
 {
 public:
    string data; // Identifies the data section of the parent node
@@ -23,7 +23,7 @@ public:
    }
 };
 
-class BinaryTree
+class BinaryTree // Defines a Binary Tree
 {
 private:
    Node *root; // Pointer to the root node
@@ -43,10 +43,10 @@ public:
       }
       else // If there is a root
       {
-         Node *currNode = root; // Pointer to the current node, set to root first
-         Node *newNode = new Node(value);
-         newNode->path += "Root -> ";
-         while (currNode != nullptr) // Loop created to traverse tree
+         Node *currNode = root;           // Pointer to the current node, set to root first
+         Node *newNode = new Node(value); // Create a new node with the given value
+         newNode->path += "Root -> ";     // Begin its path
+         while (currNode != nullptr)      // Loop created to traverse tree
          {
             if (newNode->data < currNode->data) // If the node to be inserted is less than the current node
             {
