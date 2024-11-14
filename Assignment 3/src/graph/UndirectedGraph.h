@@ -3,6 +3,7 @@
 #define H_UNDIRECTEDGRAPH
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <string>
@@ -167,7 +168,7 @@ public:
       return vertices.empty();
    }
 
-   bool clear() // Empties the graph
+   void clear() // Empties the graph
    {
       for (Vertex *vertex : vertices) // For every vertex in the graph
       {
@@ -175,7 +176,6 @@ public:
       }
       vertices.clear(); // Clear the vector of vertices, vertices
       cout << "Graph emptied" << endl;
-      return isEmpty(); // Return if the graph is empty
    }
 
    void displayAsAdjacencyList() // Method to display the graph as an Adjacency List
@@ -188,7 +188,6 @@ public:
       else // If the graph is not empty
       {
          cout << "Adjacency List:" << endl;
-         cout << "---------------------------------------" << endl;
          for (Vertex *vertex : vertices) // For every vertex in the graph
          {
             cout << "[" << vertex->id << "]: ";        // Display that vertex
@@ -198,6 +197,7 @@ public:
             }
             cout << endl; // Once all neighbors are displayed, new line, move to next vertex
          }
+         cout << "---------------------------------------" << endl;
       }
    }
 
@@ -211,19 +211,21 @@ public:
       else // If the graph is not empty
       {
          cout << "Matrix:" << endl;
-         cout << "---------------------------------------" << endl;
-         cout << "";
+         cout << setw(4) << "";
+
          // Column display
          for (int i = 0; i < vertices.size(); i++) // For every element in vertices
          {
-            cout << "[" << vertices[i]->id << "] "; // Display that vertex (col header)
+            cout << setw(3) << vertices[i]->id; // Display that vertex (col header)
          }
          cout << endl;
+         cout << string(((vertices.size() + 2) * 3), '_') << endl; // Display a line of '_' as long as the number of nodes
+
          // Row display
          for (int i = 0; i < vertices.size(); i++)
          {
-            cout << "[" << vertices[i]->id << "] |";  // Display that vertex (row header)
-            for (int j = 0; j < vertices.size(); j++) // For every element in vertices
+            cout << setw(3) << vertices[i]->id << "|"; // Display that vertex (row header)
+            for (int j = 0; j < vertices.size(); j++)  // For every element in vertices
             {
                bool isNeighbor = false;                        // Flag to record if a row's vertex has some col as a neighbor
                for (Vertex *neighbor : vertices[i]->neighbors) // For every neighbor in the current vertex(col)'s neighbors
@@ -236,28 +238,39 @@ public:
                }
                if (isNeighbor) // If the col/row intersect shows that the vertexes at those positions are neighbors
                {
-                  cout << 'X'; // Record that there is an edge between these two vertices
+                  cout << setw(3) << 'X'; // Record that there is an edge between these two vertices
                }
                else // If no neighbor exists at the col/row intersection
                {
-                  cout << '-'; // Record that no edge exists between these two vertices
+                  cout << setw(3) << '-'; // Record that no edge exists between these two vertices
                }
             }
             cout << endl; // End this row, go to the next row
          }
+         cout << "---------------------------------------" << endl;
       }
    }
 
-   void traverse(string type, Vertex *start) // Traverse, using some method, from some starting position
+   void traverse(string type) // Traverse, using some method
    {
-      if (type == "depth") // If the type specified is depth
+      for (Vertex *vertex : vertices) // Before every traversal, for every vertex in vertices
       {
-         traverseDF(start); // Perform a depth-first search
+         vertex->processed = false; // Set that vertex's processed flag to false
       }
-
-      if (type == "breadth") // If the type specified is breadth
+      for (Vertex *vertex : vertices) // For every vertex in vertices
       {
-         traverseBF(start); // Perform a breadth-first search
+         if (!vertex->processed) // If the vertex is unprocessed
+         {
+            if (type == "depth") // If the type specified is depth
+            {
+               traverseDF(vertex); // Perform a depth-first search
+            }
+
+            if (type == "breadth") // If the type specified is breadth
+            {
+               traverseBF(vertex); // Perform a breadth-first search
+            }
+         }
       }
    }
 };

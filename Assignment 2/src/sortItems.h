@@ -1,6 +1,5 @@
 #include <fstream>
 #include <vector>
-#include <algorithm>
 
 using namespace std; // Declaring the name space to use std::_
 

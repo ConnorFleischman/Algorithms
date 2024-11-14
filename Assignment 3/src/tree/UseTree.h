@@ -22,7 +22,7 @@ void inOrderTraversal(BinaryTree &tree) // Perform an in-order traversal over th
    tree.traverse(); // Call the traverse function from "BinaryTree.h"
 }
 
-string keyLookUp(string &key, BinaryTree &tree) // Look-up a specific keep in the tree
+pair<string, int> keyLookUp(string &key, BinaryTree &tree) // Look-up a specific keep in the tree
 {
    return tree.search(key); // Return the result from the search of some key in the tree from "BinaryTree.h"
 }

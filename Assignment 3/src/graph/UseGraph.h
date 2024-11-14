@@ -15,23 +15,24 @@ void insertEdge(string &startID, string &endID, Graph &graph)
    graph.insertEdge(startID, endID);
 }
 
-bool clearGraph(Graph &graph) // Empty the graph
+void clearGraph(Graph &graph) // Empty the graph
 {
-   graph.clear();          // Call the empty function from "UndirectedGraph.h"
-   return graph.isEmpty(); // Return if the graph is empty or not
+   graph.clear(); // Call the empty function from "UndirectedGraph.h"
 }
 
 // Graph display:
-void depthFirstTraversal(string vertexStartID, Graph &graph) // Perform a depth-first traversal on the graph starting at some vertex's ID
+void depthFirstTraversal(Graph &graph) // Perform a depth-first traversal on the graph starting at some vertex's ID
 {
-   graph.traverse("depth", graph.search(vertexStartID)); // Call the traverse function starting at vertex ID, from "UndirectedGraph.h"
+   graph.traverse("depth"); // Call the traverse function starting at vertex ID, from "UndirectedGraph.h"
    cout << endl;
+   cout << "---------------------------------------" << endl;
 }
 
-void breadthFirstTraversal(string vertexStartID, Graph &graph) // Perform a breadth-first traversal on the graph
+void breadthFirstTraversal(Graph &graph) // Perform a breadth-first traversal on the graph
 {
-   graph.traverse("breadth", graph.search(vertexStartID)); // Call the traverse function from "UndirectedGraph.h"
+   graph.traverse("breadth"); // Call the traverse function from "UndirectedGraph.h"
    cout << endl;
+   cout << "---------------------------------------" << endl;
 }
 
 void displayMatrix(Graph &graph) // Display the graph as a matrix

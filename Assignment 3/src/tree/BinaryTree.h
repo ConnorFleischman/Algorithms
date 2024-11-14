@@ -130,25 +130,29 @@ public:
       }
    }
 
-   string search(string &nodeID) // Searches for a nodeID in the binary tree
+   pair<string, int> search(string &nodeID) // Searches for a nodeID in the binary tree
    {
+      int numComparisons = 0;     // Defines and declares numComparisons as 0
       Node *currNode = root;      // Pointer to the current node, set to root first
       while (currNode != nullptr) // While the current node exists
       {
          if (nodeID == currNode->id) // If the nodeID to be found is equal to the current node's id
          {
-            return currNode->path; // Return that the node was found at it's path
+            numComparisons++;                                 // Increment numComparisons for comparison
+            return make_pair(currNode->path, numComparisons); // Return that the node was found at it's path
          }
          else if (nodeID < currNode->id) // If the nodeID is less than the current
          {
+            numComparisons++;          // Increment numComparisons for comparison
             currNode = currNode->left; // Set the new current node to the old's left child
          }
          else // If the nodeID is greater than the current
          {
+            numComparisons++;           // Increment numComparisons for comparison
             currNode = currNode->right; // Set the new current node to the old's right child
          }
       }
-      return "Node not found"; // If the node is not found, return and log not found
+      return make_pair("Node not found", numComparisons); // If the node is not found, return and log not found
    }
 };
 

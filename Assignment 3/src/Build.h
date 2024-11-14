@@ -15,10 +15,8 @@ vector<vector<string>> buildInstructions() // Returns the instructions to build 
    return parseGraph(); // Call the parse function from "Parse.h"
 }
 
-string buildGraph(vector<string> &graphInstructions, Graph &graph) // Given the instructions for one graph, build that graph and return its first vertex's id
+void buildGraph(vector<string> &graphInstructions, Graph &graph) // Given the instructions for one graph, build that graph and return its first vertex's id
 {
-   bool returnFlag = false;                      // Flag to record if first vertex has been recorded
-   string firstVertexID;                         // Variable to hold the first vertex's ID
    for (string &instruction : graphInstructions) // For every instruction in the vector of instructions
    {
       istringstream inst(instruction);    // Break the instruction into individual words
@@ -28,16 +26,10 @@ string buildGraph(vector<string> &graphInstructions, Graph &graph) // Given the 
 
       if (opcode == "vertex") // If the opcode is vertex
       {
-         if (!returnFlag)
-         {
-            istringstream vID(operand);
-            string num;
-            vID >> num;
-            firstVertexID = num;     // Set the placeholder
-            graph.insertVertex(num); // add a vertex with id: operand to the graph
-            returnFlag = true;       // Set the flag
-         }
-         graph.insertVertex(operand); // add a vertex with id: operand to the graph
+         istringstream vID(operand); // Break the operand into just the string, no white-space
+         string num;                 // Declare num as a string
+         vID >> num;                 // Read the vertex ID from the operand
+         graph.insertVertex(num);    // add a vertex with id: num to the graph
       }
       if (opcode == "edge") // If the opcode is edge
       {
@@ -47,7 +39,6 @@ string buildGraph(vector<string> &graphInstructions, Graph &graph) // Given the 
          graph.insertEdge(v1, v2);    // add a edge from v1 - v2
       }
    }
-   return firstVertexID;
 }
 
 // Tree build functions:
@@ -61,7 +52,7 @@ vector<string> buildKeys() // Returns the keys in a vector of strings
    return parseKeys(); // Call the parse function from "Parse.h"
 }
 
-void buildTree(vector<string> &items, BinaryTree &tree) // Builds a tree made of magic items
+void buildTree(vector<string> items, BinaryTree &tree) // Builds a tree made of magic items
 {
    for (string &item : items) // For every item in items
    {
