@@ -30,7 +30,7 @@ vector<string> parseItems() // Fills lines with the items in file: magicItems.tx
    return lines; // Return the vector of strings
 }
 
-vector<string> parseKeys() // Fill keys with the items in file: magicitems-find-in-bst.txt
+vector<string> parseKeys() // Fill keys with the keys in file: magicitems-find-in-bst.txt
 {
    vector<string> lines;                                     // Declare vector of strings 'lines'
    ifstream file("./tree/input/magicitems-find-in-bst.txt"); // Open the file

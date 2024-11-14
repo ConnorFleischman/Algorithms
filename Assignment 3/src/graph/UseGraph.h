@@ -5,14 +5,14 @@
 #include "UndirectedGraph.h"
 
 // Graph mutation:
-void insertVertex(string &vertexID, Graph &graph)
+void insertVertex(string &vertexID, Graph &graph) // Insert a vertex of ID into the graph
 {
-   graph.insertVertex(vertexID);
+   graph.insertVertex(vertexID); // Call the insert function from "UndirectedGraph.h"
 }
 
-void insertEdge(string &startID, string &endID, Graph &graph)
+void insertEdge(string &startID, string &endID, Graph &graph) // Insert an edge from vertices startID to endID in the graph
 {
-   graph.insertEdge(startID, endID);
+   graph.insertEdge(startID, endID); // Call the insert function from "UndirectedGraph.h"
 }
 
 void clearGraph(Graph &graph) // Empty the graph
@@ -21,9 +21,9 @@ void clearGraph(Graph &graph) // Empty the graph
 }
 
 // Graph display:
-void depthFirstTraversal(Graph &graph) // Perform a depth-first traversal on the graph starting at some vertex's ID
+void depthFirstTraversal(Graph &graph) // Perform a depth-first traversal on the graph
 {
-   graph.traverse("depth"); // Call the traverse function starting at vertex ID, from "UndirectedGraph.h"
+   graph.traverse("depth"); // Call the traverse function from "UndirectedGraph.h"
    cout << endl;
    cout << "---------------------------------------" << endl;
 }

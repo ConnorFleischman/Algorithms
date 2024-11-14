@@ -10,16 +10,16 @@ void insertNode(string &nodeID, BinaryTree &tree) // Insert a node by it's ID in
    tree.insert(nodeID); // Call the insert function from "BinaryTree.h"
 }
 
-bool clearTree(BinaryTree &tree) // Empty the tree
+void clearTree(BinaryTree &tree) // Empty the tree
 {
-   tree.deleteTree(tree.getRoot()); // Call the recursive deletion function starting from the root from "BinaryTree.h"
-   return tree.isEmpty();           // Return the status of the tree
+   tree.deleteTree(); // Call the recursive deletion function starting from the root from "BinaryTree.h"
 }
 
 // Tree display:
 void inOrderTraversal(BinaryTree &tree) // Perform an in-order traversal over the tree
 {
    tree.traverse(); // Call the traverse function from "BinaryTree.h"
+   cout << "---------------------------------------" << endl;
 }
 
 pair<string, int> keyLookUp(string &key, BinaryTree &tree) // Look-up a specific keep in the tree

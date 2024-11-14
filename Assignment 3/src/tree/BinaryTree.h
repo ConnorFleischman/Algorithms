@@ -5,10 +5,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <queue>
 
 using namespace std; // Globally used namespace (removes use of std::)
 
-class Node // Defines a Node
+class Node // Node definition
 {
 public:
    string id;   // Identifies the id section of the parent node
@@ -16,24 +17,29 @@ public:
    Node *left;  // Identifies the pointer to the left child leaf node
    Node *right; // Identifies the pointer to the right child leaf node
 
-   Node(string &nodeID) // When a node is constructed
+   Node(string &nodeID) // Node constructor
    {
-      this->id = nodeID; // Set this node's id to some nodeID
-      this->path = "";   // Set this node's path to an empty string
+      this->id = nodeID;     // Set this node's id to some nodeID
+      this->path = "";       // Set this node's path to an empty string
+      this->left = nullptr;  // Set this node's left child to null
+      this->right = nullptr; // Set this node's left child to null
    }
 };
 
-class BinaryTree // Defines a Binary Tree
+class BinaryTree // Binary Tree definition
 {
 private:
-   Node *root; // Pointer to the root node
+   Node *root = nullptr; // Pointer to the root node initalized to null
 public:
-   BinaryTree() // Binary Tree constructor
+   BinaryTree() {} // Binary Tree constructor
+
+   ~BinaryTree() // Graph destructor
    {
-      root = nullptr; // Set this tree's root to null
+      deleteTree(); // Delete the tree starting
+      cout << "Binary Tree deleted" << endl;
    }
 
-   void insert(string &nodeID) // Inserts a new node
+   void insert(string &nodeID) // Insert a new node of with ID
    {
       if (root != nullptr) // If the root is set
       {
@@ -54,45 +60,69 @@ public:
                else // If the current node's left child is set
                {
                   currNode = currNode->left; // Set the current node to the left child
+                  // Loop
                }
             }
-            else // If the new node is >= to the current
+            else // If the new node is greater than or equal to the current node
             {
                newNode->path += "R -> ";       // Add to its path
                if (currNode->right == nullptr) // If the current node's right child is not set
                {
-                  currNode->right = newNode; // Set the current's right child to the new node
+                  currNode->right = newNode; // Set the current's right child as the new node
                   newNode->path += "Node";   // Finish its path
                   break;                     // Break from the loop
                }
                else // If the current node's right child is set
                {
                   currNode = currNode->right; // Set the current node to the right child
+                  // Loop
                }
             }
          }
          // Once the node has found its place
          cout << "Inserted node: " << nodeID << " | Path: " << newNode->path << endl; // Record insertion
       }
-      else // If there is no root
+      else // If there is no root node
       {
-         root = new Node(nodeID);                                                    // Set this nodeID as the root
-         root->path = "Root";                                                        // Set it's path as root
-         cout << "Inserted node: " << root->id << " | Path: " << root->path << endl; // Record insertion
+         root = new Node(nodeID); // Set this nodeID as the root
+         root->path = "Root";     // Set it's path as root
+         cout << "Inserted node: " << root->id << " | Path: " << root->path << endl;
       }
    }
 
-   void deleteTree(Node *node) // Delete the tree using recursion to traverse and delete the whole tree
+   void deleteTree() // Delete the tree using a queue keep track of progression (Breadth First traversal)
    {
-      if (node != nullptr) // If the node is not null
+      if (root != nullptr) // If the node is not null
       {
-         deleteTree(node->left);  // Recurse on the left child
-         deleteTree(node->right); // Recurse on the right child
-         delete node;
+         queue<Node *> queue; // Declare queue to maintain sequence order
+         queue.push(root);    // Push the root to the queue
+
+         while (!queue.empty()) // While the queue is populated
+         {
+            Node *currNode = queue.front(); // Declare currNode as the first node in the queue
+            queue.pop();                    // Pop the first node off the front of the queue
+
+            if (currNode->left != nullptr) // If a left child exists
+            {
+               queue.push(currNode->left); // Enqueue that child
+            }
+            if (currNode->right != nullptr) // If a right child exists
+            {
+               queue.push(currNode->right); // Enqueue that child
+            }
+
+            delete currNode; // Delete the current node
+         }
+         // After the traversal is complete and the tree is empty
+         root = nullptr; // Set the root to null
       }
-      else
+      else if (isEmpty()) // If the tree is already empty
       {
          cout << "Binary Tree empty" << endl;
+      }
+      else // If the tree could not be found, or the tree could not be emptied
+      {
+         cout << "Binary Tree could not be emptied" << endl;
       }
    }
 
@@ -130,7 +160,7 @@ public:
       }
    }
 
-   pair<string, int> search(string &nodeID) // Searches for a nodeID in the binary tree
+   pair<string, int> search(string &nodeID) // Searches for a nodeID in the binary tree returns the node's path and the number of comparisons required to find it
    {
       int numComparisons = 0;     // Defines and declares numComparisons as 0
       Node *currNode = root;      // Pointer to the current node, set to root first
@@ -138,21 +168,22 @@ public:
       {
          if (nodeID == currNode->id) // If the nodeID to be found is equal to the current node's id
          {
-            numComparisons++;                                 // Increment numComparisons for comparison
-            return make_pair(currNode->path, numComparisons); // Return that the node was found at it's path
+            numComparisons++;                                 // Increment for comparison
+            return make_pair(currNode->path, numComparisons); // Return that the node was found at it's path and the number of comparisons made
          }
          else if (nodeID < currNode->id) // If the nodeID is less than the current
          {
-            numComparisons++;          // Increment numComparisons for comparison
+            numComparisons++;          // Increment for comparison
             currNode = currNode->left; // Set the new current node to the old's left child
          }
          else // If the nodeID is greater than the current
          {
-            numComparisons++;           // Increment numComparisons for comparison
+            numComparisons++;           // Increment for comparison
             currNode = currNode->right; // Set the new current node to the old's right child
          }
       }
-      return make_pair("Node not found", numComparisons); // If the node is not found, return and log not found
+      // If the node is not found after traversing the tree
+      return make_pair("Node not found", numComparisons); // return not found and the number of comparisons (0)
    }
 };
 

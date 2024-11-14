@@ -18,7 +18,7 @@ public:
    bool processed;             // Identifies the processed flag for this vertex
    vector<Vertex *> neighbors; // Identifies the list of neighbors of this vertex
 
-   Vertex(string &idValue) // When a vertex is constructed
+   Vertex(string &idValue) // Vertex constructor
    {
       this->id = idValue;      // Set this vertex's id to some given value
       this->processed = false; // Set this vertex's processed flag to false
@@ -30,7 +30,7 @@ class Graph // Defines the Graph class
 private:
    vector<Vertex *> vertices; // Vertices is a list of the vertices in the graph
 
-   // Made traversal functions private, only accessible through traverse method
+   // Traversal functions are private and only accessible through the traverse() method
    void traverseDF(Vertex *vertex) // Recursively traverses over all vertices in depth-first order
    {
       if (!vertex->processed) // If the vertex is not processed
@@ -47,7 +47,7 @@ private:
       }
    }
 
-   void traverseBF(Vertex *vertex) // Traverses over all vertices in breadth-first order
+   void traverseBF(Vertex *vertex) // Traverses over all vertices in breadth-first order using a queue
    {
       queue<Vertex *> queue;    // Declare queue to maintain sequence order
       queue.push(vertex);       // Push the current vertex to the queue
@@ -58,7 +58,7 @@ private:
          queue.pop();                        // Pop the first vertex off the front of the queue
          cout << currVertex->id << " ";      // print the current vertex's id
 
-         for (Vertex *neighbor : currVertex->neighbors) // For every one of the popped vertex's neighboring vertices
+         for (Vertex *neighbor : currVertex->neighbors) // For every of the popped vertex's neighboring vertices
          {
             if (!neighbor->processed) // If the neighbor is not processed
             {
@@ -84,8 +84,8 @@ public:
 
    void insertVertex(string &vertexID) // Insert a vertex into the graph by some ID
    {
-      Vertex *newVertex = new Vertex(vertexID); // create new vertex
-      vertices.push_back(newVertex);            // add new vertex to vertices
+      Vertex *newVertex = new Vertex(vertexID); // create new vertex with some ID
+      vertices.push_back(newVertex);            // add that new vertex to vertices vector
       cout << "Vertex #" << vertexID << " created" << endl;
    }
 
@@ -146,15 +146,16 @@ public:
          {
             cout << "Error: Vertex #" << vertexEndID << " does not exist" << endl;
          }
+         // Regardless:
          cout << "Cannot insert edge from Vertex: " << vertexStartID << " to Vertex: " << vertexEndID << endl;
       }
    }
 
-   Vertex *search(string &vertexID) // Search for a vertex in the graph by its ID (string), return the Vertex, if found, or null, if not
+   Vertex *search(string &vertexID) // Search for a vertex in the graph by its ID, return the Vertex or null
    {
       for (Vertex *vertex : vertices) // For every vertex in the graph
       {
-         if (vertex->id == vertexID) // If their ID is the ID being looked for
+         if (vertex->id == vertexID) // If their ID is the ID being searched
          {
             return vertex; // Return that vertex
          }
@@ -172,9 +173,9 @@ public:
    {
       for (Vertex *vertex : vertices) // For every vertex in the graph
       {
-         delete vertex; // Delete that vertex, allocate memory space too
+         delete vertex; // Delete that vertex, allocate memory space
       }
-      vertices.clear(); // Clear the vector of vertices, vertices
+      vertices.clear(); // Clear vertices
       cout << "Graph emptied" << endl;
    }
 
@@ -211,12 +212,12 @@ public:
       else // If the graph is not empty
       {
          cout << "Matrix:" << endl;
-         cout << setw(4) << "";
+         cout << setw(4) << ""; // Adjust spacing
 
          // Column display
          for (int i = 0; i < vertices.size(); i++) // For every element in vertices
          {
-            cout << setw(3) << vertices[i]->id; // Display that vertex (col header)
+            cout << setw(3) << vertices[i]->id; // Display that vertex (col header), adjust spacing
          }
          cout << endl;
          cout << string(((vertices.size() + 2) * 3), '_') << endl; // Display a line of '_' as long as the number of nodes
@@ -224,7 +225,7 @@ public:
          // Row display
          for (int i = 0; i < vertices.size(); i++)
          {
-            cout << setw(3) << vertices[i]->id << "|"; // Display that vertex (row header)
+            cout << setw(3) << vertices[i]->id << "|"; // Display that vertex (row header), adjust spacing
             for (int j = 0; j < vertices.size(); j++)  // For every element in vertices
             {
                bool isNeighbor = false;                        // Flag to record if a row's vertex has some col as a neighbor
@@ -232,11 +233,11 @@ public:
                {
                   if (neighbor->id == vertices[j]->id) // If the neighbor's ID is equal to the current vertex(row)'s ID
                   {
-                     isNeighbor = true;
+                     isNeighbor = true; // Set flag
                      break;
                   }
                }
-               if (isNeighbor) // If the col/row intersect shows that the vertexes at those positions are neighbors
+               if (isNeighbor) // If the col/row intersect shows that the vertices at those positions are neighbors
                {
                   cout << setw(3) << 'X'; // Record that there is an edge between these two vertices
                }
@@ -253,10 +254,12 @@ public:
 
    void traverse(string type) // Traverse, using some method
    {
-      for (Vertex *vertex : vertices) // Before every traversal, for every vertex in vertices
+      // Before every traversal:
+      for (Vertex *vertex : vertices) // For every vertex in vertices
       {
          vertex->processed = false; // Set that vertex's processed flag to false
       }
+
       for (Vertex *vertex : vertices) // For every vertex in vertices
       {
          if (!vertex->processed) // If the vertex is unprocessed
@@ -265,7 +268,6 @@ public:
             {
                traverseDF(vertex); // Perform a depth-first search
             }
-
             if (type == "breadth") // If the type specified is breadth
             {
                traverseBF(vertex); // Perform a breadth-first search

@@ -1,3 +1,6 @@
 {
-    "C_Cpp.default.compilerPath": "c:\\Users\\conno\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+    "C_Cpp.default.compilerPath": "c:\\Users\\conno\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+    "files.associations": {
+        "iostream": "cpp"
+    }
 }
