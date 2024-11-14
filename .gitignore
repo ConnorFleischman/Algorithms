@@ -1,0 +1,28 @@
+# Algorithms ~ A. Labouseur - Connor Fleischman
+
+# Ignore IDE and editor-specific files
+.vscode/
+.idea/
+*.swp
+
+# Ignore compiled binaries
+*.exe
+
+# Ignore temporary and auxiliary files created by LaTeX
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+
+# Ignore intermediate LaTeX files that aren't part of the final PDF
+*.dvi
+*.nav
+*.snm
+*.vrb
+
