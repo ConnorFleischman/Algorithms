@@ -32,7 +32,7 @@ void interactGraph(Graph &graph) // Function to perform graph interactions
 
 void interactTree(BinaryTree &tree) // Function to perform tree interactions
 {
-   int avgComparisons;                  // Declare avgComparisons counter as an int
+   int avgComparisons = 0;              // Initalized avgComparisons counter as 0
    vector<string> lines = buildLines(); // Declare and fill lines from buildLines
    vector<string> keys = buildKeys();   // Declare and fill keys from buildKeys
 
@@ -42,7 +42,7 @@ void interactTree(BinaryTree &tree) // Function to perform tree interactions
 
    for (string &key : keys) // For every key provided
    {
-      auto [path, comparisons] = keyLookUp(key, tree); // Look up that key, return its path and the number of comparisons required to find it
+      auto [path, comparisons] = keyLookUp(key, tree); // Look up that key, return its path and the number of comparisons required to find it as a pair
       cout << "Key: " << key << " | Located: " << path << " | Comparisons made: " << comparisons << endl;
       avgComparisons += comparisons; // Increment the avg counter with the number of comparisons made for this key
    }

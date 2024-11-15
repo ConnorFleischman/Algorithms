@@ -24,7 +24,7 @@ void buildGraph(vector<string> &graphInstructions, Graph &graph) // Given the in
       inst >> identifier >> opcode;       // Read the first two words to their strings
       getline(inst, operand);             // Read the remaining words to the string
 
-      if (opcode == "vertex") // If the opcode is vertex
+      if (opcode == "vertex") // If the opcode is named vertex
       {
          istringstream vID(operand); // Break the operand into just the string, no white-space
          string num;                 // Declare num as a string
