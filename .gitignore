@@ -19,6 +19,8 @@
 *.synctex.gz
 *.bbl
 *.blg
+*.out
+
 
 # Ignore intermediate LaTeX files that aren't part of the final PDF
 *.dvi

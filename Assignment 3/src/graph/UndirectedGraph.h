@@ -267,10 +267,12 @@ public:
             if (type == "depth") // If the type specified is depth
             {
                traverseDF(vertex); // Perform a depth-first search
+               cout << endl;
             }
             if (type == "breadth") // If the type specified is breadth
             {
                traverseBF(vertex); // Perform a breadth-first search
+               cout << endl;
             }
          }
       }

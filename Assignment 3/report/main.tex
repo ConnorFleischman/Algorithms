@@ -1,5 +1,7 @@
 % Algorithms ~ A. Labouseur, Assignment 3 - Connor Fleischman
 
+% Enhanced LaTeX Document with Textbook-like Features
+
 \documentclass[12pt, letterpaper]{article}
 \usepackage{graphicx} % Required for inserting images
 \graphicspath{{./figures/}}
@@ -7,49 +9,71 @@
 \lstset{inputpath=./Assignment 3/src/}
 \usepackage{xcolor} % Required for formatting code
 
-\title{Assignment 2 - LaTeX Write Up}
-\author{Connor Fleischman}
-\date{November 1, 2024}
+% Additional Packages for Textbook-like Features
+\usepackage{fancyhdr} % For custom headers and footers
+\usepackage{titlesec} % For enhanced section titles
+\usepackage{mathpazo} % For elegant fonts
+\usepackage{tocloft} % For custom table of contents
+\usepackage[title]{appendix} % For appendices
+\usepackage{hyperref} % For clickable links in TOC
 
+% Custom Colors
 \definecolor{background}{rgb}{0.95,0.95,0.92}
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{magenta}{rgb}{1,0,1}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-\definecolor{keywordcolor}{rgb}{0.82,0.1,0.26}
+\definecolor{codered}{rgb}{0.6,0,0}
 
-\lstdefinestyle{mystyle}{
-   backgroundcolor=\color{background},   
-   commentstyle=\color{codegreen},
-   keywordstyle=\color{keywordcolor}\bfseries,
-   numberstyle=\tiny\color{codegray},
-   stringstyle=\color{codepurple},
-   basicstyle=\ttfamily\small,
-   frame=single, 
-   rulecolor=\color{codegray},
-   breakatwhitespace=false,         
-   breaklines=true,                 
-   captionpos=b,                    
-   keepspaces=true,                 
-   numbers=left,                    
-   numbersep=10pt, 
-   showspaces=false,                
-   showstringspaces=false,
-   showtabs=false,                  
-   tabsize=4,
-   emph={int,char,double,float,unsigned}, 
-   emphstyle={\color{blue}},
-}
+% Custom Header and Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{Connor Fleischman - Assignment 3}}
+\fancyhead[R]{\textit{Algorithms}}
+\fancyfoot[C]{\thepage}
 
-\lstset{style=mystyle}
+% Section Title Customization
+\titleformat{\section}[block]{\Large\bfseries\color{black}}{\thesection}{1em}{}
+
+% TOC Customization
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsecpagefont}{\bfseries}
+
+% Document Title and Metadata
+\title{Assignment 3 - LaTeX Write-Up}
+\author{Connor Fleischman}
+\date{November 15, 2024}
 
 \begin{document}
+
+% Title Page
 \maketitle
 \begin{center}
    \includegraphics[width=120mm,scale=0.5]{MaristSeal.png}
 \end{center}
 \newpage
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table of Contents
+\tableofcontents
+\newpage
+
+% Example Section with Enhanced Formatting
+\section{Introduction}
+Text
+
+\section{Assignment Results}
+Text
+
+\section{Undirected Graphing}
+Text
+
+\section{Binary Trees}
+Text
+
+\section{Code Breakdown}
+Text
+
+\appendix
+\section{Appendix}
+Text
+
 \end{document}
