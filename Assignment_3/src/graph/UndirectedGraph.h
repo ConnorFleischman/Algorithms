@@ -220,7 +220,7 @@ public:
             cout << setw(3) << vertices[i]->id; // Display that vertex (col header), adjust spacing
          }
          cout << endl;
-         cout << string(((vertices.size() + 2) * 3), '_') << endl; // Display a line of '_' as long as the number of nodes
+         cout << string(((vertices.size() + 2) * 3), '_') << endl; // Display '_' as long as the number of nodes
 
          // Row display
          for (int i = 0; i < vertices.size(); i++)
@@ -228,10 +228,10 @@ public:
             cout << setw(3) << vertices[i]->id << "|"; // Display that vertex (row header), adjust spacing
             for (int j = 0; j < vertices.size(); j++)  // For every element in vertices
             {
-               bool isNeighbor = false;                        // Flag to record if a row's vertex has some col as a neighbor
-               for (Vertex *neighbor : vertices[i]->neighbors) // For every neighbor in the current vertex(col)'s neighbors
+               bool isNeighbor = false;                        // Flag to record if a vertex has col as a neighbor
+               for (Vertex *neighbor : vertices[i]->neighbors) // For every neighbor in the vertex(col)'s neighbors
                {
-                  if (neighbor->id == vertices[j]->id) // If the neighbor's ID is equal to the current vertex(row)'s ID
+                  if (neighbor->id == vertices[j]->id) // If the neighbor's ID is the current vertex(row)'s ID
                   {
                      isNeighbor = true; // Set flag
                      break;
