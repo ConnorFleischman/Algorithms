@@ -93,21 +93,21 @@
 
 \section{Introduction}
 \textbf{Assignment 3} focuses on the design and implementation of multiple Undirected Graphs (\ref{Graph}), a Binary Tree (\ref{BST}), and computing their performances in the context of the assignment.
-Specifically, to create a program which can \textit{dynamically read and interprate} a blueprint of multiple graphs.
+Specifically, to create a program which can \textit{dynamically read and interpret} a blueprint of multiple graphs.
 Create these graphs, returning their matrix, adjacency list, and performing a depth-first and breadth-first traversal of the graph.
 \vspace*{5px}
 \newline
-\textit{Dynamic reading \& interpritation}: A way of building your code by avoiding hard-coding, to allow any form of input, following some syntactical rules, to be read and interpreted. 
+\textit{Dynamic reading \& interpretation}: A way of building your code by avoiding hard-coding, to allow any form of input, following some syntactical rules, to be read and interpreted. 
 
 \section{Undirected Graphing} \label{Graph}
 The first of \textbf{Assignment 3}'s goals was to develop several implementations of Undirected Graphs from the data in \texttt{graphs1.txt}
 \vspace*{5pt}
 \newline
 This will include:
-\begin{itemize}
+\begin{itemize
    \item Parsing \texttt{graph1.txt} into individual graphs
    \item Building the graph of linked objects
-   \item Perfrom operations on the graph
+   \item Perform operations on the graph
    \item Graph deletion
    \item Building the next graph
    \item Go back to step 2 if not finished $\langle \langle Recurse! \rangle \rangle$
@@ -117,7 +117,7 @@ For each graph representation, we will perform operations such as printing the m
 \subsection{Matrix} \label{Matrix}
 A matrix is a 2D array where rows and columns represent vertices.
 Each cell indicates the presence of an edge between two vertices.
-A matrix is properly implemented if it has mirror symetry along its diagonal.
+A matrix is properly implemented if it has mirror symmetry along its diagonal.
 In \textbf{Assignment 3} we were to create and display a matrix for every graph provided in \texttt{graph1.txt}
 \subsubsection{Implementation}
 \begin{center}
@@ -125,14 +125,14 @@ In \textbf{Assignment 3} we were to create and display a matrix for every graph 
 \end{center}
 As we see above, a flag is used to record if the nested for i, j loop crosses two vertices whom are neighbors.
 If they are neighbors an 'X' is recorded at that position in the grid, if no neighbor is present a '-' is noted.
-Most of the complexity in this section results from the formatting of the matrix in a legable and clean way.
+Most of the complexity in this section results from the formatting of the matrix in a legible and clean way.
 \subsubsection{Results}
 \begin{center}
    \includegraphics[width=120mm,scale=0.5]{Images/Graph3_Matrix.png}
 \end{center}
-As a styleistic and space-efficient choice I will not include every output of every graph in \texttt{graph1.hs}
-However, I'd be rimissed if I could not brag about my output.
-As we can see above, mirror symetry along the diagonal depicts this graph, Graph \#5 in the file, with 63 vertices.
+As a stylistic and space-efficient choice I will not include every output of every graph in \texttt{graph1.hs}
+However, I'd be remiss if I could not brag about my output.
+As we can see above, mirror symmetry along the diagonal depicts this graph, Graph \#5 in the file, with 63 vertices.
 With a matrix it is very easy to notice patterns in the connections of a graph's edges.
 
 \subsection{Adjacency List} \label{AdjList}
@@ -144,12 +144,12 @@ In \textbf{A3}, similarly to the matrix, for every graph we display it as an adj
    \lstinputlisting[language=C++, caption=Adjacency List Implementation, firstline=182, lastline=203]{graph/UndirectedGraph.h}
 \end{center}
 The code above is fairly straightforwards. It simply returns every vertex in the graph and its neighbors.
-An adjacency list is usefull in many cases, for example:
+An adjacency list is useful in many cases, for example:
 \begin{itemize}
    \item Shortest Path Algorithms
    \subitem Allows for full exploration of each vertex's edges
    \item Social Network Analysis
-   \subitem Where users represent vertices and each frendship is an edge
+   \subitem Where users represent vertices and each friendship is an edge
 \end{itemize}
 \subsubsection{Results}
 \begin{center}
@@ -176,7 +176,7 @@ I.e., the graph above has a vertex cover of [2,4,5,6]
 \subsection{Traversal Analysis} \label{Traversals}
 \textbf{Depth-First Search (DFS)}:
 \newline
-A depth-first traversal perfromed on an undirected graph has a time complexity of $O(V + E)$.
+A depth-first traversal performed on an undirected graph has a time complexity of $O(V + E)$.
 The recursion stack for DFS may be up to $O(V^2)$ in the worst case.
 This is because if every vertex has an edge to every vertex then it would be $O(V + V) = (V^2)$.
 \subsubsection{DFS Implementation}
@@ -184,21 +184,21 @@ This is because if every vertex has an edge to every vertex then it would be $O(
    \lstinputlisting[language=C++, caption=DFS Traversal Implementation, firstline=34, lastline=48]{graph/UndirectedGraph.h}
 \end{center}
 When performing a depth-first traversal, intuitively, you have to go as deep as possible first.
-We do this through recursion, by recursevly calling our traversal function on itself until reaching all vertices, we effectively travel to all neighbors from the deepest first.
+We do this through recursion, by recursively calling our traversal function on itself until reaching all vertices, we effectively travel to all neighbors from the deepest first.
 \vspace*{5px}
 \newline
 \textbf{Breadth-First Search (BFS)}:
 \newline
 Breadth-first traversal also runs in $O(V + E)$.
 It uses a queue data structure to keep track of the nodes to visit.
-This can reuslt in the same $O(V^2)$ performances. 
-However a queue to not suffer from recursive loops causing stack overflow errorsis used rather than the stack.
+This can result in the same $O(V^2)$ performances. 
+However a queue to not suffer from recursive loops causing stack overflow errors used rather than the stack.
 \subsubsection{BFS Implementation}
 \begin{center}
    \lstinputlisting[language=C++, caption=BFS Traversal Implementation, firstline=50, lastline=70]{graph/UndirectedGraph.h}
 \end{center}
 When performing a breadth-first search our goal is to go wide before deep.
-So inorder to achieve this on a graph without a hierarchiey, since it is more simple on trees, we use a queue to maintain the sequence of traversal.
+So in order to achieve this on a graph without a hierarchy, since it is more simple on trees, we use a queue to maintain the sequence of traversal.
 Through this, we can search all the neighbors of a vertex before traversing to all the neighbors of the first neighbor of the first vertex.
 \subsubsection{Results}
 \begin{center}
@@ -209,7 +209,7 @@ I chose to include this graph specifically because of its disconnected vertices.
 It is important to remember to search all vertices, not just neighboring ones while traversing.
 
 \section{Binary Search Tree (BST)} \label{BST}
-The second goal in \textbf{Assighnemt 3} was to construst a Binary Tree, where each node has either 0, 1, or 2 children, no more, parseing the data from \texttt{magicItems.txt}
+The second goal in \textbf{Assignment 3} was to construct a Binary Tree, where each node has either 0, 1, or 2 children, no more, parsing the data from \texttt{magicItems.txt}
 \vspace*{5pt}
 \newline
 This will include:
@@ -243,7 +243,7 @@ We can see that the code inserts all 666 items to its proper position, while rec
    \lstinputlisting[language=C++, caption=Item Insertion Implementation, firstline=42, lastline=91]{tree/BinaryTree.h}
 \end{center}
 This code handles the insertion of nodes into the tree.
-After handeling weather or not the graph is empty and if there needs to be a root added, a while loop is created which traverses the tree until finding the deepest position.
+After handling weather or not the graph is empty and if there needs to be a root added, a while loop is created which traverses the tree until finding the deepest position.
 As the loop traverses, the path of the node to be inserted is updated if we traverse a left-child or right-child.
 Finally it records the node insertion and its path if it was successfully inserted.
 
