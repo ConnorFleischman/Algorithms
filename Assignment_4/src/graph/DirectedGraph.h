@@ -58,7 +58,7 @@ public:
    void insertVertex(std::string &vertexID) // Insert a vertex into the graph by some ID
    {
       Vertex *newVertex = new Vertex(vertexID); // create new vertex with some ID
-      vertices.push_back(newVertex);            // add that new vertex to vertices vector
+      vertices.push_back(newVertex);            // Add that new vertex to vertices vector
       std::cout << "Vertex #" << vertexID << " created." << std::endl;
    }
 
@@ -69,8 +69,8 @@ public:
 
       if (vertexStart && vertexEnd) // If both vertices exist
       {
-         Edge *newEdge = new Edge(vertexStart->id, vertexEnd->id, edgeWeight); // create a new edge between two vertices's ID's with some weight
-         edges.push_back(newEdge);                                             // add that new edge to the edges vector
+         Edge *newEdge = new Edge(vertexStart->id, vertexEnd->id, edgeWeight); // Create a new edge between two vertices's ID's with some weight
+         edges.push_back(newEdge);                                             // Add that new edge to the edges vector
          vertexStart->neighbors.push_back(vertexEnd);                          // Update the starting vertex's neighbors list so that it has the ending vertex as a neighbor
          std::cout << "Edge created from vertex #" << vertexStartID << " to #" << vertexEndID << " with weight: " << edgeWeight << "." << std::endl;
       }
@@ -93,9 +93,10 @@ public:
    {
       if (isEmpty()) // If the graph is empty
       {
-         std::cout << "Cannot delete from an empty Graph" << std::endl;
+         std::cout << "Cannot delete a vertex from an empty Graph." << std::endl;
          return;
       }
+
       for (Vertex *vertex : vertices) // For every vertex in the graph
       {
          for (int i = 0; i < vertex->neighbors.size(); i++) // For every one of the vertex's neighbors
@@ -107,23 +108,57 @@ public:
             }
          }
       }
+
       for (int i = 0; i < vertices.size(); i++) // For every vertex stored in vertices
       {
          if (vertices[i]->id == vertexID) // If that vertex's ID is the ID to be deleted
          {
             delete vertices[i];                   // Deleted that vertex
             vertices.erase(vertices.begin() + i); // Remove the vertex from the list of vertices
-            std::cout << "Vertex #" << vertexID << " deleted" << std::endl;
+            std::cout << "Vertex #" << vertexID << " deleted." << std::endl;
             return;
          }
       }
       // If the vertex is not found
-      std::cout << "Vertex not found" << std::endl;
+      std::cout << "Vertex #" << vertexID << " not found." << std::endl;
    }
 
-   void deleteEdge(std::string v1ID, std::string v2ID) // Deletes an edge between two vertices's ID's
+   void deleteEdge(std::string &v1ID, std::string &v2ID) // Deletes an edge between two vertices's ID's
    {
-      // TODO: Delete Edge Implementation
+      if (isEmpty()) // If the graph is empty
+      {
+         std::cout << "Cannot delete an edge from an empty Graph." << std::endl;
+         return;
+      }
+
+      Vertex *startVertex = search(v1ID); // Search for the starting vertex using it's ID
+      if (!startVertex)                   // If the starting vertex is not found
+      {
+         std::cout << "Vertex #" << v1ID << " not found." << std::endl;
+         return;
+      }
+      // If the starting vertex is found
+      for (int i = 0; i < startVertex->neighbors.size(); i++) // For every position in the starting vertex's neighbors list
+      {
+         if (startVertex->neighbors[i]->id == v2ID) // If that position's ID is equal to the end vertex's ID
+         {
+            startVertex->neighbors.erase(startVertex->neighbors.begin() + i); // Remove the end from the starts's list of neighbors
+            break;
+         }
+      }
+
+      for (int i = 0; i < edges.size(); i++) // For every edge stored in edges
+      {
+         if (edges[i]->startID == v1ID && edges[i]->endID == v2ID) // If that edges's start and end ID are the ones to be deleted
+         {
+            delete edges[i];                // Delete that edge
+            edges.erase(edges.begin() + i); // Remove that edge from the list of edges
+            std::cout << "Edge from vertices #" << v1ID << " to #" << v2ID << " deleted." << std::endl;
+            return;
+         }
+      }
+      // If the edge is not found
+      std::cout << "Edge from vertices #" << v1ID << " to #" << v2ID << " not found." << std::endl;
    }
 
    Vertex *search(std::string &vertexID) // Search for a vertex in the graph by its ID, return the Vertex or null
@@ -146,22 +181,29 @@ public:
 
    void clear() // Empties the graph
    {
-      std::cout << "Deleting Vertices..." << std::endl;
-      for (Vertex *vertex : vertices) // For every vertex in the graph
-      {
-         deleteVertex(vertex->id); // Delete that vertex, allocate memory space
-      }
-      std::cout << "Vertices Deleted." << std::endl;
-      vertices.clear(); // Clear vertices
       std::cout << "Deleting Edges..." << std::endl;
-      for (Edge *edge : edges) // For every edge in the graph
+
+      for (int i = 0; i < edges.size(); i++) // For every position in the list of edges
       {
-         Vertex *startVertex = search(edge->startID);
-         Vertex *endVertex = search(edge->endID);
+         Vertex *startVertex = search(edges[i]->startID);
+         Vertex *endVertex = search(edges[i]->endID);
          deleteEdge(startVertex->id, endVertex->id); // Delete that edge,  between two vertices's ID's, allocate memory space
       }
+
       std::cout << "Edges Deleted." << std::endl;
+
       edges.clear(); // Clear edges
+
+      std::cout << "Deleting Vertices..." << std::endl;
+
+      for (int i = 0; i < vertices.size(); i++) // For every position in the list of vertices
+      {
+         deleteVertex(vertices[i]->id); // Delete that vertex, allocate memory space
+      }
+
+      std::cout << "Vertices Deleted." << std::endl;
+
+      vertices.clear(); // Clear vertices
    }
 
    // TODO: Single Source Shortest Path Algorithm Implementation
