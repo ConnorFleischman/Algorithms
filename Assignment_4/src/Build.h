@@ -2,6 +2,7 @@
 #ifndef H_BUILD
 #define H_BUILD
 
+#include "./graph/DirectedGraph.h"
 #include "Parse.h"
 #include <sstream>
 
@@ -23,10 +24,10 @@ void buildGraph(std::vector<std::string> &graphInstructions, Graph &graph) // Gi
       }
       if (opcode == "edge") // If the opcode is edge
       {
-         std::istringstream edge(operand); // Break the operand into individual words
-         std::string v1, bridge, v2;       // Declare the vertices being connected and the connection symbol
-         edge >> v1 >> bridge >> v2;       // Read the first three words to these strings
-         graph.insertEdge(v1, v2);         // add a edge from v1 - v2
+         std::istringstream edge(operand);     // Break the operand into individual words
+         std::string v1, bridge, v2, weight;   // Declare the vertices being connected and the connection symbol, and weight
+         edge >> v1 >> bridge >> v2 >> weight; // Read the first three words and the weight to these strings
+         graph.insertEdge(v1, v2, weight);     // add a edge from v1 - v2 with some weight
       }
    }
 }
