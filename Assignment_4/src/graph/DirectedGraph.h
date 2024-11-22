@@ -43,15 +43,18 @@ public:
    Graph() {} // Graph constructor
    ~Graph()   // Graph destructor
    {
-      std::cout << "Emptying Graph..." << std::endl;
-      clear();       // Clear the graph
+      std::cout << "-- Destroying Graph --" << std::endl;
+      if (!isEmpty())
+      {
+         clear(); // Clear the graph
+      }
       if (isEmpty()) // If the graph was cleared
       {
-         std::cout << "Graph empty." << std::endl;
+         std::cout << "-- Graph Destroyed --" << std::endl;
       }
       else // If the graph was not cleared
       {
-         std::cout << "Graph could not be emptied." << std::endl;
+         std::cout << "<< Graph could not be emptied >>" << std::endl;
       }
    }
 
@@ -59,7 +62,7 @@ public:
    {
       Vertex *newVertex = new Vertex(vertexID); // create new vertex with some ID
       vertices.push_back(newVertex);            // Add that new vertex to vertices vector
-      std::cout << "Vertex #" << vertexID << " created." << std::endl;
+      std::cout << "Vertex #" << vertexID << " created" << std::endl;
    }
 
    void insertEdge(std::string &vertexStartID, std::string &vertexEndID, int edgeWeight) // Insert an edge between two vertex IDs
@@ -72,20 +75,20 @@ public:
          Edge *newEdge = new Edge(vertexStart->id, vertexEnd->id, edgeWeight); // Create a new edge between two vertices's ID's with some weight
          edges.push_back(newEdge);                                             // Add that new edge to the edges vector
          vertexStart->neighbors.push_back(vertexEnd);                          // Update the starting vertex's neighbors list so that it has the ending vertex as a neighbor
-         std::cout << "Edge created from vertex #" << vertexStartID << " to #" << vertexEndID << " with weight: " << edgeWeight << "." << std::endl;
+         std::cout << "Edge created from vertex #" << vertexStartID << " to #" << vertexEndID << " with weight: " << edgeWeight << std::endl;
       }
       else // If either vertex does not exist
       {
          if (vertexStart == nullptr) // If the start vertex does not exist
          {
-            std::cout << "Error: Vertex #" << vertexStartID << " does not exist." << std::endl;
+            std::cout << "Error: Vertex #" << vertexStartID << " does not exist" << std::endl;
          }
          if (vertexEnd == nullptr) // If the end vertex does not exist
          {
-            std::cout << "Error: Vertex #" << vertexEndID << " does not exist." << std::endl;
+            std::cout << "Error: Vertex #" << vertexEndID << " does not exist" << std::endl;
          }
          // Regardless:
-         std::cout << "Cannot insert edge from Vertex: " << vertexStartID << " to Vertex: " << vertexEndID << "." << std::endl;
+         std::cout << "Cannot insert edge from Vertex: " << vertexStartID << " to Vertex: " << vertexEndID << std::endl;
       }
    }
 
@@ -93,7 +96,7 @@ public:
    {
       if (isEmpty()) // If the graph is empty
       {
-         std::cout << "Cannot delete a vertex from an empty Graph." << std::endl;
+         std::cout << "Cannot delete a vertex from an empty Graph" << std::endl;
          return;
       }
 
@@ -115,26 +118,26 @@ public:
          {
             delete vertices[i];                   // Deleted that vertex
             vertices.erase(vertices.begin() + i); // Remove the vertex from the list of vertices
-            std::cout << "Vertex #" << vertexID << " deleted." << std::endl;
+            std::cout << "Vertex #" << vertexID << " deleted" << std::endl;
             return;
          }
       }
       // If the vertex is not found
-      std::cout << "Vertex #" << vertexID << " not found." << std::endl;
+      std::cout << "Vertex #" << vertexID << " not found" << std::endl;
    }
 
    void deleteEdge(std::string &v1ID, std::string &v2ID) // Deletes an edge between two vertices's ID's
    {
       if (isEmpty()) // If the graph is empty
       {
-         std::cout << "Cannot delete an edge from an empty Graph." << std::endl;
+         std::cout << "Cannot delete an edge from an empty Graph" << std::endl;
          return;
       }
 
       Vertex *startVertex = search(v1ID); // Search for the starting vertex using it's ID
       if (!startVertex)                   // If the starting vertex is not found
       {
-         std::cout << "Vertex #" << v1ID << " not found." << std::endl;
+         std::cout << "Vertex #" << v1ID << " not found" << std::endl;
          return;
       }
       // If the starting vertex is found
@@ -153,12 +156,12 @@ public:
          {
             delete edges[i];                // Delete that edge
             edges.erase(edges.begin() + i); // Remove that edge from the list of edges
-            std::cout << "Edge from vertices #" << v1ID << " to #" << v2ID << " deleted." << std::endl;
+            std::cout << "Edge from vertices #" << v1ID << " to #" << v2ID << " deleted" << std::endl;
             return;
          }
       }
       // If the edge is not found
-      std::cout << "Edge from vertices #" << v1ID << " to #" << v2ID << " not found." << std::endl;
+      std::cout << "Edge from vertices #" << v1ID << " to #" << v2ID << " not found" << std::endl;
    }
 
    Vertex *search(std::string &vertexID) // Search for a vertex in the graph by its ID, return the Vertex or null
@@ -181,29 +184,21 @@ public:
 
    void clear() // Empties the graph
    {
-      std::cout << "Deleting Edges..." << std::endl;
-
-      for (int i = 0; i < edges.size(); i++) // For every position in the list of edges
+      for (Edge *edge : edges) // Delete all edges safely
       {
-         Vertex *startVertex = search(edges[i]->startID);
-         Vertex *endVertex = search(edges[i]->endID);
-         deleteEdge(startVertex->id, endVertex->id); // Delete that edge,  between two vertices's ID's, allocate memory space
+         delete edge;
       }
+      edges.clear();
 
-      std::cout << "Edges Deleted." << std::endl;
+      std::cout << "-- Edges Deleted --" << std::endl;
 
-      edges.clear(); // Clear edges
-
-      std::cout << "Deleting Vertices..." << std::endl;
-
-      for (int i = 0; i < vertices.size(); i++) // For every position in the list of vertices
+      for (Vertex *vertex : vertices) // Delete all vertices safely
       {
-         deleteVertex(vertices[i]->id); // Delete that vertex, allocate memory space
+         delete vertex;
       }
+      vertices.clear();
 
-      std::cout << "Vertices Deleted." << std::endl;
-
-      vertices.clear(); // Clear vertices
+      std::cout << "-- Vertices Deleted --" << std::endl;
    }
 
    // TODO: Single Source Shortest Path Algorithm Implementation

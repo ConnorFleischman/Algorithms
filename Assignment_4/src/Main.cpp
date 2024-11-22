@@ -14,7 +14,9 @@ void interactGraph(Graph &graph)
       cout << "Building graph #" << numGraphs << endl;
       buildGraph(graphInstructions, graph);
       // TODO: SSSP Algorithm
+      cout << "Destroying graph #" << numGraphs << endl;
       clearGraph(graph);
+      cout << "--------------------------------------------------" << endl;
    }
    numGraphs = 0;
 }
