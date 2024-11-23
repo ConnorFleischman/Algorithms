@@ -22,7 +22,7 @@ std::string buildGraph(std::vector<std::string> &graphInstructions, Graph &graph
       std::istringstream inst(instruction);    // Break the instruction into individual words
       std::string identifier, opcode, operand; // Declare both identifier, opcode, and operand as strings
       inst >> identifier >> opcode;            // Read the first two words to their strings
-      getline(inst, operand);                  // Read the remaining words to the string
+      std::getline(inst, operand);             // Read the remaining words to the string
 
       if (opcode == "vertex") // If the opcode is named vertex
       {
@@ -43,7 +43,7 @@ std::string buildGraph(std::vector<std::string> &graphInstructions, Graph &graph
             insertVertex(num, graph);        // Add a vertex with id: num to the graph
          }
       }
-      if (opcode == "edge") // If the opcode is edge
+      else if (opcode == "edge") // If the opcode is edge
       {
          std::istringstream edge(operand);     // Break the operand into individual words
          std::string v1, bridge, v2;           // Declare the vertices being connected and the connection symbol
@@ -57,18 +57,37 @@ std::string buildGraph(std::vector<std::string> &graphInstructions, Graph &graph
 }
 
 // Spices & Knapsack build functions:
-void buildSpicesKnapsacks(std::vector<std::string> &instructions, Spices &spices, Knapsacks &Knapsacks)
+void buildSpicesKnapsacks(std::vector<std::string> &instructions, Spices &spices, Knapsacks &knapsacks)
 {
-   // TODO:
-   // for every line
-   //    spit lines into spice/knapsack
-   //       Spice:
-   //          break each line down by ';'
-   //          add name, price, qty
-   //          PUSH THIS SPICE INTO SPICES
-   //       Knapsack:
-   //          add capacity
-   //          PUSH THIS KNAPSACK INTO KNAPSACKS
+   for (std::string &instruction : instructions) // For every instruction in the list
+   {
+      std::istringstream inst(instruction); // Break this instruction into words
+      std::string identifier, item;         // Declares the identifier and item as strings
+      inst >> identifier;                   // Read the first word to the identifier
+
+      if (identifier == "spice") // If the item is spice
+      {
+         std::string color;                // Declare color a string
+         int totalPrice = 0, quantity = 0; // Declare totalPrice and quantity as integers = 0
+
+         std::getline(inst, color, ';'); // Break the instruction off after ';', put it in color
+         std::getline(inst, item, ';');  // Break the instruction off after ';', put it in item
+         totalPrice = std::stoi(item);   // Convert the item to an integer, save it as totalPrice
+         std::getline(inst, item, ';');  // Break the instruction off after ';', put it in item
+         quantity = std::stoi(item);     // Convert the item to an integer, save it as quantity
+
+         spices.addSpice(color, totalPrice, quantity); // Add this spice to the list of spices given its color, totalPrice, and quantity
+      }
+      else if (identifier == "knapsack") // If the item is knapsack
+      {
+         int capacity; // Delcare capacity a string
+
+         std::getline(inst, item, ';'); // Break the instruction off after ';', put it in item
+         capacity = std::stoi(item);    // Convert the item to an integer, save it as capacity
+
+         knapsacks.addKnapsack(capacity); // Add this knapsack to the list of knapsacks given its capacity
+      }
+   }
 }
 
 #endif

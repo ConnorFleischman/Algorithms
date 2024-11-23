@@ -17,7 +17,7 @@ std::vector<std::vector<std::string>> parseGraph() // Returns a vector of graphs
    {
       std::vector<std::string> currentGraph; // Declare currentGraph as a vector of strings
       std::string line;                      // Declare line as a string
-      while (getline(file, line))            // For every line in the file
+      while (std::getline(file, line))       // For every line in the file
       {
          if (line.empty() || line.front() == '-') // If the line is empty or a comment line
          {
@@ -59,8 +59,8 @@ std::vector<std::string> parseSpices()
 
    if (file.is_open()) // If the file is open
    {
-      std::string line;           // Declare line as a string
-      while (getline(file, line)) // For every line in the file
+      std::string line;                // Declare line as a string
+      while (std::getline(file, line)) // For every line in the file
       {
          if (line.empty() || line.front() == '-') // If the line is empty or a comment line
          {
