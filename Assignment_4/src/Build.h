@@ -56,6 +56,19 @@ std::string buildGraph(std::vector<std::string> &graphInstructions, Graph &graph
    return firstVertexID;
 }
 
-// Spices build functions:
-void buildSpicesKnapsacks(std::vector<std::string> &instructions)
+// Spices & Knapsack build functions:
+void buildSpicesKnapsacks(std::vector<std::string> instructions, Spices &spices, Knapsacks &Knapsacks)
+{
+   // TODO:
+   // for every line
+   //    spit lines into spice/knapsack
+   //       Spice:
+   //          break each line down by ';'
+   //          add name, price, qty
+   //          PUSH THIS SPICE INTO SPICES
+   //       Knapsack:
+   //          add capacity
+   //          PUSH THIS KNAPSACK INTO KNAPSACKS
+}
+
 #endif

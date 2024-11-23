@@ -2,5 +2,12 @@
 #ifndef H_USESPICE
 #define H_USESPICE
 
-#include "./Spice.h"
+#include "./SpiceKnapsack.h"
+
+// ---------------------- SPICES ---------------------- //
+// TODO: Insert/Delete/etc.
+
+// ---------------------- KNAPSACKS ---------------------- //
+// TODO: Insert/Delete/etc.
+
 #endif
