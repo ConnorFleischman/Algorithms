@@ -5,9 +5,14 @@
 #include "./SpiceKnapsack.h"
 
 // ---------------------- SPICES ---------------------- //
-// TODO: Insert/Delete/etc.
-
+void addSpice(std::string &color, int totalPrice, int quantity, Spices &spices)
+{
+   spices.addSpice(color, totalPrice, quantity);
+}
 // ---------------------- KNAPSACKS ---------------------- //
-// TODO: Insert/Delete/etc.
+void addKnapsack(int capacity, Knapsacks &knapsacks)
+{
+   knapsacks.addKnapsack(capacity);
+}
 
 #endif

@@ -57,7 +57,7 @@ std::string buildGraph(std::vector<std::string> &graphInstructions, Graph &graph
 }
 
 // Spices & Knapsack build functions:
-void buildSpicesKnapsacks(std::vector<std::string> instructions, Spices &spices, Knapsacks &Knapsacks)
+void buildSpicesKnapsacks(std::vector<std::string> &instructions, Spices &spices, Knapsacks &Knapsacks)
 {
    // TODO:
    // for every line

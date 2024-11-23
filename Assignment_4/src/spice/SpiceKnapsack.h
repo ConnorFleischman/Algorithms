@@ -36,9 +36,12 @@ public:
       }
       spices.clear(); // Clear spices
    }
-};
 
-// TODO: Insert/Delete/etc.
+   void addSpice(std::string &color, int totalPrice, int quantity) // Add a spice with some parameters to spices
+   {
+      spices.push_back(new Spice(color, totalPrice, quantity)); // Create the spice and push it to the vector
+   }
+};
 
 // ---------------------- KNAPSACKS ---------------------- //
 class Knapsack // Defines the Knapsack Class
@@ -65,8 +68,11 @@ public:
       }
       knapsacks.clear(); // Clear knapsacks
    }
-};
 
-// TODO: Insert/Delete/etc.
+   void addKnapsack(int capacity) // Add a knapsack of some size to knapsacks
+   {
+      knapsacks.push_back(new Knapsack(capacity)); // Create the knapsack and push it to the vector
+   }
+};
 
 #endif

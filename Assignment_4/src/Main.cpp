@@ -26,7 +26,8 @@ void interactGraph(Graph &graph)
 
 void interactSpices(Spices &spices, Knapsacks &knapsacks)
 {
-   buildSpicesKnapsacks(parseSpices(), spices, knapsacks); // Build all spices and knapsacks using the parsed instructions
+   std::vector<std::string> instructions = parseSpices();
+   buildSpicesKnapsacks(instructions, spices, knapsacks); // Build all spices and knapsacks using the parsed instructions
    // TODO: Insert/Delete/etc.
 }
 
