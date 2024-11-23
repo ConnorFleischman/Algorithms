@@ -45,7 +45,7 @@ private:
    std::vector<Vertex *> vertices; // Vector to contain all Vertices in the graph
    std::vector<Edge *> edges;      // Vector to contain all Edges in the graph
 
-   void printPath(std::string vertexID) // Private function to print the path from some source to some sink
+   void printPath(std::string &vertexID) // Private function to print the path from some source to some sink
    {
       Vertex *currentVertex = search(vertexID);  // Find the current vertex
       if (currentVertex->predecessor != nullptr) // If the current vertex exists
@@ -218,7 +218,7 @@ public:
       std::cout << "-- Vertices Deleted --" << std::endl;
    }
 
-   bool mapPathways(std::string startID) // Constructs the pathways between vertices from a starting vertex
+   bool mapPathways(std::string &startID) // Constructs the pathways between vertices from a starting vertex
    {
       Vertex *startVertex = search(startID); // Search for the starting vertex using it's ID
       if (!startVertex)                      // If the starting vertex is not found

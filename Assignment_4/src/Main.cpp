@@ -1,6 +1,7 @@
 // Algorithms ~ A.Labouseur, Assignment 4 - Connor Fleischman
 
 #include "./graph/UseGraph.h"
+#include "./spice/UseSpice.h"
 #include "./Build.h"
 
 using namespace std; // Globally used namespace, removing use of std::
@@ -23,9 +24,15 @@ void interactGraph(Graph &graph)
    numGraphs = 0;
 }
 
+void interactSpices()
+{
+}
+
 int main()
 {
    Graph graph;
    interactGraph(graph);
+   cout << "--------------------------------------------------" << endl;
+
    return 0;
 }

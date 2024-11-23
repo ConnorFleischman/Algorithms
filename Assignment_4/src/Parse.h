@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 
+// Graph parsing
 std::vector<std::vector<std::string>> parseGraph() // Returns a vector of graphs, consisting of a vector of strings, where each string is a vertex or edge, from the file: graphs2.txt
 {
    std::vector<std::vector<std::string>> graphs; // Declare graphs as a vector of vectors of strings
@@ -48,6 +49,32 @@ std::vector<std::vector<std::string>> parseGraph() // Returns a vector of graphs
       std::cout << "Error opening file" << std::endl;
    }
    return graphs; // Return the vector of vectors of strings
+}
+
+// Spices parsing
+std::vector<std::string> parseSpices()
+{
+   std::vector<std::string> spices;         // Declare spices as a vector of strings
+   std::ifstream file("./input/spice.txt"); // Declare file and open file at location
+
+   if (file.is_open()) // If the file is open
+   {
+      std::string line;           // Declare line as a string
+      while (getline(file, line)) // For every line in the file
+      {
+         if (line.empty() || line.front() == '-') // If the line is empty or a comment line
+         {
+            continue; // Skip this line
+         }
+         // Non-skiped lines:
+         spices.push_back(line); // Push the line to spices
+      }
+   }
+   else // If the file is not open
+   {
+      std::cout << "Error opening file" << std::endl;
+   }
+   return spices;
 }
 
 #endif

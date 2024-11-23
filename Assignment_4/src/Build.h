@@ -3,6 +3,7 @@
 #define H_BUILD
 
 #include "./graph/UseGraph.h"
+#include "./spice/UseSpice.h"
 #include "Parse.h"
 #include <sstream>
 
@@ -55,4 +56,6 @@ std::string buildGraph(std::vector<std::string> &graphInstructions, Graph &graph
    return firstVertexID;
 }
 
+// Spices build functions:
+void buildSpicesKnapsacks(std::vector<std::string> &instructions)
 #endif
