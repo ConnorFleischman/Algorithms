@@ -12,8 +12,10 @@ std::vector<std::vector<std::string>> buildInstructions() // Returns the instruc
    return parseGraph(); // Call the parse function from "Parse.h"
 }
 
-void buildGraph(std::vector<std::string> &graphInstructions, Graph &graph) // Given the instructions for one graph and the graph, build that graph
+std::string buildGraph(std::vector<std::string> &graphInstructions, Graph &graph) // Given the instructions for one graph and the graph, build that graph
 {
+   bool foundFirstVertex = false;                     // Flag to track if first vertex is found
+   std::string firstVertexID;                         // Variable to hold first vertex ID
    for (std::string &instruction : graphInstructions) // For every instruction in the vector of instructions
    {
       std::istringstream inst(instruction);    // Break the instruction into individual words
@@ -23,10 +25,22 @@ void buildGraph(std::vector<std::string> &graphInstructions, Graph &graph) // Gi
 
       if (opcode == "vertex") // If the opcode is named vertex
       {
-         std::istringstream vID(operand); // Break the operand into just the string, no white-space
-         std::string num;                 // Declare num as a string
-         vID >> num;                      // Read the vertex ID from the operand into num
-         insertVertex(num, graph);        // Add a vertex with id: num to the graph
+         if (!foundFirstVertex) // If the first vertex is not recorded
+         {
+            std::istringstream vID(operand); // Break the operand into just the string, no white-space
+            std::string num;                 // Declare num as a string
+            vID >> num;                      // Read the vertex ID from the operand into num
+            firstVertexID = num;             // Record the first vertex
+            foundFirstVertex = true;         // Set the flag
+            insertVertex(num, graph);        // Add a vertex with id: num to the graph
+         }
+         else
+         {
+            std::istringstream vID(operand); // Break the operand into just the string, no white-space
+            std::string num;                 // Declare num as a string
+            vID >> num;                      // Read the vertex ID from the operand into num
+            insertVertex(num, graph);        // Add a vertex with id: num to the graph
+         }
       }
       if (opcode == "edge") // If the opcode is edge
       {
@@ -37,6 +51,8 @@ void buildGraph(std::vector<std::string> &graphInstructions, Graph &graph) // Gi
          insertEdge(v1, v2, weight, graph);    // Add a edge from v1 - v2 with some weight
       }
    }
+   foundFirstVertex = false; // Reset the flag
+   return firstVertexID;
 }
 
 #endif

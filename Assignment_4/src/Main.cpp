@@ -12,8 +12,10 @@ void interactGraph(Graph &graph)
    {
       numGraphs++; // Increment for every graph built
       cout << "Building graph #" << numGraphs << endl;
-      buildGraph(graphInstructions, graph);
-      // TODO: SSSP Algorithm
+      string v1 = buildGraph(graphInstructions, graph);
+      cout << "Performing a Single Source, Shortest Path algorithm begining at vertex #" << v1 << endl;
+      mapPathways(v1, graph);
+      cout << "All pathways from vertex #" << v1 << " to other vertices traversed" << endl;
       cout << "Destroying graph #" << numGraphs << endl;
       clearGraph(graph);
       cout << "--------------------------------------------------" << endl;
@@ -24,8 +26,6 @@ void interactGraph(Graph &graph)
 int main()
 {
    Graph graph;
-
    interactGraph(graph);
-
    return 0;
 }

@@ -3,6 +3,7 @@
 #define H_DIRECTEDGRAPH
 
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <string>
 
@@ -11,12 +12,16 @@ class Vertex // Defines the Vertex class
 public:
    std::string id;                  // Identifies the id of the vertex
    bool processed;                  // Identifies the processed flag for the vertex
+   int distance;                    // Identifies the distance from the source to this vertex
+   Vertex *predecessor;             // Identifies the predecessor vertex for Bellman-Ford
    std::vector<Vertex *> neighbors; // Identifies the list of neighbors of the vertex
 
    Vertex(std::string &idValue) // Vertex constructor
    {
-      this->id = idValue;      // Set this vertex's id to some given value
-      this->processed = false; // Set this vertex's processed flag to false
+      this->id = idValue;          // Set this vertex's id to some given value
+      this->processed = false;     // Set this vertex's processed flag to false
+      this->distance = 8675309;    // Jenny don't change your number
+      this->predecessor = nullptr; // Set this vertex's predecessor to nullptr
    }
 };
 class Edge // Defines the Edge class
@@ -39,6 +44,18 @@ class Graph // Defines Graph class
 private:
    std::vector<Vertex *> vertices; // Vector to contain all Vertices in the graph
    std::vector<Edge *> edges;      // Vector to contain all Edges in the graph
+
+   void printPath(std::string vertexID) // Private function to print the path from some source to some sink
+   {
+      Vertex *currentVertex = search(vertexID);  // Find the current vertex
+      if (currentVertex->predecessor != nullptr) // If the current vertex exists
+      {
+         printPath(currentVertex->predecessor->id); // Recurse on that vertex's predecessor until no more predecessors are found
+         std::cout << " -> ";
+      }
+      std::cout << currentVertex->id; // Print the vertex
+   }
+
 public:
    Graph() {} // Graph constructor
    ~Graph()   // Graph destructor
@@ -201,7 +218,53 @@ public:
       std::cout << "-- Vertices Deleted --" << std::endl;
    }
 
-   // TODO: Single Source Shortest Path Algorithm Implementation
+   bool mapPathways(std::string startID) // Constructs the pathways between vertices from a starting vertex
+   {
+      Vertex *startVertex = search(startID); // Search for the starting vertex using it's ID
+      if (!startVertex)                      // If the starting vertex is not found
+      {
+         std::cout << "Vertex #" << startID << " not found" << std::endl;
+         return false;
+      }
+      // If the starting vertex is found
+      startVertex->distance = 0;                    // Set the starting vertex's distance to 0
+      for (int i = 0; i < vertices.size() - 1; i++) // For every item in the list of vertices - 1
+      {
+         for (Edge *edge : edges) // For every edge in edges
+         {
+            Vertex *startEdgeVertex = search(edge->startID); // Set the starting edge vertex to that edge's start vertex
+            Vertex *endEdgeVertex = search(edge->endID);     // Set the ending edge vertex to that edge's end vertex
+
+            if (endEdgeVertex->distance > startEdgeVertex->distance + edge->weight) // Relax function to check if a shorter path exists
+            {
+               endEdgeVertex->distance = startEdgeVertex->distance + edge->weight; // Setting the shortest path
+               endEdgeVertex->predecessor = startEdgeVertex;                       // Setting the predecessor vertex
+            }
+         }
+      }
+      // After all vertices have been mapped out
+      for (Edge *edge : edges) // For every edge in edges
+      {
+         Vertex *startEdgeVertex = search(edge->startID);                        // Set the starting edge vertex to that edge's start vertex
+         Vertex *endEdgeVertex = search(edge->endID);                            // Set the ending edge vertex to that edge's end vertex
+         if (endEdgeVertex->distance > startEdgeVertex->distance + edge->weight) // If a shorter path is found after, then there is a negative weight cycle
+         {
+            std::cout << "<< Graph contains a negative-weight cycle >>" << std::endl;
+            return false;
+         }
+      }
+      // If no shorter paths exist
+      for (Vertex *vertex : vertices)
+      {
+         if (vertex->id != startID) // For all vertices not the start
+         {
+            std::cout << "#" << startID << std::setw(3) << " -> #" << std::setw(3) << vertex->id << " | Cost: " << std::setw(3) << vertex->distance << " | Path: ";
+            printPath(vertex->id); // Prints the path from the source to this vertex
+            std::cout << std::endl;
+         }
+      }
+      return true;
+   }
 };
 
 #endif

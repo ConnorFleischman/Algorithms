@@ -31,4 +31,8 @@ void clearGraph(Graph &graph)
 }
 
 // Graph processes:
+void mapPathways(std::string &startID, Graph &graph)
+{
+   graph.mapPathways(startID);
+}
 #endif
