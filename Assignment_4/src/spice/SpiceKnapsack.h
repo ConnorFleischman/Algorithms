@@ -4,8 +4,8 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
-// ---------------------- SPICES ---------------------- //
 class Spice // Defines the Spice class
 {
 public:
@@ -20,6 +20,7 @@ public:
       this->totalPrice = totalCost;                // Set this spice's total price to some given cost
       this->quantity = totalQuantity;              // Set this spice's quantity to some given amount
       this->unitPrice = totalCost / totalQuantity; // Set this spice's unit price to the average cost per amount of spice
+      std::cout << "[Constructed] Spice color: " << std::setw(7) << this->color << " | totalPrice: " << std::setw(3) << this->totalPrice << " | quantity: " << std::setw(3) << this->quantity << " | unitPrice: " << std::setw(3) << this->unitPrice << std::endl;
    }
 };
 
@@ -40,20 +41,14 @@ public:
    void addSpice(std::string &color, int totalPrice, int quantity) // Add a spice with some parameters to spices
    {
       Spice *newSpice = new Spice(color, totalPrice, quantity); // Create the new Spice object with the parameters
-      std::cout << "New Spice Created || Spice color: " << newSpice->color << " | totalPrice: " << newSpice->totalPrice << " | quantity: " << newSpice->quantity << " | unitPrice: " << newSpice->unitPrice << std::endl;
-      spices.push_back(newSpice); // Push it to the vector of spices
-      std::cout << newSpice->color << " spice added to Spices" << std::endl;
+      spices.push_back(newSpice);                               // Push it to the vector of spices
    }
-   void displaySpices()
+   void fillKnapsack(Knapsack *knapsack) // Use a greedy algorithm to fill this knapsack
    {
-      for (Spice *spice : spices)
-      {
-         std::cout << "Spice color: " << spice->color << " | totalPrice: " << spice->totalPrice << " | quantity: " << spice->quantity << " | unitPrice: " << spice->unitPrice << std::endl;
-      }
+      // TODO:
    }
 };
 
-// ---------------------- KNAPSACKS ---------------------- //
 class Knapsack // Defines the Knapsack Class
 {
 public:
@@ -62,36 +57,7 @@ public:
    Knapsack(int knapsackSize) // Knapsack constructor
    {
       this->capacity = knapsackSize; // Set this knapsack's capacity to some given size
-   }
-};
-
-class Knapsacks // Defines the Knapsacks class
-{
-public:
-   std::vector<Knapsack *> knapsacks; // Identifies the total knapsacks in scope
-   Knapsacks() {}                     // Knapsacks constructor
-   ~Knapsacks()                       // Knapsacks destructor
-   {
-      for (Knapsack *knapsack : knapsacks) // For every knapsack in knapsacks
-      {
-         delete knapsack; // Delete that knapsack
-      }
-      knapsacks.clear(); // Clear knapsacks
-   }
-
-   void addKnapsack(int capacity) // Add a knapsack of some size to knapsacks
-   {
-      Knapsack *newKnapsack = new Knapsack(capacity); // Create the new Knapsack object with the parameters
-      std::cout << "New Knapsack Created || Knapsack capacity: " << newKnapsack->capacity << std::endl;
-      knapsacks.push_back(newKnapsack); // Push it to the vector of Knapsacks
-      std::cout << "Knapsack with " << newKnapsack->capacity << " capacity added to Knapsacks" << std::endl;
-   }
-   void displayKnapsacks()
-   {
-      for (Knapsack *knapsack : knapsacks)
-      {
-         std::cout << "Knapsack with capacity: " << knapsack->capacity << std::endl;
-      }
+      std::cout << "[Constructed] Knapsack with capacity: " << std::setw(3) << this->capacity << std::endl;
    }
 };
 

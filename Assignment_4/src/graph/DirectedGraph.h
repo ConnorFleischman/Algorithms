@@ -31,7 +31,7 @@ public:
    std::string endID;   // Identifies the ending vertex ID of the edge
    int weight;          // Identifies the weight of the edge
 
-   Edge(std::string v1ID, std::string v2ID, int cost) // Edge constructor
+   Edge(std::string &v1ID, std::string &v2ID, int cost) // Edge constructor
    {
       this->startID = v1ID; // Set this edge's start to v1
       this->endID = v2ID;   // Set this edge's end to v2

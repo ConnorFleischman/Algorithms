@@ -56,38 +56,40 @@ std::string buildGraph(std::vector<std::string> &graphInstructions, Graph &graph
    return firstVertexID;
 }
 
-// Spices & Knapsack build functions:
-void buildSpicesKnapsacks(std::vector<std::string> &instructions, Spices &spices, Knapsacks &knapsacks)
+void buildSpices(std::vector<std::string> &instructions, Spices &spices)
 {
    for (std::string &instruction : instructions) // For every instruction in the list
    {
-      std::istringstream inst(instruction); // Break this instruction into words
-      std::string identifier, item;         // Declares the identifier and item as strings
-      inst >> identifier;                   // Read the first word to the identifier
+      std::istringstream inst(instruction); // Break that instruction into words
+      std::string identifier, excess;       // Declare identifier and excess as strings
+      inst >> identifier;                   // Take the identifier off the instruction
+      std::getline(inst, excess);           // Read the remaining words to excess
 
-      if (identifier == "spice") // If the item is spice
+      if (identifier == "spice") // If the identifier is spice
       {
-         std::string color;                // Declare color a string
-         int totalPrice = 0, quantity = 0; // Declare totalPrice and quantity as integers = 0
-
-         std::getline(inst, color, ';'); // Break the instruction off after ';', put it in color
-         std::getline(inst, item, ';');  // Break the instruction off after ';', put it in item
-         totalPrice = std::stoi(item);   // Convert the item to an integer, save it as totalPrice
-         std::getline(inst, item, ';');  // Break the instruction off after ';', put it in item
-         quantity = std::stoi(item);     // Convert the item to an integer, save it as quantity
-
-         spices.addSpice(color, totalPrice, quantity); // Add this spice to the list of spices given its color, totalPrice, and quantity
-      }
-      else if (identifier == "knapsack") // If the item is knapsack
-      {
-         int capacity; // Delcare capacity a string
-
-         std::getline(inst, item, ';'); // Break the instruction off after ';', put it in item
-         capacity = std::stoi(item);    // Convert the item to an integer, save it as capacity
-
-         knapsacks.addKnapsack(capacity); // Add this knapsack to the list of knapsacks given its capacity
+         std::vector<std::string> commands = parseLine(excess);                         // Break the excess into its commands
+         addSpice(commands[0], std::stoi(commands[1]), std::stoi(commands[2]), spices); // Build the spice using each command, parsed to an int if necessary
       }
    }
+   std::cout << "Spices built" << std::endl;
+}
+
+void buildKnapsacks(std::vector<std::string> &instructions, std::vector<Knapsack *> knapsacks)
+{
+   for (std::string &instruction : instructions) // For every instruction in the list
+   {
+      std::istringstream inst(instruction); // Break that instruction into words
+      std::string identifier, excess;       // Declare identifier and excess as strings
+      inst >> identifier;                   // Take the identifier off the instruction
+      std::getline(inst, excess);           // Read the remaining words to excess
+
+      if (identifier == "knapsack") // If the identifier is knapsack
+      {
+         std::vector<std::string> commands = parseLine(excess); // Break the excess into its commands
+         addKnapsack(std::stoi(commands[0]), knapsacks);        // Build the knapsack using the command parsed to an int
+      }
+   }
+   std::cout << "Knapsacks built" << std::endl;
 }
 
 #endif

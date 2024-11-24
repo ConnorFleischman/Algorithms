@@ -9,17 +9,14 @@ void addSpice(std::string &color, int totalPrice, int quantity, Spices &spices)
 {
    spices.addSpice(color, totalPrice, quantity);
 }
-void displaySpices(Spices &spices)
-{
-   spices.displaySpices();
-}
 // ---------------------- KNAPSACKS ---------------------- //
-void addKnapsack(int capacity, Knapsacks &knapsacks)
+void addKnapsack(int capacity, std::vector<Knapsack *> knapsacks)
 {
-   knapsacks.addKnapsack(capacity);
+   knapsacks.push_back(new Knapsack(capacity));
 }
-void displayKnapsacks(Knapsacks &knapsacks)
+void fillKnapsack(Knapsack *knapsack, Spices &spices)
 {
-   knapsacks.displayKnapsacks();
+   spices.fillKnapsack(knapsack);
 }
+
 #endif

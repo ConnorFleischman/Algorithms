@@ -51,30 +51,65 @@ std::vector<std::vector<std::string>> parseGraph() // Returns a vector of graphs
    return graphs; // Return the vector of vectors of strings
 }
 
-// Spices parsing
-std::vector<std::string> parseSpices()
+std::vector<std::string> parseInstructions() // Parse the data from spice.txt into a vector of strings
 {
-   std::vector<std::string> spices;         // Declare spices as a vector of strings
-   std::ifstream file("./input/spice.txt"); // Declare file and open file at location
+   std::vector<std::string> instructions;   // Declare vector of strings to hold instructions
+   std::ifstream file("./input/spice.txt"); // Read and open the file
 
    if (file.is_open()) // If the file is open
    {
-      std::string line;                // Declare line as a string
-      while (std::getline(file, line)) // For every line in the file
+      std::string line;                // Placeholder for current line
+      while (std::getline(file, line)) // While there is a line in the file
       {
-         if (line.empty() || line.front() == '-') // If the line is empty or a comment line
+         if (line.empty() || line.front() == '-') // If the line is empty or a comment
          {
-            continue; // Skip this line
+            continue; // Skip
          }
-         // Non-skiped lines:
-         spices.push_back(line); // Push the line to spices
+         // For remaining lines:
+         instructions.push_back(line);
       }
    }
    else // If the file is not open
    {
       std::cout << "Error opening file" << std::endl;
    }
-   return spices;
+   return instructions;
+}
+
+std::vector<std::string> parseLine(std::string &line) // Parse the instruction into its subinstructions
+{
+   std::vector<std::string> instructions; // List of instructions in this line
+   std::string command;                   // Placeholder for current command
+   bool equalSign = false;                // Flag to track if passed '='
+
+   for (char c : line) // For every character in the instruction
+   {
+      if (c == ';') // If the end of the command is reached
+      {
+         instructions.push_back(command); // Push the command back to the list
+         command.clear();                 // Clear the command placeholder
+         equalSign = false;               // Reset the flag
+      }
+      else // If the end of the command has not ended
+      {
+         if (!equalSign) // If the flag is not set
+         {
+            if (c == '=') // If the current char is '='
+            {
+               equalSign = true; // Set the flag
+            }
+         }
+         else // If the flag is set
+         {
+            if (!isspace(c)) // If the char is not a space
+            {
+               command += c; // Add it to the command
+            }
+         }
+      }
+   }
+   // After every command in the instruction has been read
+   return instructions;
 }
 
 #endif
