@@ -24,7 +24,7 @@ void interactGraph(Graph &graph)
    numGraphs = 0;
 }
 
-void interactSpices(Spices &spices, std::vector<Knapsack *> knapsacks)
+void interactSpices(Spices &spices, std::vector<Knapsack *> &knapsacks)
 {
    std::vector<std::string> instructions = parseInstructions();
    cout << "Building Spices and Knapsacks" << endl;
@@ -32,15 +32,16 @@ void interactSpices(Spices &spices, std::vector<Knapsack *> knapsacks)
    buildKnapsacks(instructions, knapsacks); // Build all knapsacks using the parsed instructions
    cout << "--------------------------------------------------" << endl;
    cout << "Greedily filling Knapsacks with Spices" << endl;
-   // fillKnapsacks(knapsacks, spices); // Fill knapsacks using a Greedy Algorithm and return its contents
+   fillKnapsacks(knapsacks, spices); // Fill knapsacks using a Greedy Algorithm and return its contents
    cout << "All Knapsacks filled with Spices" << endl;
-   cout << "--------------------------------------------------" << endl;
+   knapsacks.clear(); // Empty the list of knapsacks
+   cout << "Knapsacks destroyed" << endl;
 }
 
 int main()
 {
-   // Graph graph;
-   // interactGraph(graph);
+   Graph graph;
+   interactGraph(graph);
    cout << "--------------------------------------------------" << endl;
    Spices spices;
    std::vector<Knapsack *> knapsacks;

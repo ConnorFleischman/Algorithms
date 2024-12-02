@@ -11,17 +11,17 @@ void addSpice(std::string &color, int totalPrice, int quantity, Spices &spices)
 }
 
 // ---------------------- KNAPSACKS ---------------------- //
-void addKnapsack(int capacity, std::vector<Knapsack *> knapsacks)
+void addKnapsack(int capacity, std::vector<Knapsack *> &knapsacks)
 {
    knapsacks.push_back(new Knapsack(capacity));
 }
 
-// void fillKnapsacks(std::vector<Knapsack *> knapsacks, Spices &spices)
-// {
-//    for (Knapsack *knapsack : knapsacks) // For every knapsack stored
-//    {
-//       spices.fillKnapsack(knapsack); // Fill the knapsack using a Greedy Algorithm and return its contents
-//    }
-// }
+void fillKnapsacks(std::vector<Knapsack *> &knapsacks, Spices &spices)
+{
+   for (Knapsack *knapsack : knapsacks) // For every knapsack stored
+   {
+      spices.fillKnapsack(knapsack); // Fill the knapsack using a Greedy Algorithm and return its contents
+   }
+}
 
 #endif

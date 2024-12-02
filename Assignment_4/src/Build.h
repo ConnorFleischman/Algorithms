@@ -56,6 +56,7 @@ std::string buildGraph(std::vector<std::string> &graphInstructions, Graph &graph
    return firstVertexID;
 }
 
+// Spice/Knapsack build functions:
 void buildSpices(std::vector<std::string> &instructions, Spices &spices)
 {
    for (std::string &instruction : instructions) // For every instruction in the list
@@ -74,7 +75,7 @@ void buildSpices(std::vector<std::string> &instructions, Spices &spices)
    std::cout << "Spices built" << std::endl;
 }
 
-void buildKnapsacks(std::vector<std::string> &instructions, std::vector<Knapsack *> knapsacks)
+void buildKnapsacks(std::vector<std::string> &instructions, std::vector<Knapsack *> &knapsacks)
 {
    for (std::string &instruction : instructions) // For every instruction in the list
    {

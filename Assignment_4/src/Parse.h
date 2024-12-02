@@ -51,6 +51,7 @@ std::vector<std::vector<std::string>> parseGraph() // Returns a vector of graphs
    return graphs; // Return the vector of vectors of strings
 }
 
+// Spices/Knapsack parse functions:
 std::vector<std::string> parseInstructions() // Parse the data from spice.txt into a vector of strings
 {
    std::vector<std::string> instructions;   // Declare vector of strings to hold instructions
