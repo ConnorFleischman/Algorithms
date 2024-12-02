@@ -258,7 +258,7 @@ public:
       {
          if (vertex->id != startID) // For all vertices not the start
          {
-            std::cout << "#" << startID << std::setw(3) << " -> #" << std::setw(3) << vertex->id << " | Cost: " << std::setw(3) << vertex->distance << " | Path: ";
+            std::cout << "#" << startID << std::setw(3) << " -> #" << vertex->id << " | Cost: " << std::setw(3) << vertex->distance << " | Path: ";
             printPath(vertex->id); // Prints the path from the source to this vertex
             std::cout << std::endl;
          }

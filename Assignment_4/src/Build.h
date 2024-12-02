@@ -3,7 +3,7 @@
 #define H_BUILD
 
 #include "./graph/UseGraph.h"
-#include "./spice/UseSpice.h"
+#include "./spice/UseSpiceKnapsack.h"
 #include "Parse.h"
 #include <sstream>
 

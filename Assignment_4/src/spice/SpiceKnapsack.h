@@ -1,10 +1,11 @@
 // Algorithms ~ A.Labouseur, Assignment 4 - Connor Fleischman
-#ifndef H_SPICE
-#define H_SPICE
+#ifndef H_SPICE_KNAPSACK
+#define H_SPICE_KNAPSACK
 
 #include <vector>
 #include <string>
 #include <iostream>
+#include <iomanip>
 
 class Spice // Defines the Spice class
 {
@@ -43,10 +44,10 @@ public:
       Spice *newSpice = new Spice(color, totalPrice, quantity); // Create the new Spice object with the parameters
       spices.push_back(newSpice);                               // Push it to the vector of spices
    }
-   void fillKnapsack(Knapsack *knapsack) // Use a greedy algorithm to fill this knapsack
-   {
-      // TODO:
-   }
+   // void fillKnapsack(Knapsack *knapsack) // Use a greedy algorithm to fill this knapsack
+   // {
+   //    spices = selectionSort(spices); // Sort the spices's by their unit prices
+   // }
 };
 
 class Knapsack // Defines the Knapsack Class
@@ -60,5 +61,23 @@ public:
       std::cout << "[Constructed] Knapsack with capacity: " << std::setw(3) << this->capacity << std::endl;
    }
 };
+
+std::vector<Spice *> selectionSort(std::vector<Spice *> &lines) // Sorts a list of Spices by unit prices and returns it
+{
+   int n = lines.size();           // n = the length of the lines vector
+   for (int i = 0; i < n - 1; i++) // For every item in the vector
+   {
+      int toCompare = i;              // Sets the item to be compared to to i
+      for (int j = i + 1; j < n; j++) // For every item j in lines after i
+      {
+         if (lines[j]->unitPrice < lines[toCompare]->unitPrice) // If the next item[j]'s unit price in lines is less than the item[i]'s unit price being compared
+         {
+            toCompare = j; // Set the new item to be compared to to j
+         }
+      }
+      std::swap(lines[i], lines[toCompare]); // Swap the positions of the previously compared item and the current item
+   }
+   return lines;
+}
 
 #endif

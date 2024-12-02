@@ -1,7 +1,7 @@
 // Algorithms ~ A.Labouseur, Assignment 4 - Connor Fleischman
 
 #include "./graph/UseGraph.h"
-#include "./spice/UseSpice.h"
+#include "./spice/UseSpiceKnapsack.h"
 #include "./Build.h"
 
 using namespace std; // Globally used namespace, removing use of std::
@@ -32,10 +32,8 @@ void interactSpices(Spices &spices, std::vector<Knapsack *> knapsacks)
    buildKnapsacks(instructions, knapsacks); // Build all knapsacks using the parsed instructions
    cout << "--------------------------------------------------" << endl;
    cout << "Greedily filling Knapsacks with Spices" << endl;
-   for (Knapsack *knapsack : knapsacks) // For every knapsack stored
-   {
-      fillKnapsack(knapsack, spices); // Fill that knapsack using a Greedy Algorithm
-   }
+   // fillKnapsacks(knapsacks, spices); // Fill knapsacks using a Greedy Algorithm and return its contents
+   cout << "All Knapsacks filled with Spices" << endl;
    cout << "--------------------------------------------------" << endl;
 }
 
