@@ -142,13 +142,21 @@ Here we see that, for \textbf{Graph 1}, five vertices are created and ten edges 
 Each characterized by some weight.
 
 \subsection{Single Source Shortest Path Algorithm} \label{Graph_SSSP}
-After the graph is built, using the first vertex returned by the build function, a Single Source Shortest Path algorithm is ran.
+The Bellman-Ford (Single Source Shortest Path) algorithm uses dynamic programming to compute the shortest path from a single source to all other sinks.
+
+\subsubsection{Running Time}
+The algorithm must traverse each vertex $V$ taking $O(V)$ time.
+Then we \texttt{RELAX} $V-1$ vertices.
+Processing each vertices's edge, $E$, in $O(V*E)$ time.
+Lastly, a final pass over all edges is made to check for negative weight loops, in $O(E)$ time.
+This results in an overall time complexity of $O(V*E)$.
+
+\subsubsection{Implementation}
+After the graph is built, using the first vertex returned by the build function, the Single Source Shortest Path algorithm is ran.
 This algorithm calculates the path of least cost from some source to every available sink.
 It does this by performing every possible traversal from the source to every possible sink.
 While doing this it keeps track of the most efficient, lest costly, path.
 Once all pathways are traversed, and the best routes calculated, the program displays these shortest paths.
-
-\subsubsection{Implementation}
 \begin{center}
    \lstinputlisting[language=C++, caption=SSSP Implementation, firstline=221, lastline=268]{graph/DirectedGraph.h}
 \end{center}
@@ -240,11 +248,24 @@ Also, all five knapsacks were constructed with their respective size as an integ
 \end{center}
 
 \subsection{Fractional Knapsack Algorithm} \label{SpiceKnapsack_FKA}
+The Fractional Knapsack algorithm is a type of greedy algorithm.
+We use it to maximize the total value of spice placed in a knapsack.
+It does this by taking items with the largest price to quantity ratio first.
+
+\subsubsection{Running Time}
+First the algorithm sorts the spices based on their unit cost.
+Since I used a selection sort algorithm to sort the items, this takes $O(N^2)$ time, where $N$ is the number of items.
+Then to fill a knapsack we iterate over every spice and choose the most valuable, this takes $O(N)$ time.
+So, the overall complexity of Fractional Knapsack depends on the sorting method used.
+In my case, this is $O(N^2)$.
+
+\subsubsection{Implementation}
 Now that the spices and knapsacks have been successfully parsed and built, each knapsack is to be filled with spice.
 This is done by using the fractional knapsack greedy algorithm.
 Unlike the 0-1 knapsack problem, where only whole amounts of spice are allowed, fractional knapsack allows for percentages of spice.
 0-1 knapsack is not solvable using a greedy algorithm, so dynamic programming is a necessity; fractional knapsack can be solved greedily and not dynamically.
-\subsubsection{Implementation}
+\vspace*{5px}
+\newline
 Building out the logic for fractional knapsack took some time.
 The first step to having a working algorithm is properly ordering the spices in its container.
 Using the my selection sort implementation from \textbf{Assignment 1}, with some small modifications, I reordered the spices by their unit price.
@@ -294,7 +315,7 @@ These destructor calls finish my program and completely clean up the memory acce
 The remaining sections of this document describe the various functions and class structures used to complete this assignment that were not explicitly mentioned prior.
 
 \section{Miscellaneous Implementations} \label{MiscImp}
-The \underline{main} file in my program consists of three functions.
+The \underline{Main} file in my program consists of three functions.
 The main function which houses the two function calls for graphing and for the spices and knapsacks operations.
 And the two other functions, each consisting of the order in which parsing, building, and operating on the data is defined.
 \begin{center}
